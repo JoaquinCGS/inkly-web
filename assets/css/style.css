@@ -1017,6 +1017,9 @@ p  { margin-bottom: 1rem; }
   .hero-inner { flex-direction: column; text-align: center; }
   .hero-text { order: 1; }
   .hero-image { order: 2; }
+  
+  /* Hide redundant section title in product pages on mobile */
+  .hero + .catalog-section .catalog-section-title { display: none; }
 
   /* --- Grids --- */
   .grid {
@@ -1041,6 +1044,15 @@ p  { margin-bottom: 1rem; }
   .cat-card img { height: 160px; }
   .category-card img, .card img { height: 150px; }
 
+  /* --- Floating WhatsApp --- */
+  .floating-whatsapp {
+    bottom: 1rem;
+    left: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+
   /* --- Floating cart --- */
   .floating-cart {
     bottom: 1rem;
@@ -1055,7 +1067,14 @@ p  { margin-bottom: 1rem; }
    RESPONSIVE – SMALL MOBILE  (max 420px)
    ================================================ */
 @media (max-width: 420px) {
-  .product-grid { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .cat-grid { grid-template-columns: 1fr; }
+  
+  .card h3 { font-size: 0.85rem; padding: 0.5rem 0.5rem 0.25rem; }
+  .card p { font-size: 0.75rem; padding: 0 0.5rem; line-height: 1.2; }
+  .card .btn-add-cart { font-size: 0.75rem; padding: 0.4rem 0.6rem; margin: 0.5rem auto 0.75rem; width: 90%; }
+  .category-card img, .card img { height: 120px; }
+  
   h1 { font-size: 1.6rem; }
   .btn { padding: 0.6rem 1.1rem; font-size: 0.88rem; }
   .logo img { height: 34px; }
