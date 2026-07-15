@@ -189,21 +189,27 @@ document.addEventListener('DOMContentLoaded', () => {
       syncCartButtons();
     }
 
-  function updateWhatsappLink() {
-    const waBtn = document.getElementById('floatingWhatsapp');
-    if (!waBtn) return;
+    function generateWhatsappLink() {
+      let phone = "56 9 6693 2414";
+      phone = phone.replace(/[^0-9]/g, '');
 
-    // Número de teléfono (se limpian los espacios y signos + automáticamente)
-    let phone = "56 9 6693 2414";
-    phone = phone.replace(/[^0-9]/g, '');
+      let text = "✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n";
+      if (cart.length > 0) {
+        cart.forEach(item => {
+          text += "🛍️ " + item + "\n";
+        });
+      } else {
+        text = "¡Hola Inkly!";
+      }
 
-    let text = "Hola Inkly!";
-    if (cart.length > 0) {
-      text += " Me gustaría cotizar estos productos: " + cart.join(", ") + ".";
+      return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     }
 
-    waBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-  }
+    function updateWhatsappLink() {
+      const waBtn = document.getElementById('floatingWhatsapp');
+      if (!waBtn) return;
+      waBtn.href = generateWhatsappLink();
+    }
 
   function updateFloatingCart() {
     if (!floatingCart || !cartCountEl) return;
@@ -366,9 +372,13 @@ document.addEventListener('DOMContentLoaded', () => {
     threshold: 0.1
   };
   const cardObserver = new IntersectionObserver((entries, observer) => {
+    let delay = 0;
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in-visible');
+        setTimeout(() => {
+          entry.target.classList.add('fade-in-visible');
+        }, delay);
+        delay += 100;
         observer.unobserve(entry.target);
       }
     });
@@ -619,61 +629,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Buscador Global con Autocompletado ----
   const globalSearchIndex = [
-    {"title":"Pack 3 juegos con lápiz","url":"babyshower.html","image":"assets/images/Pack3juegosconlapizfuera.jpeg"},
-    {"title":"Raspe \"Encuentra a mamá/papá\"","url":"babyshower.html","image":"assets/images/RaspeEncuentraamamapapaafuera.jpeg"},
-    {"title":"Adivina la medida de la pancita","url":"babyshower.html","image":"assets/images/Adivinalamedidadelapancita.jpeg"},
-    {"title":"Banderín + 1 nombre","url":"babyshower.html","image":"assets/images/Banderin1nombre.jpg"},
-    {"title":"Velita buenos deseos","url":"babyshower.html","image":"assets/images/Velitabuenosdeseosfuera.jpg"},
-    {"title":"24 topper simple para cupcake","url":"cumpleanos.html","image":"assets/images/24toppersparacupcake.jpg"},
-    {"title":"5 topper simple para torta","url":"cumpleanos.html","image":"assets/images/5topperssimples.jpg"},
-    {"title":"Banderín de cumpleaños + 1 nombre","url":"cumpleanos.html","image":"assets/images/banderin1nombre.jpeg"},
-    {"title":"Bolsa piñata","url":"cumpleanos.html","image":"assets/images/bolsapinata.jpeg"},
-    {"title":"Cajita de jugo","url":"cumpleanos.html","image":"assets/images/jugo.jpg"},
-    {"title":"Centro de mesa","url":"cumpleanos.html","image":"assets/images/centrodemesa.jpg"},
-    {"title":"Corona","url":"cumpleanos.html","image":"assets/images/corona.jpeg"},
-    {"title":"Gorro invitados","url":"cumpleanos.html","image":"assets/images/gorroinvitados.jpg"},
-    {"title":"Lámina sticker","url":"cumpleanos.html","image":"assets/images/laminastickers.jpg"},
-    {"title":"Libro + 2 lápices + bolsita unitaria","url":"cumpleanos.html","image":"assets/images/libro2lápicesbolsitaunitaria.png"},
-    {"title":"Libro + 2 lápices + masa + chocolate + bolsa","url":"cumpleanos.html","image":"assets/images/libro2lapicesmasa.jpeg"},
-    {"title":"Libro + masa + barra de chocolate + bolsa","url":"cumpleanos.html","image":"assets/images/Libromasabarradechocolatebolsa.jpeg"},
-    {"title":"Libro + masa + bolsa unitaria","url":"cumpleanos.html","image":"assets/images/libromasabolsaunitaria.png"},
-    {"title":"Libro 16 img + sticker","url":"cumpleanos.html","image":"assets/images/Libro16imgstickerfuera.jpg"},
-    {"title":"Libro 6 imágenes","url":"cumpleanos.html","image":"assets/images/libros6imagens.jpeg"},
-    {"title":"Libro para colorear 16 img","url":"cumpleanos.html","image":"assets/images/Libroparacolorear16imgfuera.jpeg"},
-    {"title":"Palomera 12x7x7cm","url":"cumpleanos.html","image":"assets/images/palomera.jpeg"},
-    {"title":"Piñata redonda","url":"cumpleanos.html","image":"assets/images/pinataredonda.jpeg"},
-    {"title":"Topper de torta 3D","url":"cumpleanos.html","image":"assets/images/toppertorta3d.jpeg"},
-    {"title":"Caja milk 3D","url":"cumpleanos.html","image":"assets/images/Cajamilk3D.jpg"},
-    {"title":"Caja play-DOH","url":"cumpleanos.html","image":"assets/images/cajaplaydoh.jpeg"},
-    {"title":"Caja valija 3D","url":"cumpleanos.html","image":"assets/images/cajavalija3d.jpg"},
-    {"title":"Maletín coloreable","url":"cumpleanos.html","image":"assets/images/maletin6lapices8imagenesfuera.jpeg"},
-    {"title":"Kit 1","url":"cumpleanos.html","image":"assets/images/kit1.png"},
-    {"title":"Kit 2","url":"cumpleanos.html","image":"assets/images/kit2.png"},
-    {"title":"Kit 3","url":"cumpleanos.html","image":"assets/images/kit3.png"},
-    {"title":"Kit 4","url":"cumpleanos.html","image":"assets/images/kit4.png"},
-    {"title":"Bolsa 1","url":"cumpleanos.html","image":"assets/images/bolsa1.jpeg"},
-    {"title":"Bolsa 2","url":"cumpleanos.html","image":"assets/images/bolsa2.jpeg"},
-    {"title":"Bolsa 3","url":"cumpleanos.html","image":"assets/images/bolsa3.jpeg"},
-    {"title":"Bolsa PVC","url":"cumpleanos.html","image":"assets/images/BolsaPVC.jpeg"},
-    {"title":"Bolsa solapa","url":"cumpleanos.html","image":"assets/images/Bolsasolapa.jpg"},
-    {"title":"Caja milk","url":"cumpleanos.html","image":"assets/images/cajamilk.jpg"},
-    {"title":"Cajita estilo cono","url":"cumpleanos.html","image":"assets/images/Cajitaestilocono.jpeg"},
-    {"title":"Cajita estilo valija","url":"cumpleanos.html","image":"assets/images/Cajitaestilovalija.jpeg"},
-    {"title":"Pack bolsa 3 + cajita milk","url":"cumpleanos.html","image":"assets/images/Packbolsa3cajitamilk.jpeg"},
-    {"title":"Bolsa 2 + librito 16 img","url":"cumpleanos.html","image":"assets/images/Bolsa2librito16imgfuera.jpeg"},
-    {"title":"Bolsa 3 + mini librito 6 img","url":"cumpleanos.html","image":"assets/images/Bolsa3minilibrito6imgfuera.jpeg"},
-    {"title":"Bolsa solapa + mini librito 6 img","url":"cumpleanos.html","image":"assets/images/Bolsasolapaminilibrito6mgfuera.jpg"},
-    {"title":"Caja milk + mini librito 6 img","url":"cumpleanos.html","image":"assets/images/Cajamilkminilibrito6imgfuera.jpg"},
-    {"title":"Cajita milk + librito 16 img","url":"cumpleanos.html","image":"assets/images/Cajamilkminilibrito16imgfuera.jpg"},
-    {"title":"Mini burbujas","url":"souvenirs.html","image":"assets/images/miniburbujas.jpeg"},
-    {"title":"Imantados","url":"souvenirs.html","image":"assets/images/imanes8x8.jpeg"},
-    {"title":"Imán estilo polaroid","url":"souvenirs.html","image":"assets/images/Imanestilopolaroid.jpeg"},
-    {"title":"Velas pirámide o tarjeta","url":"souvenirs.html","image":"assets/images/Velaspiramideotarjetafuera.jpg"},
-    {"title":"Denarios tarjeta normal","url":"souvenirs.html","image":"assets/images/Denariostarjetanormal.jpeg"},
-    {"title":"Denarios tarjeta imantada","url":"souvenirs.html","image":"assets/images/Denariostarjetaimantada.jpeg"},
-    {"title":"Notas imantadas","url":"souvenirs.html","image":"assets/images/Notasimantadas.jpeg"},
-    {"title":"Barra de chocolate","url":"souvenirs.html","image":"assets/images/barradechocolate.png"},
-    {"title":"Barra de chocolate + tarjeta personalizada","url":"souvenirs.html","image":"assets/images/barradechocolatecontarjeta.png"}
+    {"title":"Pack 3 juegos con lápiz","url":"babyshower.html","image":"assets/images/Pack3juegosconlapizfuera.webp"},
+    {"title":"Raspe \"Encuentra a mamá/papá\"","url":"babyshower.html","image":"assets/images/RaspeEncuentraamamapapaafuera.webp"},
+    {"title":"Adivina la medida de la pancita","url":"babyshower.html","image":"assets/images/Adivinalamedidadelapancita.webp"},
+    {"title":"Banderín + 1 nombre","url":"babyshower.html","image":"assets/images/Banderin1nombre.webp"},
+    {"title":"Velita buenos deseos","url":"babyshower.html","image":"assets/images/Velitabuenosdeseosfuera.webp"},
+    {"title":"24 topper simple para cupcake","url":"cumpleanos.html","image":"assets/images/24toppersparacupcake.webp"},
+    {"title":"5 topper simple para torta","url":"cumpleanos.html","image":"assets/images/5topperssimples.webp"},
+    {"title":"Banderín de cumpleaños + 1 nombre","url":"cumpleanos.html","image":"assets/images/banderin1nombre.webp"},
+    {"title":"Bolsa piñata","url":"cumpleanos.html","image":"assets/images/bolsapinata.webp"},
+    {"title":"Cajita de jugo","url":"cumpleanos.html","image":"assets/images/jugo.webp"},
+    {"title":"Centro de mesa","url":"cumpleanos.html","image":"assets/images/centrodemesa.webp"},
+    {"title":"Corona","url":"cumpleanos.html","image":"assets/images/corona.webp"},
+    {"title":"Gorro invitados","url":"cumpleanos.html","image":"assets/images/gorroinvitados.webp"},
+    {"title":"Lámina sticker","url":"cumpleanos.html","image":"assets/images/laminastickers.webp"},
+    {"title":"Libro + 2 lápices + bolsita unitaria","url":"cumpleanos.html","image":"assets/images/libro2lápicesbolsitaunitaria.webp"},
+    {"title":"Libro + 2 lápices + masa + chocolate + bolsa","url":"cumpleanos.html","image":"assets/images/libro2lapicesmasa.webp"},
+    {"title":"Libro + masa + barra de chocolate + bolsa","url":"cumpleanos.html","image":"assets/images/Libromasabarradechocolatebolsa.webp"},
+    {"title":"Libro + masa + bolsa unitaria","url":"cumpleanos.html","image":"assets/images/libromasabolsaunitaria.webp"},
+    {"title":"Libro 16 img + sticker","url":"cumpleanos.html","image":"assets/images/Libro16imgstickerfuera.webp"},
+    {"title":"Libro 6 imágenes","url":"cumpleanos.html","image":"assets/images/libros6imagens.webp"},
+    {"title":"Libro para colorear 16 img","url":"cumpleanos.html","image":"assets/images/Libroparacolorear16imgfuera.webp"},
+    {"title":"Palomera 12x7x7cm","url":"cumpleanos.html","image":"assets/images/palomera.webp"},
+    {"title":"Piñata redonda","url":"cumpleanos.html","image":"assets/images/pinataredonda.webp"},
+    {"title":"Topper de torta 3D","url":"cumpleanos.html","image":"assets/images/toppertorta3d.webp"},
+    {"title":"Caja milk 3D","url":"cumpleanos.html","image":"assets/images/Cajamilk3D.webp"},
+    {"title":"Caja play-DOH","url":"cumpleanos.html","image":"assets/images/cajaplaydoh.webp"},
+    {"title":"Caja valija 3D","url":"cumpleanos.html","image":"assets/images/cajavalija3d.webp"},
+    {"title":"Maletín coloreable","url":"cumpleanos.html","image":"assets/images/maletin6lapices8imagenesfuera.webp"},
+    {"title":"Kit 1","url":"cumpleanos.html","image":"assets/images/kit1.webp"},
+    {"title":"Kit 2","url":"cumpleanos.html","image":"assets/images/kit2.webp"},
+    {"title":"Kit 3","url":"cumpleanos.html","image":"assets/images/kit3.webp"},
+    {"title":"Kit 4","url":"cumpleanos.html","image":"assets/images/kit4.webp"},
+    {"title":"Bolsa 1","url":"cumpleanos.html","image":"assets/images/bolsa1.webp"},
+    {"title":"Bolsa 2","url":"cumpleanos.html","image":"assets/images/bolsa2.webp"},
+    {"title":"Bolsa 3","url":"cumpleanos.html","image":"assets/images/bolsa3.webp"},
+    {"title":"Bolsa PVC","url":"cumpleanos.html","image":"assets/images/BolsaPVC.webp"},
+    {"title":"Bolsa solapa","url":"cumpleanos.html","image":"assets/images/Bolsasolapa.webp"},
+    {"title":"Caja milk","url":"cumpleanos.html","image":"assets/images/cajamilk.webp"},
+    {"title":"Cajita estilo cono","url":"cumpleanos.html","image":"assets/images/Cajitaestilocono.webp"},
+    {"title":"Cajita estilo valija","url":"cumpleanos.html","image":"assets/images/Cajitaestilovalija.webp"},
+    {"title":"Pack bolsa 3 + cajita milk","url":"cumpleanos.html","image":"assets/images/Packbolsa3cajitamilk.webp"},
+    {"title":"Bolsa 2 + librito 16 img","url":"cumpleanos.html","image":"assets/images/Bolsa2librito16imgfuera.webp"},
+    {"title":"Bolsa 3 + mini librito 6 img","url":"cumpleanos.html","image":"assets/images/Bolsa3minilibrito6imgfuera.webp"},
+    {"title":"Bolsa solapa + mini librito 6 img","url":"cumpleanos.html","image":"assets/images/Bolsasolapaminilibrito6mgfuera.webp"},
+    {"title":"Caja milk + mini librito 6 img","url":"cumpleanos.html","image":"assets/images/Cajamilkminilibrito6imgfuera.webp"},
+    {"title":"Cajita milk + librito 16 img","url":"cumpleanos.html","image":"assets/images/Cajamilkminilibrito16imgfuera.webp"},
+    {"title":"Mini burbujas","url":"souvenirs.html","image":"assets/images/miniburbujas.webp"},
+    {"title":"Imantados","url":"souvenirs.html","image":"assets/images/imanes8x8.webp"},
+    {"title":"Imán estilo polaroid","url":"souvenirs.html","image":"assets/images/Imanestilopolaroid.webp"},
+    {"title":"Velas pirámide o tarjeta","url":"souvenirs.html","image":"assets/images/Velaspiramideotarjetafuera.webp"},
+    {"title":"Denarios tarjeta normal","url":"souvenirs.html","image":"assets/images/Denariostarjetanormal.webp"},
+    {"title":"Denarios tarjeta imantada","url":"souvenirs.html","image":"assets/images/Denariostarjetaimantada.webp"},
+    {"title":"Notas imantadas","url":"souvenirs.html","image":"assets/images/Notasimantadas.webp"},
+    {"title":"Barra de chocolate","url":"souvenirs.html","image":"assets/images/barradechocolate.webp"},
+    {"title":"Barra de chocolate + tarjeta personalizada","url":"souvenirs.html","image":"assets/images/barradechocolatecontarjeta.webp"}
   ];
 
   const globalSearch = document.getElementById('globalSearch');
@@ -814,10 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Añadir botón de WhatsApp
-    let phone = "56 9 6693 2414";
-    phone = phone.replace(/[^0-9]/g, '');
-    let text = "Hola Inkly! Me gustaría cotizar estos productos: " + cart.join(", ") + ".";
-    let waLink = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    let waLink = generateWhatsappLink();
 
     html += `
       <div class="cart-drawer-footer" style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">

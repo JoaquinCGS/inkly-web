@@ -269,6 +269,12 @@ p  { margin-bottom: 1rem; }
   height: 180px;
   object-fit: cover;
   border-bottom: 2px solid var(--color-primary);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.category-card img:hover, .card img:hover {
+  transform: scale(1.03);
 }
 .category-card h3, .card h3 { margin: 0.75rem 0 0.5rem; padding: 0 0.5rem; }
 .category-card p,  .card p  {
