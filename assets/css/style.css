@@ -1034,7 +1034,16 @@ p  { margin-bottom: 1rem; }
 
   /* --- Navbar (Rediseño App-like) --- */
   .nav-toggle { display: none !important; }
-  .nav-links { display: none !important; }
+  .nav-links {
+    display: block !important;
+    position: static;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+  .nav-links > a.nav-item, .nav-links > .nav-indicator, .nav-links > .theme-toggle {
+    display: none !important;
+  }
   .navbar .btn-primary { display: none !important; }
   .nav-inner { justify-content: center; position: relative; }
   
