@@ -575,25 +575,119 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Buscador en tiempo real ----
+  // ---- Buscador Global con Autocompletado ----
+  const globalSearchIndex = [
+    {"title":"Pack 3 juegos con lápiz","url":"babyshower.html","image":"assets/images/Pack3juegosconlapizfuera.jpeg"},
+    {"title":"Raspe \"Encuentra a mamá/papá\"","url":"babyshower.html","image":"assets/images/RaspeEncuentraamamapapaafuera.jpeg"},
+    {"title":"Adivina la medida de la pancita","url":"babyshower.html","image":"assets/images/Adivinalamedidadelapancita.jpeg"},
+    {"title":"Banderín + 1 nombre","url":"babyshower.html","image":"assets/images/Banderin1nombre.jpg"},
+    {"title":"Velita buenos deseos","url":"babyshower.html","image":"assets/images/Velitabuenosdeseosfuera.jpg"},
+    {"title":"Burbujas Personalizadas","url":"bautizo.html","image":"assets/images/burbujas1.jpg"},
+    {"title":"Denarios tarjeta normal","url":"bautizo.html","image":"assets/images/Denariostarjetanormal.jpeg"},
+    {"title":"Denarios tarjeta imantada","url":"bautizo.html","image":"assets/images/Denariostarjetaimantada.jpeg"},
+    {"title":"Llavero angelito perlas","url":"bautizo.html","image":"assets/images/llaveroangelitoperlas.jpeg"},
+    {"title":"Llavero osito acrílico","url":"bautizo.html","image":"assets/images/Llaveroositoacrilico.jpeg"},
+    {"title":"Llavero osito metal","url":"bautizo.html","image":"assets/images/llaveroositometal.jpg"},
+    {"title":"Bolsa 1 + minilibrito 6 img","url":"combos.html","image":"assets/images/Bolsa1minilibrito6imgfuera.jpeg"},
+    {"title":"Bolsa 2 + librito 16 img","url":"combos.html","image":"assets/images/bolsa2librito16imgfuera.jpeg"},
+    {"title":"Bolsa 3 + mini librito 6 img","url":"combos.html","image":"assets/images/Bolsa3minilibrito6imgfuera.jpeg"},
+    {"title":"Bolsa solapa + mini librito 6 img","url":"combos.html","image":"assets/images/bolsasolapaminilibrito6imgfuera.jpeg"},
+    {"title":"Caja milk + mini librito 6 img","url":"combos.html","image":"assets/images/cajamilkminilibrito6imgfuera.jpeg"},
+    {"title":"Cajita milk + librito 16 img","url":"combos.html","image":"assets/images/cajitamilklibrito16imgfuera.jpeg"},
+    {"title":"Caja dulcera grande","url":"cumpleanos.html","image":"assets/images/cajadulceragrande.jpeg"},
+    {"title":"Caja dulcera mediana","url":"cumpleanos.html","image":"assets/images/cajadulceramediana.jpeg"},
+    {"title":"Caja milk box","url":"cumpleanos.html","image":"assets/images/cajamilkbox.jpeg"},
+    {"title":"Caja tipo almohada","url":"cumpleanos.html","image":"assets/images/cajatipoalmohada.jpeg"},
+    {"title":"Caja maleta","url":"cumpleanos.html","image":"assets/images/cajamaleta.jpeg"},
+    {"title":"Bolsa dulcera","url":"cumpleanos.html","image":"assets/images/bolsadulcera.jpeg"},
+    {"title":"Bolsa tipo craft","url":"cumpleanos.html","image":"assets/images/bolsatipocraft.jpeg"},
+    {"title":"Caja milk box visor pequeña","url":"cumpleanos.html","image":"assets/images/cajamilkboxvisorpequena.jpeg"},
+    {"title":"Caja milk box visor grande","url":"cumpleanos.html","image":"assets/images/cajamilkboxvisorgrande.jpeg"},
+    {"title":"Letra 3D","url":"cumpleanos.html","image":"assets/images/Letra3D.jpeg"},
+    {"title":"Letra shaker","url":"cumpleanos.html","image":"assets/images/lettrashaker.jpg"},
+    {"title":"Banderín tradicional","url":"cumpleanos.html","image":"assets/images/banderintradicional.jpeg"},
+    {"title":"Topper grande simple","url":"cumpleanos.html","image":"assets/images/toppergrandesimple.jpeg"},
+    {"title":"Topper shaker mediano","url":"cumpleanos.html","image":"assets/images/toppershakermediano.jpeg"},
+    {"title":"Topper shaker grande","url":"cumpleanos.html","image":"assets/images/toppershakergrande.jpeg"},
+    {"title":"Llaverito burbuja","url":"cumpleanos.html","image":"assets/images/llaveritoburbuja.jpeg"},
+    {"title":"Llavero acrílico con shaker","url":"cumpleanos.html","image":"assets/images/llaveroacrilicoconshaker.jpeg"},
+    {"title":"Etiquetas de botellas","url":"cumpleanos.html","image":"assets/images/etiquetasdebotellas.jpeg"},
+    {"title":"Stickers monedas de chocolate","url":"cumpleanos.html","image":"assets/images/stickersmonedasdechocolate.jpeg"},
+    {"title":"Cierra bolsa","url":"cumpleanos.html","image":"assets/images/cierrabolsa.jpeg"},
+    {"title":"Invitaciones Normales","url":"invitaciones.html","image":"assets/images/Invitacionesnormales.jpeg"},
+    {"title":"Invitaciones Digitales","url":"invitaciones.html","image":"assets/images/Invitacionesdigitales.jpeg"},
+    {"title":"Invitaciones tipo Ticket","url":"invitaciones.html","image":"assets/images/invitacionestipoticket.jpeg"},
+    {"title":"Invitaciones Pasaporte","url":"invitaciones.html","image":"assets/images/invitacionespasaporte.jpeg"},
+    {"title":"Marcapáginas simples","url":"marcapaginas.html","image":"assets/images/Marcapaginassimples.jpeg"},
+    {"title":"Marcapáginas plastificados","url":"marcapaginas.html","image":"assets/images/Marcapaginasplastificados.jpeg"},
+    {"title":"Marcapáginas magnéticos","url":"marcapaginas.html","image":"assets/images/Marcapaginasmagneticos.jpeg"},
+    {"title":"Mini burbujas","url":"souvenirs.html","image":"assets/images/Miniburbujas.jpeg"},
+    {"title":"Imantados","url":"souvenirs.html","image":"assets/images/Imantados.jpeg"},
+    {"title":"Imán estilo polaroid","url":"souvenirs.html","image":"assets/images/Imanestilopolaroid.jpeg"},
+    {"title":"Velas pirámide o tarjeta","url":"souvenirs.html","image":"assets/images/velaspiramideotarjeta.jpeg"},
+    {"title":"Denarios tarjeta normal","url":"souvenirs.html","image":"assets/images/Denariostarjetanormal.jpeg"},
+    {"title":"Denarios tarjeta imantada","url":"souvenirs.html","image":"assets/images/Denariostarjetaimantada.jpeg"},
+    {"title":"Notas imantadas","url":"souvenirs.html","image":"assets/images/Notasimantadas.jpeg"},
+    {"title":"Barra de chocolate","url":"souvenirs.html","image":"assets/images/barradechocolate.png"},
+    {"title":"Barra de chocolate + tarjeta personalizada","url":"souvenirs.html","image":"assets/images/barradechocolatecontarjeta.png"}
+  ];
+
   const globalSearch = document.getElementById('globalSearch');
   if (globalSearch) {
+    // Crear el contenedor de resultados si no existe
+    let searchResultsContainer = document.querySelector('.search-results-dropdown');
+    if (!searchResultsContainer) {
+      searchResultsContainer = document.createElement('div');
+      searchResultsContainer.className = 'search-results-dropdown';
+      // Posicionarlo relativo al input de búsqueda
+      globalSearch.parentNode.style.position = 'relative';
+      globalSearch.parentNode.appendChild(searchResultsContainer);
+    }
+
     globalSearch.addEventListener('input', (e) => {
       const searchTerm = e.target.value.toLowerCase().trim();
-      // Buscar en tarjetas de productos y categorías
-      const cards = document.querySelectorAll('.card, .cat-card');
+      searchResultsContainer.innerHTML = ''; // Limpiar resultados
       
-      cards.forEach(card => {
-        const title = card.querySelector('h3');
-        if (title) {
-          const text = title.textContent.toLowerCase();
-          if (text.includes(searchTerm)) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        }
-      });
+      if (searchTerm.length === 0) {
+        searchResultsContainer.style.display = 'none';
+        return;
+      }
+
+      // Filtrar el índice global
+      const matches = globalSearchIndex.filter(product => 
+        product.title.toLowerCase().includes(searchTerm)
+      );
+
+      if (matches.length > 0) {
+        searchResultsContainer.style.display = 'block';
+        matches.forEach(match => {
+          const resultItem = document.createElement('a');
+          resultItem.className = 'search-result-item';
+          resultItem.href = match.url;
+          resultItem.innerHTML = `
+            <img src="${match.image}" alt="${match.title}" class="search-result-img" />
+            <span class="search-result-title">${match.title}</span>
+          `;
+          searchResultsContainer.appendChild(resultItem);
+        });
+      } else {
+        searchResultsContainer.style.display = 'block';
+        searchResultsContainer.innerHTML = '<div class="search-result-empty">No se encontraron productos.</div>';
+      }
+    });
+
+    // Ocultar resultados al hacer click fuera
+    document.addEventListener('click', (e) => {
+      if (!globalSearch.contains(e.target) && !searchResultsContainer.contains(e.target)) {
+        searchResultsContainer.style.display = 'none';
+      }
+    });
+    
+    // Mostrar resultados al hacer focus si hay texto
+    globalSearch.addEventListener('focus', () => {
+      if (globalSearch.value.trim().length > 0) {
+        searchResultsContainer.style.display = 'block';
+      }
     });
   }
 
