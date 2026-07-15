@@ -16,6 +16,49 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.hideTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
   }
 
+  // ---- Product Carousel Logic ----
+  function initCarousels() {
+    const carousels = document.querySelectorAll('.product-carousel');
+    carousels.forEach(carousel => {
+      // Evitar reinicializar
+      if (carousel.dataset.initialized) return;
+      carousel.dataset.initialized = 'true';
+
+      const track = carousel.querySelector('.carousel-track');
+      const prevBtn = carousel.querySelector('.carousel-btn.prev');
+      const nextBtn = carousel.querySelector('.carousel-btn.next');
+      const dots = carousel.querySelectorAll('.carousel-dot');
+
+      if (!track || !prevBtn || !nextBtn) return;
+
+      const updateDots = () => {
+        const index = Math.round(track.scrollLeft / track.clientWidth);
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+      };
+
+      track.addEventListener('scroll', () => {
+        requestAnimationFrame(updateDots);
+      });
+
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+      });
+    });
+  }
+  
+  // Initialize immediately
+  initCarousels();
+
   // ---- Configuracion y Estado del Carrito ----
   const CART_KEY = 'inkly_cart';
   let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
