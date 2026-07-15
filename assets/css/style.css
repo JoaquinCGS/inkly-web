@@ -1061,6 +1061,12 @@ p  { margin-bottom: 1rem; }
   }
   .search-container.active-mobile { display: block !important; }
   .search-input { width: 100% !important; }
+  
+  .search-results-dropdown {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+  }
 
   /* Bottom Nav */
   .bottom-nav {
@@ -1089,7 +1095,7 @@ p  { margin-bottom: 1rem; }
     transition: var(--transition);
   }
   .bottom-nav-item .icon { font-size: 1.4rem; margin-bottom: 2px; }
-  .bottom-nav-item:hover, .bottom-nav-item:active { color: var(--color-primary); }
+  .bottom-nav-item:active { color: var(--color-primary); }
 
   /* Ajustar body y flotantes para que la barra inferior no los tape */
   body { padding-bottom: 70px; }

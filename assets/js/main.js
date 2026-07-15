@@ -637,12 +637,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const globalSearch = document.getElementById('globalSearch');
   if (globalSearch) {
     // Crear el contenedor de resultados si no existe
-    let searchResultsContainer = document.querySelector('.search-results-dropdown');
+    let searchResultsContainer = document.getElementById('searchResultsContainer');
     if (!searchResultsContainer) {
       searchResultsContainer = document.createElement('div');
+      searchResultsContainer.id = 'searchResultsContainer';
       searchResultsContainer.className = 'search-results-dropdown';
-      // Posicionarlo relativo al input de búsqueda
-      globalSearch.parentNode.style.position = 'relative';
+      // Posicionarlo relativo al input de búsqueda (ya manejado por CSS)
       globalSearch.parentNode.appendChild(searchResultsContainer);
     }
 
@@ -842,12 +842,19 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const searchContainer = document.querySelector('.search-container');
         if (searchContainer) {
-          searchContainer.classList.toggle('active-mobile');
-          if (searchContainer.classList.contains('active-mobile')) {
+          const isScrolledDown = window.scrollY > 50;
+          const isActive = searchContainer.classList.contains('active-mobile');
+
+          if (isActive && !isScrolledDown) {
+            // Si está abierto y arriba -> cerrarlo
+            searchContainer.classList.remove('active-mobile');
+          } else {
+            // Si está cerrado o el usuario bajó -> abrir y subir
+            searchContainer.classList.add('active-mobile');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             const input = document.getElementById('globalSearch');
             if (input) {
-              // Pequeño delay para asegurar que el scroll ocurrió antes de enfocar
+              input.focus(); // Síncrono para iOS
               setTimeout(() => input.focus(), 300);
             }
           }
