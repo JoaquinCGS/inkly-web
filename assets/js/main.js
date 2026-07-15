@@ -844,8 +844,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (searchContainer) {
           searchContainer.classList.toggle('active-mobile');
           if (searchContainer.classList.contains('active-mobile')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             const input = document.getElementById('globalSearch');
-            if (input) input.focus();
+            if (input) {
+              // Pequeño delay para asegurar que el scroll ocurrió antes de enfocar
+              setTimeout(() => input.focus(), 300);
+            }
           }
         }
       });
