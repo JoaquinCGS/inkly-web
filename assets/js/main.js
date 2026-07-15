@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ---- Toast Notification ----
+  function showToast(message) {
+    let toast = document.getElementById('inkly-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'inkly-toast';
+      toast.className = 'toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    
+    // Si hay un timeout previo, limpiarlo para que no se oculte antes de tiempo
+    if (toast.hideTimeout) clearTimeout(toast.hideTimeout);
+    toast.hideTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
+  }
+
   // ---- Configuracion y Estado del Carrito ----
   const CART_KEY = 'inkly_cart';
   let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
@@ -129,12 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const pName = btn.getAttribute('data-name');
         if (cart.includes(pName)) {
           cart = cart.filter(item => item !== pName);
-          btn.textContent = 'Agregar a Cotizacion';
+          btn.textContent = 'Agregar a Cotización';
           btn.classList.remove('added');
+          showToast("❌ " + pName + " quitado del carrito");
         } else {
           cart.push(pName);
-          btn.textContent = 'Agregado \u2713';
+          btn.textContent = 'Agregado ✓';
           btn.classList.add('added');
+          showToast("🛒 " + pName + " agregado al carrito");
         }
         saveCart();
         updateFloatingCart();
@@ -255,8 +274,27 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCartInForm();
   updateWhatsappLink();
 
+  // ---- Animaciones al hacer Scroll (Fade In) ----
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+  const cardObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  document.querySelectorAll('.card, .cat-card, .category-card').forEach(card => {
+    cardObserver.observe(card);
+  });
+
   // ---- Lightbox (Ampliación de Imágenes) ----
-  const productImages = document.querySelectorAll('.card:not(.category-card) img');
+  const productImages = document.querySelectorAll('.card:not(.category-card) img, .cat-card img');
   productImages.forEach(img => {
     img.addEventListener('click', (e) => {
       // Evitar que el clic en la imagen active otros enlaces
@@ -530,6 +568,20 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     });
+
+    // Añadir botón de WhatsApp
+    let phone = "56 9 6693 2414";
+    phone = phone.replace(/[^0-9]/g, '');
+    let text = "Hola Inkly! Me gustaría cotizar estos productos: " + cart.join(", ") + ".";
+    let waLink = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+    html += `
+      <div class="cart-drawer-footer" style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
+        <p style="margin-bottom: 1rem; font-weight: 600;">Total de productos: ${cart.length}</p>
+        <a href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; border-color: #25D366; color: white; text-decoration: none;">Solicitar Cotización por WhatsApp</a>
+      </div>
+    `;
+
     cartDrawerBody.innerHTML = html;
 
     // Asignar eventos de eliminar
