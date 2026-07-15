@@ -271,12 +271,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function removeFromCart(index) {
-    cart.splice(index, 1);
-    saveCart();
-    renderCartInForm();
-    updateFloatingCart();
-  }
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      renderCartInForm();
+      updateFloatingCart();
+      if (typeof updateCartDrawerUI === 'function') updateCartDrawerUI();
+    }
 
   // ---- Modal Personalizado (Reemplaza a alert) ----
   function showCustomAlert(title, message, isSuccess = true) {
@@ -834,21 +835,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const index = parseInt(e.target.getAttribute('data-index'));
         // Eliminar del carrito global
         cart.splice(index, 1);
-        localStorage.setItem('inklyCart', JSON.stringify(cart));
+        saveCart();
         
         // Actualizar UI en todos lados
         updateCartDrawerUI();
-        if (typeof window.updateCartUI === 'function') window.updateCartUI(); // Si existe
-        
-        // Actualizar contador
-        if (floatingCart) {
-          if (cart.length > 0) {
-            floatingCart.style.display = 'flex';
-            if (cartCountEl) cartCountEl.innerText = cart.length;
-          } else {
-            floatingCart.style.display = 'none';
-          }
-        }
+        updateFloatingCart();
+        renderCartInForm();
       });
     });
   }
