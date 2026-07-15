@@ -678,10 +678,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Ocultar resultados al hacer click fuera
+    // Ocultar resultados y barra movil al hacer click fuera
     document.addEventListener('click', (e) => {
       if (!globalSearch.contains(e.target) && !searchResultsContainer.contains(e.target)) {
         searchResultsContainer.style.display = 'none';
+        
+        // Ocultar también el contenedor principal en móvil si se hace clic fuera
+        const searchContainer = document.querySelector('.search-container');
+        const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+        if (searchContainer && searchContainer.classList.contains('active-mobile')) {
+          if (!searchContainer.contains(e.target) && (!mobileSearchBtn || !mobileSearchBtn.contains(e.target))) {
+            searchContainer.classList.remove('active-mobile');
+          }
+        }
       }
     });
     
