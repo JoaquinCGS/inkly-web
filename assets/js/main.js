@@ -703,4 +703,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---- Bottom Nav (Mobile) ----
+  function createBottomNav() {
+    if (document.querySelector('.bottom-nav')) return; // Evitar duplicados
+    
+    const bottomNav = document.createElement('nav');
+    bottomNav.className = 'bottom-nav';
+    bottomNav.innerHTML = `
+      <a href="index.html" class="bottom-nav-item">
+        <span class="icon">🏠</span>
+        <span class="label">Inicio</span>
+      </a>
+      <a href="catalog.html" class="bottom-nav-item">
+        <span class="icon">🛍️</span>
+        <span class="label">Catálogo</span>
+      </a>
+      <a href="#" class="bottom-nav-item" id="mobileSearchBtn">
+        <span class="icon">🔍</span>
+        <span class="label">Buscar</span>
+      </a>
+      <a href="#" class="bottom-nav-item" id="mobileThemeToggleNav">
+        <span class="icon">🌓</span>
+        <span class="label">Modo</span>
+      </a>
+    `;
+    document.body.appendChild(bottomNav);
+
+    // Bind theme toggle
+    const mobileThemeToggle = document.getElementById('mobileThemeToggleNav');
+    if (mobileThemeToggle) {
+      mobileThemeToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const themeBtn = document.getElementById('themeToggle');
+        if(themeBtn) themeBtn.click();
+      });
+    }
+
+    // Bind search toggle
+    const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+    if (mobileSearchBtn) {
+      mobileSearchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const searchContainer = document.querySelector('.search-container');
+        if (searchContainer) {
+          searchContainer.classList.toggle('active-mobile');
+          if (searchContainer.classList.contains('active-mobile')) {
+            const input = document.getElementById('globalSearch');
+            if (input) input.focus();
+          }
+        }
+      });
+    }
+  }
+
+  // Initialize Bottom Nav
+  createBottomNav();
+
 });

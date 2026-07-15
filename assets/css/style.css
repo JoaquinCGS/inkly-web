@@ -974,45 +974,67 @@ p  { margin-bottom: 1rem; }
   .nav-cta { display: none; }
 }
 
+/* --- Bottom Nav (Oculto en desktop) --- */
+.bottom-nav { display: none; }
+
 /* ================================================
    RESPONSIVE – MOBILE  (max 700px)
    ================================================ */
 @media (max-width: 700px) {
 
-  /* --- Navbar --- */
-  .nav-toggle { display: flex; }
-
-  .nav-links {
+  /* --- Navbar (Rediseño App-like) --- */
+  .nav-toggle { display: none !important; }
+  .nav-links { display: none !important; }
+  .navbar .btn-primary { display: none !important; }
+  .nav-inner { justify-content: center; position: relative; }
+  
+  /* Mobile Search Container (Hidden by default, toggled via JS) */
+  .search-container {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background: var(--color-nav-bg);
-    backdrop-filter: blur(8px);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem 1.5rem 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    gap: 0;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     z-index: 999;
   }
-  .nav-links.open { display: flex; }
-  .nav-links a {
-    padding: 0.7rem 0;
-    margin: 0;
-    width: 100%;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 1rem;
+  .search-container.active-mobile { display: block !important; }
+  .search-input { width: 100% !important; }
+
+  /* Bottom Nav */
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--color-border);
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0 0.8rem 0; /* Extra bottom padding for newer phones */
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 1000;
   }
-  .nav-links a:last-child { border-bottom: none; }
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: var(--transition);
+  }
+  .bottom-nav-item .icon { font-size: 1.4rem; margin-bottom: 2px; }
+  .bottom-nav-item:hover, .bottom-nav-item:active { color: var(--color-primary); }
 
-  /* Hide sliding indicator on mobile */
-  .nav-indicator { display: none; }
-
-  /* Show CTA inside mobile menu via a separate element */
-  .nav-cta { display: none; }
-
+  /* Ajustar body y flotantes para que la barra inferior no los tape */
+  body { padding-bottom: 70px; }
+  
   /* --- Hero --- */
   .hero-inner { flex-direction: column; text-align: center; }
   .hero-text { order: 1; }
@@ -1046,7 +1068,7 @@ p  { margin-bottom: 1rem; }
 
   /* --- Floating WhatsApp --- */
   .floating-whatsapp {
-    bottom: 1rem;
+    bottom: 85px; /* Moved up for bottom nav */
     left: 1rem;
     width: 45px;
     height: 45px;
@@ -1055,7 +1077,7 @@ p  { margin-bottom: 1rem; }
 
   /* --- Floating cart --- */
   .floating-cart {
-    bottom: 1rem;
+    bottom: 85px; /* Moved up for bottom nav */
     right: 1rem;
     padding: 0.65rem 1rem;
     font-size: 0.82rem;
