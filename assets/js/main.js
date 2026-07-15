@@ -343,15 +343,56 @@ document.addEventListener('DOMContentLoaded', () => {
       // Evitar que el clic en la imagen active otros enlaces
       e.preventDefault();
       
+      let imageArray = [img];
+      let currentIndex = 0;
+      
+      const track = img.closest('.carousel-track');
+      if (track) {
+        imageArray = Array.from(track.querySelectorAll('img'));
+        currentIndex = imageArray.indexOf(img);
+      }
+
       const overlay = document.createElement('div');
       overlay.className = 'lightbox-overlay';
+      
+      let navButtons = '';
+      if (imageArray.length > 1) {
+        navButtons = `
+          <button class="lightbox-btn prev">&lt;</button>
+          <button class="lightbox-btn next">&gt;</button>
+        `;
+      }
+      
       overlay.innerHTML = `
         <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+        ${navButtons}
         <img src="${img.src}" alt="${img.alt}" class="lightbox-img" />
       `;
       
       document.body.appendChild(overlay);
       
+      const lightboxImg = overlay.querySelector('.lightbox-img');
+      
+      // Funciones de navegación
+      if (imageArray.length > 1) {
+        const updateImage = () => {
+          lightboxImg.src = imageArray[currentIndex].src;
+          lightboxImg.alt = imageArray[currentIndex].alt;
+        };
+        
+        overlay.querySelector('.lightbox-btn.prev').addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          currentIndex = (currentIndex > 0) ? currentIndex - 1 : imageArray.length - 1;
+          updateImage();
+        });
+        
+        overlay.querySelector('.lightbox-btn.next').addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          currentIndex = (currentIndex < imageArray.length - 1) ? currentIndex + 1 : 0;
+          updateImage();
+        });
+      }
+
       // Animar entrada
       requestAnimationFrame(() => {
         overlay.classList.add('active');
