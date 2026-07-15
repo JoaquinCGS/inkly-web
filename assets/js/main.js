@@ -700,6 +700,19 @@ document.addEventListener('DOMContentLoaded', () => {
         searchResultsContainer.style.display = 'block';
       }
     });
+
+    // Ocultar barra móvil al hacer scroll (para que no 'persiga' al usuario)
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      if (Math.abs(window.scrollY - lastScrollY) > 50) {
+        const searchContainer = document.querySelector('.search-container');
+        if (searchContainer && searchContainer.classList.contains('active-mobile')) {
+          searchContainer.classList.remove('active-mobile');
+          globalSearch.blur(); // Ocultar el teclado en móviles
+        }
+        lastScrollY = window.scrollY;
+      }
+    }, { passive: true });
   }
 
   // ---- Panel Lateral del Carrito (Drawer) ----
