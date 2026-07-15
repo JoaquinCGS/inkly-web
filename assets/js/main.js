@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ---- Auto-Scroll y Highlight desde Búsqueda ----
+  const urlParams = new URLSearchParams(window.location.search);
+  const highlightTarget = urlParams.get('highlight');
+  if (highlightTarget) {
+    // Buscar la tarjeta que contiene este título
+    const cards = document.querySelectorAll('.card');
+    for (let card of cards) {
+      const titleEl = card.querySelector('h3');
+      if (titleEl && titleEl.textContent.trim().toLowerCase() === highlightTarget.toLowerCase()) {
+        // Encontrado! Hacemos scroll con un ligero delay para asegurar render
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Highlight visual temporal
+          card.style.transition = 'box-shadow 0.5s, transform 0.5s';
+          card.style.boxShadow = '0 0 20px var(--color-primary)';
+          card.style.transform = 'scale(1.03)';
+          setTimeout(() => {
+            card.style.boxShadow = '';
+            card.style.transform = '';
+          }, 2500);
+        }, 500);
+        break;
+      }
+    }
+  }
+
   // ---- Toast Notification ----
   function showToast(message) {
     let toast = document.getElementById('inkly-toast');
@@ -665,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
         matches.forEach(match => {
           const resultItem = document.createElement('a');
           resultItem.className = 'search-result-item';
-          resultItem.href = match.url;
+          resultItem.href = match.url + '?highlight=' + encodeURIComponent(match.title);
           resultItem.innerHTML = `
             <img src="${match.image}" alt="${match.title}" class="search-result-img" />
             <span class="search-result-title">${match.title}</span>
