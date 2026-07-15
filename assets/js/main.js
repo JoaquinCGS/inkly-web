@@ -168,11 +168,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ---- Funciones Generales ----
+  
+    function syncCartButtons() {
+      const btns = document.querySelectorAll('.btn-add-cart');
+      btns.forEach(btn => {
+        const productName = btn.getAttribute('data-name');
+        if (cart.includes(productName)) {
+          btn.textContent = 'Agregado \u2713';
+          btn.classList.add('added');
+        } else {
+          btn.textContent = 'Agregar a Cotización';
+          btn.classList.remove('added');
+        }
+      });
+    }
 
-  function saveCart() {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    updateWhatsappLink();
-  }
+    function saveCart() {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateWhatsappLink();
+      syncCartButtons();
+    }
 
   function updateWhatsappLink() {
     const waBtn = document.getElementById('floatingWhatsapp');
