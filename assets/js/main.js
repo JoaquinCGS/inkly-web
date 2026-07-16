@@ -1027,4 +1027,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Bottom Nav
   createBottomNav();
 
+  // ---- Acordeón de Preguntas Frecuentes (FAQ) ----
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const questionBtn = item.querySelector('.faq-question');
+    questionBtn.addEventListener('click', () => {
+      // Si quieres que solo se abra una a la vez, descomenta esto:
+      // faqItems.forEach(i => { if (i !== item) i.classList.remove('active'); });
+      item.classList.toggle('active');
+    });
+  });
+
+  // ---- Botón Mágico Volver Arriba ----
+  const scrollTopBtn = document.createElement('button');
+  scrollTopBtn.className = 'scroll-top-btn';
+  scrollTopBtn.innerHTML = '↑';
+  scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
+  document.body.appendChild(scrollTopBtn);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollTopBtn.classList.add('show');
+    } else {
+      scrollTopBtn.classList.remove('show');
+    }
+  });
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
 });
