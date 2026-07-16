@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
       padding: 3.5rem 0;
     }
     .catalog-section:nth-child(even) {
-      background: #fff;
+      background: var(--color-surface-alt);
     }
     .catalog-section:nth-child(odd) {
       background: var(--color-bg);
@@ -120,7 +120,7 @@
   </section>
 
   <!-- Filtros del Catálogo -->
-  <div class="container" style="text-align: center; padding-top: 2.5rem; padding-bottom: 0;">
+  <div class="container" style="text-align: center; padding-top: 0; padding-bottom: 2rem; margin-top: -1.5rem; position: relative; z-index: 10;">
     <div class="catalog-filters" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
       <button class="filter-btn active" data-filter="all" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid var(--color-primary); background: var(--color-primary); color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;">Todos</button>
       <button class="filter-btn" data-filter="cotillon" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid var(--color-primary); background: transparent; color: var(--color-text); font-weight: 600; cursor: pointer; transition: 0.3s;">Cotillón Temático</button>
