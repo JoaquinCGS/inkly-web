@@ -205,8 +205,8 @@ p  { margin-bottom: 1rem; }
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(255,154,193,0.4);
 }
-.btn-cta { background: var(--color-accent2); color: #333; }
-.btn-cta:hover { background: #ffea6c; }
+.btn-cta { background: #fff; color: var(--color-primary); font-weight: 700; }
+.btn-cta:hover { background: #f9f9f9; }
 
 /* ================================================
    HERO
