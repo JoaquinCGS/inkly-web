@@ -1060,4 +1060,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ---- Aviso de Cookies (Cookie Consent) ----
+  if (!localStorage.getItem('cookieConsent')) {
+    const cookieBanner = document.createElement('div');
+    cookieBanner.className = 'cookie-banner';
+    cookieBanner.innerHTML = `
+      <div class="cookie-content">
+        <span class="cookie-icon">🍪</span>
+        <div>
+          <h4>Uso de Cookies</h4>
+          <p>Utilizamos cookies para mejorar tu experiencia en nuestra web y ofrecerte productos personalizados. Al continuar, aceptas nuestra política.</p>
+        </div>
+      </div>
+      <div class="cookie-buttons">
+        <button class="btn btn-outline" id="btnRejectCookies">Rechazar</button>
+        <button class="btn btn-primary" id="btnAcceptCookies">Aceptar</button>
+      </div>
+    `;
+    document.body.appendChild(cookieBanner);
+
+    // Pequeño retraso para que la animación de entrada funcione suavemente
+    setTimeout(() => cookieBanner.classList.add('show'), 500);
+
+    document.getElementById('btnAcceptCookies').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'accepted');
+      cookieBanner.classList.remove('show');
+      setTimeout(() => cookieBanner.remove(), 400); // Esperar a que termine la animación
+    });
+
+    document.getElementById('btnRejectCookies').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'rejected');
+      cookieBanner.classList.remove('show');
+      setTimeout(() => cookieBanner.remove(), 400);
+    });
+  }
+
 });
