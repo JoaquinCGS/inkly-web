@@ -168,8 +168,110 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ---- Funciones Generales ----
-  
-    function syncCartButtons() {
+
+  // ---- Efecto Parallax 3D en Tarjetas ----
+  const parallaxCards = document.querySelectorAll('.card, .category-card');
+  parallaxCards.forEach(card => {
+    // Only apply on non-touch devices (coarse pointer = touch)
+    if (window.matchMedia("(any-hover: hover)").matches) {
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease-out';
+      });
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10;
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.boxShadow = `${-rotateY}px ${rotateX}px 20px rgba(0,0,0,0.15)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      });
+    }
+  });
+
+  // ---- Historias Estilo Instagram ----
+  const stories = [
+    { title: "Kits Cumpleañeros", image: "assets/images/kit1.webp", link: "catalog.html" },
+    { title: "Bolsas y Piñatas", image: "assets/images/bolsapinata.webp", link: "catalog.html" },
+    { title: "Libritos para Colorear", image: "assets/images/libros6imagens.webp", link: "catalog.html" },
+    { title: "Centros de Mesa", image: "assets/images/centrodemesa.webp", link: "catalog.html" },
+    { title: "Toppers de Torta 3D", image: "assets/images/toppertorta3d.webp", link: "catalog.html" }
+  ];
+
+  let currentStoryIndex = 0;
+  let storyTimer;
+  let storyProgress = 0;
+  let progressInterval;
+
+  const storyViewer = document.getElementById('storyViewer');
+  const storyImage = document.getElementById('storyImage');
+  const storyTitle = document.getElementById('storyTitle');
+  const progressBar = document.getElementById('storyProgress');
+  const storyCloseBtn = document.getElementById('storyClose');
+
+  if (storyViewer) {
+    document.querySelectorAll('.story-circle').forEach(circle => {
+      circle.addEventListener('click', () => {
+        currentStoryIndex = parseInt(circle.getAttribute('data-story'));
+        openStory();
+      });
+    });
+
+    document.getElementById('storyPrev').addEventListener('click', () => {
+      if (currentStoryIndex > 0) { currentStoryIndex--; openStory(); }
+      else { closeStory(); }
+    });
+
+    document.getElementById('storyNext').addEventListener('click', () => {
+      if (currentStoryIndex < stories.length - 1) { currentStoryIndex++; openStory(); }
+      else { closeStory(); }
+    });
+
+    storyCloseBtn.addEventListener('click', closeStory);
+  }
+
+  function openStory() {
+    storyViewer.classList.add('active');
+    storyImage.src = stories[currentStoryIndex].image;
+    storyTitle.textContent = stories[currentStoryIndex].title;
+    resetStoryProgress();
+  }
+
+  function closeStory() {
+    storyViewer.classList.remove('active');
+    clearInterval(progressInterval);
+  }
+
+  function resetStoryProgress() {
+    clearInterval(progressInterval);
+    storyProgress = 0;
+    progressBar.style.width = '0%';
+    
+    // Animate progress bar over 5 seconds
+    progressInterval = setInterval(() => {
+      storyProgress += 2; // 2% every 100ms
+      progressBar.style.width = storyProgress + '%';
+      if (storyProgress >= 100) {
+        clearInterval(progressInterval);
+        if (currentStoryIndex < stories.length - 1) {
+          currentStoryIndex++;
+          openStory();
+        } else {
+          closeStory();
+        }
+      }
+    }, 100);
+  }
+
+  function syncCartButtons() {
       const btns = document.querySelectorAll('.btn-add-cart');
       btns.forEach(btn => {
         const productName = btn.getAttribute('data-name');
@@ -609,7 +711,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (currentTheme === 'dark') {
     document.body.setAttribute('data-theme', 'dark');
-    if (themeToggle) themeToggle.innerText = '☀️';
   }
 
   if (themeToggle) {
@@ -618,11 +719,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (theme === 'dark') {
         document.body.removeAttribute('data-theme');
         localStorage.setItem('theme', 'light');
-        themeToggle.innerText = '🌙';
       } else {
         document.body.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
-        themeToggle.innerText = '☀️';
       }
     });
   }

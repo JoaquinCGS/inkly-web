@@ -30,9 +30,10 @@
         <a href="index.html#como-funciona" class="nav-item">Cómo Funciona</a>
         <a href="index.html#contacto" class="nav-item">Contacto</a>
               <div class="search-container">
-          <input type="text" class="search-input" id="globalSearch" placeholder="Buscar..." />
-        </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar modo oscuro">🌙</button>
+        <input type="text" class="search-input" id="globalSearch" placeholder="Buscar..." autocomplete="off" />
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
       </nav>
       <a href="index.html#cotizacion" class="btn btn-primary">Cotizar Proyecto</a>
     </div>
@@ -50,7 +51,50 @@
     </div>
   </section>
 
-  <section id="categorias" class="categories">
+  <!-- Historias Estilo Instagram -->
+  <section class="stories-section container">
+    <div class="stories-container" id="storiesContainer">
+      <div class="story-circle" data-story="0">
+        <div class="story-ring"><img src="assets/images/kit1.webp" alt="Kits"></div>
+        <span>Kits</span>
+      </div>
+      <div class="story-circle" data-story="1">
+        <div class="story-ring"><img src="assets/images/bolsapinata.webp" alt="Bolsas"></div>
+        <span>Bolsas</span>
+      </div>
+      <div class="story-circle" data-story="2">
+        <div class="story-ring"><img src="assets/images/libros6imagens.webp" alt="Libritos"></div>
+        <span>Libritos</span>
+      </div>
+      <div class="story-circle" data-story="3">
+        <div class="story-ring"><img src="assets/images/centrodemesa.webp" alt="Centros"></div>
+        <span>Centros</span>
+      </div>
+      <div class="story-circle" data-story="4">
+        <div class="story-ring"><img src="assets/images/toppertorta3d.webp" alt="Toppers"></div>
+        <span>Toppers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visor de Historias Pantalla Completa -->
+  <div class="story-viewer" id="storyViewer">
+    <button class="story-close" id="storyClose">&times;</button>
+    <div class="story-progress-container">
+      <div class="story-progress-bar"><div class="story-progress" id="storyProgress"></div></div>
+    </div>
+    <div class="story-content" id="storyContent">
+      <img src="" alt="Story Image" id="storyImage">
+      <div class="story-caption">
+        <h3 id="storyTitle">Título</h3>
+        <a href="catalog.html" class="btn">Comprar</a>
+      </div>
+    </div>
+    <div class="story-nav left" id="storyPrev"></div>
+    <div class="story-nav right" id="storyNext"></div>
+  </div>
+
+  <section id="categorias" class="categories" style="padding-top: 2rem;">
     <div class="container">
       <h2 class="section-title">Nuestros Productos Estrella</h2>
       <div class="grid">
@@ -124,6 +168,20 @@
       </form>
     </div>
   </section>
+
+  <!-- Marquesina Infinita -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item">✨ Diseños 100% Personalizados</div>
+      <div class="ticker-item">✨ Envíos a todo Chile</div>
+      <div class="ticker-item">✨ Hecho a mano con amor</div>
+      <div class="ticker-item">✨ Cotillón Exclusivo</div>
+      <div class="ticker-item">✨ Diseños 100% Personalizados</div>
+      <div class="ticker-item">✨ Envíos a todo Chile</div>
+      <div class="ticker-item">✨ Hecho a mano con amor</div>
+      <div class="ticker-item">✨ Cotillón Exclusivo</div>
+    </div>
+  </div>
 
   <footer id="contacto" class="footer">
     <div class="container footer-inner">
