@@ -575,11 +575,11 @@ document.addEventListener('DOMContentLoaded', () => {
         catalogFilterBtns.forEach(b => {
           b.classList.remove('active');
           b.style.background = 'transparent';
-          b.style.color = 'var(--color-text)';
+          b.style.color = '#fff';
         });
         btn.classList.add('active');
-        btn.style.background = 'var(--color-primary)';
-        btn.style.color = '#fff';
+        btn.style.background = '#fff';
+        btn.style.color = 'var(--color-primary)';
         
         const filterValue = btn.getAttribute('data-filter');
         catalogSections.forEach(section => {
