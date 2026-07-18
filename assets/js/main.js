@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btns.forEach(btn => {
       const productName = btn.getAttribute('data-name');
       if (cart.some(item => item.name === productName)) {
-        btn.textContent = 'Agregado ✓';
+        btn.textContent = 'Agregado \u2713';
         btn.classList.add('added');
       } else {
         btn.textContent = 'Agregar a Cotización';
@@ -354,17 +354,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateWhatsappLink() {
     const phone = '56966932414';
     
-    let text = '✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
+    let text = '\u2728 *¡Hola Inkly!* \u2728\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
     if (cart.length > 0) {
       let total = 0;
       cart.forEach(item => {
-        text += '🛍️ ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')})` : '') + '\n';
+        text += '\uD83D\uDECD\uFE0F ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')})` : '') + '\n';
         total += item.price;
       });
       if (total > 0) {
         const abono = Math.round(total / 2);
-        text += '\n💰 *Total estimado:* $' + total.toLocaleString('es-CL');
-        text += '\n💳 *Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
+        text += '\n\uD83D\uDCB0 *Total estimado:* $' + total.toLocaleString('es-CL');
+        text += '\n\uD83D\uDCB3 *Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
         text += '\n_(Nota: El valor final podría variar según cantidades específicas)_';
       }
     } else {
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnAddCartList.forEach(btn => {
       const productName = btn.getAttribute('data-name');
       if (cart.some(item => item.name === productName)) {
-        btn.textContent = 'Agregado ✓';
+        btn.textContent = 'Agregado \u2713';
         btn.classList.add('added');
       }
 
@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
           cart = cart.filter(item => item.name !== pName);
           btn.textContent = 'Agregar a Cotización';
           btn.classList.remove('added');
-          showToast('❌ ' + pName + ' quitado del carrito');
+          showToast('\u274C ' + pName + ' quitado del carrito');
         } else {
           
           let price = 0;
@@ -422,9 +422,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
           cart.push({name: pName, price: price});
-          btn.textContent = 'Agregado ✓';
+          btn.textContent = 'Agregado \u2713';
           btn.classList.add('added');
-          showToast('🛒 ' + pName + ' agregado al carrito');
+          showToast('\uD83D\uDED2 ' + pName + ' agregado al carrito');
         }
         saveCart();
         updateFloatingCart();
@@ -939,7 +939,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p style="margin-bottom: 0.5rem; font-weight: 600;">Total estimado: $${total.toLocaleString('es-CL')}</p>
         <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--color-muted);">Abono (50%): $${Math.round(total/2).toLocaleString('es-CL')}</p>
         <a href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none;">
-          💬 Solicitar Cotización por WhatsApp
+          \uD83D\uDCAC Solicitar Cotización por WhatsApp
         </a>
       </div>
     `;
