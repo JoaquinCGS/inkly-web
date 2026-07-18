@@ -2,7 +2,16 @@
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
-window.scrollTo(0, 0);
+
+window.addEventListener('load', () => {
+  if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+    if (!window.location.hash || window.location.hash === '#inicio') {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 50);
+    }
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   // ---- Auto-Scroll y Highlight desde Búsqueda ----
@@ -1009,7 +1018,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Botón Mágico Volver Arriba ----
   const scrollTopBtn = document.createElement('button');
   scrollTopBtn.className = 'scroll-top-btn';
-  scrollTopBtn.innerHTML = 'â†‘';
+  scrollTopBtn.innerHTML = '↑';
   scrollTopBtn.setAttribute('aria-label', 'Volver arriba');
   document.body.appendChild(scrollTopBtn);
 
