@@ -1753,3 +1753,20 @@ p  { margin-bottom: 1rem; text-wrap: pretty; }
   box-shadow: 0 4px 15px var(--shadow-primary) !important;
 }
 
+
+
+/* Price Tags */
+.price-tag {
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+.price-tag span.price-detail {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  display: block;
+  font-weight: 400;
+  margin-top: 0.2rem;
+}
