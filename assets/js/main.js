@@ -1,11 +1,11 @@
-// Forzar al navegador a empezar desde arriba al recargar la pÃ¡gina (F5)
+// Forzar al navegador a empezar desde arriba al recargar la página (F5)
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ---- Auto-Scroll y Highlight desde BÃºsqueda ----
+  // ---- Auto-Scroll y Highlight desde Búsqueda ----
   const urlParams = new URLSearchParams(window.location.search);
   const highlightTarget = urlParams.get('highlight');
   if (highlightTarget) {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   initCarousels();
 
-  // ---- ConfiguraciÃ³n y Estado del Carrito ----
+  // ---- Configuración y Estado del Carrito ----
   const CART_KEY = 'inkly_cart';
   let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
 
@@ -227,13 +227,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const stories = Array.from({ length: 15 }, (_, i) => ({
     title: "Cliente Feliz", 
     image: `assets/images/C${i + 1}.png`,
-    link: "#" // O a una pÃ¡gina especÃ­fica si se desea en el futuro
+    link: "#" // O a una página específica si se desea en el futuro
   }));
 
-  // Renderizar historias dinÃ¡micamente en el storiesContainer
+  // Renderizar historias dinámicamente en el storiesContainer
   const storiesContainer = document.getElementById('storiesContainer');
   if (storiesContainer) {
-    // Crear 3 copias para animaciÃ³n infinita perfecta
+    // Crear 3 copias para animación infinita perfecta
     const copies = 3;
     for (let c = 0; c < copies; c++) {
       stories.forEach((story, idx) => {
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.textContent = 'Agregado âœ“';
         btn.classList.add('added');
       } else {
-        btn.textContent = 'Agregar a CotizaciÃ³n';
+        btn.textContent = 'Agregar a Cotización';
         btn.classList.remove('added');
       }
     });
@@ -343,13 +343,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateWhatsappLink() {
     const phone = '56966932414';
-    let text = 'âœ¨ *Â¡Hola Inkly!* âœ¨\n\nMe encantarÃ­a solicitar una cotizaciÃ³n para los siguientes Ã­tems:\n\n';
+    let text = '✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
     if (cart.length > 0) {
       cart.forEach(item => {
         text += 'ðŸ›ï¸ ' + item + '\n';
       });
     } else {
-      text = 'Â¡Hola Inkly!';
+      text = '¡Hola Inkly!';
     }
     return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
   }
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ---- LÃ³gica del CatÃ¡logo ----
+  // ---- Lógica del Catálogo ----
   if (btnAddCartList.length > 0) {
     btnAddCartList.forEach(btn => {
       const productName = btn.getAttribute('data-name');
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pName = btn.getAttribute('data-name');
         if (cart.includes(pName)) {
           cart = cart.filter(item => item !== pName);
-          btn.textContent = 'Agregar a CotizaciÃ³n';
+          btn.textContent = 'Agregar a Cotización';
           btn.classList.remove('added');
           showToast('âŒ ' + pName + ' quitado del carrito');
         } else {
@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- LÃ³gica del Formulario de CotizaciÃ³n ----
+  // ---- Lógica del Formulario de Cotización ----
   function renderCartInForm() {
     if (!cartContainer || !cartItemsList || !inputProductosSeleccionados) return;
     cartItemsList.innerHTML = '';
@@ -466,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- EnvÃ­o de Formulario con AJAX (Formspree) ----
+  // ---- Envío de Formulario con AJAX (Formspree) ----
   const quoteForm = document.getElementById('quote-form');
   if (quoteForm) {
     quoteForm.addEventListener('submit', async (e) => {
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         if (response.ok) {
-          showCustomAlert('Â¡Gracias!', 'Tu solicitud ha sido enviada con Ã©xito. Te contactaremos pronto.', true);
+          showCustomAlert('¡Gracias!', 'Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.', true);
           quoteForm.reset();
           cart = [];
           saveCart();
@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
           showCustomAlert('Ups...', 'Hubo un problema al enviar la solicitud. Por favor intenta de nuevo.', false);
         }
       } catch (error) {
-        showCustomAlert('Error de conexiÃ³n', 'Revisa tu internet e intenta nuevamente.', false);
+        showCustomAlert('Error de conexión', 'Revisa tu internet e intenta nuevamente.', false);
       }
       
       submitBtn.textContent = originalText;
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- InicializaciÃ³n ----
+  // ---- Inicialización ----
   updateFloatingCart();
   renderCartInForm();
   updateWhatsappLink();
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cardObserver.observe(card);
   });
 
-  // ---- Lightbox (AmpliaciÃ³n de ImÃ¡genes) ----
+  // ---- Lightbox (Ampliación de Imágenes) ----
   const productImages = document.querySelectorAll('.card:not(.category-card) img, .cat-card img');
   productImages.forEach(img => {
     img.addEventListener('click', (e) => {
@@ -608,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ---- Filtros del CatÃ¡logo Principal (catalog.html) ----
+  // ---- Filtros del Catálogo Principal (catalog.html) ----
   const catalogFilterBtns = document.querySelectorAll('.filter-btn');
   const catalogSections = document.querySelectorAll('.catalog-section');
   
@@ -638,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Filtros DinÃ¡micos para SubpÃ¡ginas de Productos ----
+  // ---- Filtros Dinámicos para Subpáginas de Productos ----
   const productGrids = document.querySelectorAll('.product-grid');
   if (productGrids.length > 1) { 
     const productsContainer = productGrids[0].parentElement;
@@ -764,19 +764,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchDropdown = document.getElementById('searchDropdown');
 
   if (globalSearch && searchDropdown) {
-    // Cargar el Ã­ndice de bÃºsqueda desde products.json
+    // Cargar el índice de búsqueda desde products.json
     let searchIndex = [];
     fetch('products.json')
       .then(r => r.json())
       .then(data => { searchIndex = data; })
       .catch(() => {
-        // Fallback: Ã­ndice bÃ¡sico inline si fetch falla
+        // Fallback: índice básico inline si fetch falla
         searchIndex = [
           { title: "Kit 1", url: "cumpleanos.html", image: "assets/images/kit1.webp" },
           { title: "Kit 2", url: "cumpleanos.html", image: "assets/images/kit2.webp" },
           { title: "Kit 3", url: "cumpleanos.html", image: "assets/images/kit3.webp" },
           { title: "Kit 4", url: "cumpleanos.html", image: "assets/images/kit4.webp" },
-          { title: "Bolsa piÃ±ata", url: "cumpleanos.html", image: "assets/images/bolsapinata.webp" },
+          { title: "Bolsa piñata", url: "cumpleanos.html", image: "assets/images/bolsapinata.webp" },
           { title: "Centro de mesa", url: "cumpleanos.html", image: "assets/images/centrodemesa.webp" },
           { title: "Topper de torta 3D", url: "cumpleanos.html", image: "assets/images/toppertorta3d.webp" },
           { title: "Mini burbujas", url: "souvenirs.html", image: "assets/images/miniburbujas.webp" },
@@ -903,7 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
         <p style="margin-bottom: 1rem; font-weight: 600;">Total de productos: ${cart.length}</p>
         <a href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none;">
-          ðŸ’¬ Solicitar CotizaciÃ³n por WhatsApp
+          ðŸ’¬ Solicitar Cotización por WhatsApp
         </a>
       </div>
     `;
@@ -944,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </a>
       <a href="catalog.html" class="bottom-nav-item">
         <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg></span>
-        <span class="label">CatÃ¡logo</span>
+        <span class="label">Catálogo</span>
       </a>
       <a href="#" class="bottom-nav-item" id="mobileSearchBtn">
         <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
@@ -993,7 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   createBottomNav();
 
-  // ---- AcordeÃ³n de Preguntas Frecuentes (FAQ) ----
+  // ---- Acordeón de Preguntas Frecuentes (FAQ) ----
   const faqItems = document.querySelectorAll('.faq-item');
   faqItems.forEach(item => {
     const questionBtn = item.querySelector('.faq-question');
@@ -1006,7 +1006,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ---- BotÃ³n MÃ¡gico Volver Arriba ----
+  // ---- Botón Mágico Volver Arriba ----
   const scrollTopBtn = document.createElement('button');
   scrollTopBtn.className = 'scroll-top-btn';
   scrollTopBtn.innerHTML = 'â†‘';
@@ -1037,7 +1037,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="cookie-icon">ðŸª</span>
         <div>
           <h4>Uso de Cookies</h4>
-          <p>Utilizamos cookies para mejorar tu experiencia en nuestra web y ofrecerte productos personalizados. Al continuar, aceptas nuestra polÃ­tica.</p>
+          <p>Utilizamos cookies para mejorar tu experiencia en nuestra web y ofrecerte productos personalizados. Al continuar, aceptas nuestra política.</p>
         </div>
       </div>
       <div class="cookie-buttons">
@@ -1069,24 +1069,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const parallaxContent = document.getElementById('parallaxContent');
 
     if (parallaxMask) {
-      // Timeline automÃ¡tico en lugar de ScrollTrigger
+      // Timeline automático en lugar de ScrollTrigger
       let tl = gsap.timeline({
-        delay: 0.5 // PequeÃ±a pausa antes de empezar
+        delay: 0.5 // Pequeña pausa antes de empezar
       });
 
-      // Expande la mÃ¡scara para revelar la imagen
+      // Expande la máscara para revelar la imagen
       tl.to(parallaxMask, {
-        maskSize: "2000vw", // Un tamaÃ±o mÃ¡s manejable para evitar lÃ­mites del navegador
+        maskSize: "2000vw", // Un tamaño más manejable para evitar límites del navegador
         WebkitMaskSize: "2000vw",
         duration: 2.5,
         ease: "power3.in",
         onComplete: () => {
-          // Ocultar por completo la capa de mÃ¡scara
+          // Ocultar por completo la capa de máscara
           parallaxMask.style.display = 'none';
         }
       });
 
-      // TransiciÃ³n perfecta: Fade in de la imagen completa MUCHO ANTES para que la K desaparezca rÃ¡pido
+      // Transición perfecta: Fade in de la imagen completa MUCHO ANTES para que la K desaparezca rápido
       if (parallaxFullImage) {
         tl.to(parallaxFullImage, {
           opacity: 1,
