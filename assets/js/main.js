@@ -406,10 +406,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (itemInCart) {
         btn.classList.add('added');
         btn.innerHTML = `
-          <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
-            <span class="inline-qty-minus" style="padding: 0 15px; font-weight:bold; font-size:1.4rem; line-height:1; cursor:pointer;">-</span>
-            <span>Agregado \u2713 (${itemInCart.quantity})</span>
-            <span class="inline-qty-plus" style="padding: 0 15px; font-weight:bold; font-size:1.4rem; line-height:1; cursor:pointer;">+</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; width:100%; height:100%;">
+            <span class="inline-qty-minus" style="padding: 0 15px; font-weight:bold; font-size:1.6rem; cursor:pointer; user-select:none; line-height: 1; display:flex; align-items:center;">-</span>
+            <span style="font-weight: 500; font-size: 1rem; pointer-events:none;">Agregado \u2713 (${itemInCart.quantity})</span>
+            <span class="inline-qty-plus" style="padding: 0 15px; font-weight:bold; font-size:1.4rem; cursor:pointer; user-select:none; line-height: 1; display:flex; align-items:center;">+</span>
           </div>
         `;
       } else {
@@ -439,14 +439,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
-        if (e.target.classList.contains('inline-minus')) {
+        if (e.target.classList.contains('inline-qty-minus')) {
             if (existing && existing.quantity > 1) {
                 existing.quantity -= 1;
             } else if (existing && existing.quantity === 1) {
                 cart = cart.filter(item => item.name !== pName);
                 showToast('\u274C ' + pName + ' quitado del carrito');
             }
-        } else if (e.target.classList.contains('inline-plus')) {
+        } else if (e.target.classList.contains('inline-qty-plus')) {
             if (existing) {
                 existing.quantity += 1;
             }
