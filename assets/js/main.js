@@ -433,8 +433,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const existing = cart.find(item => item.name === pName);
         
         let price = 0;
+        let imgUrl = '';
         const card = btn.closest('.card');
         if (card) {
+          const imgEl = card.querySelector('img');
+          if (imgEl) imgUrl = imgEl.getAttribute('src');
           const priceTag = card.querySelector('.price-tag');
           if (priceTag) {
             const clone = priceTag.cloneNode(true);
@@ -458,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             if (!existing) {
-                cart.push({name: pName, price: price, quantity: 1});
+                cart.push({name: pName, price: price, quantity: 1, image: imgUrl});
                 showToast('\uD83D\uDED2 ' + pName + ' agregado al carrito');
             }
         }
@@ -1233,9 +1236,12 @@ document.addEventListener('DOMContentLoaded', () => {
       
       html += `
         <div class="cart-drawer-item" style="display:flex; flex-direction:column; gap:0.5rem; position:relative;">
-          <div style="padding-right: 20px;">
-            <p style="margin:0; font-weight: 500;">${item.name}</p>
-            ${item.price > 0 ? `<p style="margin:0; font-size: 0.85rem; color: var(--color-muted);">$${item.price.toLocaleString('es-CL')} c/u</p>` : ''}
+          <div style="display: flex; gap: 1rem; padding-right: 20px; align-items: center;">
+            ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid var(--color-border); flex-shrink: 0;">` : ''}
+            <div>
+              <p style="margin:0; font-weight: 500;">${item.name}</p>
+              ${item.price > 0 ? `<p style="margin:0; font-size: 0.85rem; color: var(--color-muted);">$${item.price.toLocaleString('es-CL')} c/u</p>` : ''}
+            </div>
           </div>
           
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
@@ -1256,7 +1262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     html += `
       <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
         
-        <div style="margin-bottom: 1.5rem; text-align: left; background: #fff; padding: 1rem; border-radius: 8px; border: 1px solid var(--color-border);">
+        <div style="margin-bottom: 1.5rem; text-align: left; background: var(--color-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--color-border);">
           <label for="deliveryDate" style="display:block; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text);">
             Fecha de entrega o retiro:
           </label>
