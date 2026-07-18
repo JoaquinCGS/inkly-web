@@ -398,17 +398,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ---- Lógica del Catálogo ----
+  function renderProductButtons() {
+    if (!btnAddCartList || btnAddCartList.length === 0) return;
+    btnAddCartList.forEach(btn => {
+      const pName = btn.getAttribute('data-name');
+      const itemInCart = cart.find(item => item.name === pName);
+      if (itemInCart) {
+        btn.classList.add('added');
+        btn.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span class="inline-qty-minus" style="padding: 0 15px; font-weight:bold; font-size:1.4rem; line-height:1; cursor:pointer;">-</span>
+            <span>Agregado \u2713 (${itemInCart.quantity})</span>
+            <span class="inline-qty-plus" style="padding: 0 15px; font-weight:bold; font-size:1.4rem; line-height:1; cursor:pointer;">+</span>
+          </div>
+        `;
+      } else {
+        btn.classList.remove('added');
+        btn.innerHTML = 'Agregar a Cotización';
+      }
+    });
+  }
+
   if (btnAddCartList.length > 0) {
     btnAddCartList.forEach(btn => {
-      const productName = btn.getAttribute('data-name');
-      if (cart.some(item => item.name === productName)) {
-        btn.textContent = 'Agregado \u2713';
-        btn.classList.add('added');
-      }
-
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const pName = btn.getAttribute('data-name');
+        const existing = cart.find(item => item.name === pName);
         
         let price = 0;
         const card = btn.closest('.card');
@@ -423,20 +439,31 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
-        const existing = cart.find(item => item.name === pName);
-        if (existing) {
-          existing.quantity += 1;
-          showToast('\uD83D\uDED2 ' + pName + ' (x' + existing.quantity + ') actualizado');
+        if (e.target.classList.contains('inline-minus')) {
+            if (existing && existing.quantity > 1) {
+                existing.quantity -= 1;
+            } else if (existing && existing.quantity === 1) {
+                cart = cart.filter(item => item.name !== pName);
+                showToast('\u274C ' + pName + ' quitado del carrito');
+            }
+        } else if (e.target.classList.contains('inline-plus')) {
+            if (existing) {
+                existing.quantity += 1;
+            }
         } else {
-          cart.push({name: pName, price: price, quantity: 1});
-          btn.textContent = 'Agregado \u2713';
-          btn.classList.add('added');
-          showToast('\uD83D\uDED2 ' + pName + ' agregado al carrito');
+            if (!existing) {
+                cart.push({name: pName, price: price, quantity: 1});
+                showToast('\uD83D\uDED2 ' + pName + ' agregado al carrito');
+            }
         }
+        
         saveCart();
+        renderProductButtons();
         updateFloatingCart();
+        if (typeof updateCartDrawerUI === 'function') updateCartDrawerUI();
       });
     });
+    renderProductButtons();
   }
 
   // ---- Lógica del Formulario de Cotización ----
@@ -1239,14 +1266,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pName = cart[index].name;
         cart.splice(index, 1);
         
-        // Remove 'added' class from product buttons on the page
-        const addBtns = document.querySelectorAll('.btn-add-cart');
-        addBtns.forEach(b => {
-          if(b.getAttribute('data-name') === pName) {
-            b.textContent = 'Agregar a Cotización';
-            b.classList.remove('added');
-          }
-        });
+        if (typeof renderProductButtons === 'function') renderProductButtons();
         
         saveCart();
         updateCartDrawerUI();
@@ -1269,6 +1289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartDrawerUI();
         updateFloatingCart();
         renderCartInForm();
+        if (typeof renderProductButtons === 'function') renderProductButtons();
       });
     });
 
@@ -1281,6 +1302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartDrawerUI();
         updateFloatingCart();
         renderCartInForm();
+        if (typeof renderProductButtons === 'function') renderProductButtons();
       });
     });
   }
