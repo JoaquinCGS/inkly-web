@@ -95,7 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- Configuración y Estado del Carrito ----
   const CART_KEY = 'inkly_cart';
-  let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  let rawCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+  let cart = rawCart.map(i => typeof i === "string" ? {name: i, price: 0} : i);
 
   const btnAddCartList = document.querySelectorAll('.btn-add-cart');
   const floatingCart = document.getElementById('floatingCart');
@@ -334,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btns = document.querySelectorAll('.btn-add-cart');
     btns.forEach(btn => {
       const productName = btn.getAttribute('data-name');
-      if (cart.includes(productName)) {
+      if (cart.some(item => item.name === productName)) {
         btn.textContent = 'Agregado ✓';
         btn.classList.add('added');
       } else {
@@ -352,12 +353,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateWhatsappLink() {
     const phone = '56966932414';
+    
     let text = '✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
     if (cart.length > 0) {
+      let total = 0;
       cart.forEach(item => {
-        text += '🛍️ ' + item + '\n';
+        text += '🛍️ ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')})` : '') + '\n';
+        total += item.price;
       });
+      if (total > 0) {
+        const abono = Math.round(total / 2);
+        text += '\n💰 *Total estimado:* $' + total.toLocaleString('es-CL');
+        text += '\n💳 *Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
+        text += '\n_(Nota: El valor final podría variar según cantidades específicas)_';
+      }
     } else {
+
       text = '¡Hola Inkly!';
     }
     return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
@@ -383,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAddCartList.length > 0) {
     btnAddCartList.forEach(btn => {
       const productName = btn.getAttribute('data-name');
-      if (cart.includes(productName)) {
+      if (cart.some(item => item.name === productName)) {
         btn.textContent = 'Agregado ✓';
         btn.classList.add('added');
       }
@@ -391,13 +402,26 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const pName = btn.getAttribute('data-name');
-        if (cart.includes(pName)) {
-          cart = cart.filter(item => item !== pName);
+        if (cart.some(item => item.name === pName)) {
+          cart = cart.filter(item => item.name !== pName);
           btn.textContent = 'Agregar a Cotización';
           btn.classList.remove('added');
           showToast('❌ ' + pName + ' quitado del carrito');
         } else {
-          cart.push(pName);
+          
+          let price = 0;
+          const card = btn.closest('.card');
+          if (card) {
+            const priceTag = card.querySelector('.price-tag');
+            if (priceTag) {
+              const clone = priceTag.cloneNode(true);
+              const detail = clone.querySelector('.price-detail');
+              if (detail) clone.removeChild(detail);
+              const match = clone.textContent.replace(/\./g, '').match(/\d+/);
+              if (match) price = parseInt(match[0], 10);
+            }
+          }
+          cart.push({name: pName, price: price});
           btn.textContent = 'Agregado ✓';
           btn.classList.add('added');
           showToast('🛒 ' + pName + ' agregado al carrito');
@@ -414,10 +438,10 @@ document.addEventListener('DOMContentLoaded', () => {
     cartItemsList.innerHTML = '';
     if (cart.length > 0) {
       cartContainer.style.display = 'block';
-      inputProductosSeleccionados.value = cart.join(', ');
+      inputProductosSeleccionados.value = cart.map(i => i.name).join(', ');
       cart.forEach((item, index) => {
         const li = document.createElement('li');
-        li.textContent = item;
+        li.textContent = item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')})` : '');
         const removeBtn = document.createElement('button');
         removeBtn.type = 'button';
         removeBtn.className = 'btn-remove-item';
@@ -896,11 +920,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let html = '';
+    let total = 0;
     cart.forEach((item, index) => {
+      total += item.price;
       html += `
         <div class="cart-drawer-item">
           <div>
-            <p>${item}</p>
+            <p>${item.name} ${item.price > 0 ? `($${item.price.toLocaleString('es-CL')})` : ''}</p>
           </div>
           <button class="cart-drawer-item-remove" data-index="${index}">&times;</button>
         </div>
@@ -910,7 +936,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const waLink = generateWhatsappLink();
     html += `
       <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
-        <p style="margin-bottom: 1rem; font-weight: 600;">Total de productos: ${cart.length}</p>
+        <p style="margin-bottom: 0.5rem; font-weight: 600;">Total estimado: $${total.toLocaleString('es-CL')}</p>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--color-muted);">Abono (50%): $${Math.round(total/2).toLocaleString('es-CL')}</p>
         <a href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none;">
           💬 Solicitar Cotización por WhatsApp
         </a>
