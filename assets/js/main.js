@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Configuración y Estado del Carrito ----
   const CART_KEY = 'inkly_cart';
   let rawCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-  let cart = rawCart.map(i => typeof i === "string" ? {name: i, price: 0} : i);
+  let cart = rawCart.map(i => typeof i === "string" ? {name: i, price: 0, quantity: 1} : (i.quantity ? i : {...i, quantity: 1}));
 
   const btnAddCartList = document.querySelectorAll('.btn-add-cart');
   const floatingCart = document.getElementById('floatingCart');
@@ -402,26 +402,26 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const pName = btn.getAttribute('data-name');
-        if (cart.some(item => item.name === pName)) {
-          cart = cart.filter(item => item.name !== pName);
-          btn.textContent = 'Agregar a Cotización';
-          btn.classList.remove('added');
-          showToast('\u274C ' + pName + ' quitado del carrito');
-        } else {
-          
-          let price = 0;
-          const card = btn.closest('.card');
-          if (card) {
-            const priceTag = card.querySelector('.price-tag');
-            if (priceTag) {
-              const clone = priceTag.cloneNode(true);
-              const detail = clone.querySelector('.price-detail');
-              if (detail) clone.removeChild(detail);
-              const match = clone.textContent.replace(/\./g, '').match(/\d+/);
-              if (match) price = parseInt(match[0], 10);
-            }
+        
+        let price = 0;
+        const card = btn.closest('.card');
+        if (card) {
+          const priceTag = card.querySelector('.price-tag');
+          if (priceTag) {
+            const clone = priceTag.cloneNode(true);
+            const detail = clone.querySelector('.price-detail');
+            if (detail) clone.removeChild(detail);
+            const match = clone.textContent.replace(/\./g, '').match(/\d+/);
+            if (match) price = parseInt(match[0], 10);
           }
-          cart.push({name: pName, price: price});
+        }
+
+        const existing = cart.find(item => item.name === pName);
+        if (existing) {
+          existing.quantity += 1;
+          showToast('\uD83D\uDED2 ' + pName + ' (x' + existing.quantity + ') actualizado');
+        } else {
+          cart.push({name: pName, price: price, quantity: 1});
           btn.textContent = 'Agregado \u2713';
           btn.classList.add('added');
           showToast('\uD83D\uDED2 ' + pName + ' agregado al carrito');
@@ -1185,14 +1185,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let html = '';
     let total = 0;
+    let totalCount = 0;
     cart.forEach((item, index) => {
-      total += item.price;
+      total += (item.price * item.quantity);
+      totalCount += item.quantity;
+      const subtotal = item.price * item.quantity;
+      
       html += `
-        <div class="cart-drawer-item">
-          <div>
-            <p>${item.name} ${item.price > 0 ? `($${item.price.toLocaleString('es-CL')})` : ''}</p>
+        <div class="cart-drawer-item" style="display:flex; flex-direction:column; gap:0.5rem; position:relative;">
+          <div style="padding-right: 20px;">
+            <p style="margin:0; font-weight: 500;">${item.name}</p>
+            ${item.price > 0 ? `<p style="margin:0; font-size: 0.85rem; color: var(--color-muted);">$${item.price.toLocaleString('es-CL')} c/u</p>` : ''}
           </div>
-          <button class="cart-drawer-item-remove" data-index="${index}">&times;</button>
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.5rem;">
+            <div class="qty-controls" style="display:flex; align-items:center; border:1px solid var(--color-border); border-radius:4px; overflow:hidden;">
+              <button class="qty-btn qty-minus" data-index="${index}" style="background:var(--color-background-alt); border:none; width:28px; height:28px; cursor:pointer; font-weight:bold;">-</button>
+              <span style="width:30px; text-align:center; font-size:0.9rem;">${item.quantity}</span>
+              <button class="qty-btn qty-plus" data-index="${index}" style="background:var(--color-background-alt); border:none; width:28px; height:28px; cursor:pointer; font-weight:bold;">+</button>
+            </div>
+            ${item.price > 0 ? `<span style="font-weight:600; color:var(--color-primary);">$${subtotal.toLocaleString('es-CL')}</span>` : ''}
+          </div>
+          
+          <button class="cart-drawer-item-remove" data-index="${index}" style="position:absolute; top:0; right:0; background:none; border:none; font-size:1.5rem; color:#ff4d4f; cursor:pointer; padding:0; line-height:1;">&times;</button>
         </div>
       `;
     });
@@ -1214,7 +1229,47 @@ document.addEventListener('DOMContentLoaded', () => {
     removeBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const index = parseInt(e.target.getAttribute('data-index'));
+        const pName = cart[index].name;
         cart.splice(index, 1);
+        
+        // Remove 'added' class from product buttons on the page
+        const addBtns = document.querySelectorAll('.btn-add-cart');
+        addBtns.forEach(b => {
+          if(b.getAttribute('data-name') === pName) {
+            b.textContent = 'Agregar a Cotización';
+            b.classList.remove('added');
+          }
+        });
+        
+        saveCart();
+        updateCartDrawerUI();
+        updateFloatingCart();
+        renderCartInForm();
+      });
+    });
+    
+    // Listeners for quantity +/-
+    const minusBtns = cartDrawerBody.querySelectorAll('.qty-minus');
+    minusBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        if (cart[index].quantity > 1) {
+          cart[index].quantity -= 1;
+        } else {
+          cart.splice(index, 1); // Remove if drops below 1
+        }
+        saveCart();
+        updateCartDrawerUI();
+        updateFloatingCart();
+        renderCartInForm();
+      });
+    });
+
+    const plusBtns = cartDrawerBody.querySelectorAll('.qty-plus');
+    plusBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        cart[index].quantity += 1;
         saveCart();
         updateCartDrawerUI();
         updateFloatingCart();
