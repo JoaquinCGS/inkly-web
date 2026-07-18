@@ -361,21 +361,21 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateWhatsappLink() {
     const phone = '56966932414';
     
-    let text = '\u2728 *¡Hola Inkly!* \u2728\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
+    let text = '✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
     if (cart.length > 0) {
       let total = 0;
       cart.forEach(item => {
-        text += '\uD83D\uDECD\uFE0F ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')})` : '') + '\n';
-        total += item.price;
+        const subtotal = item.price * item.quantity;
+        text += '🛍️ ' + item.quantity + 'x ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')} c/u)` : '') + '\n';
+        total += subtotal;
       });
       if (total > 0) {
         const abono = Math.round(total / 2);
-        text += '\n\uD83D\uDCB0 *Total estimado:* $' + total.toLocaleString('es-CL');
-        text += '\n\uD83D\uDCB3 *Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
+        text += '\n💰 *Total estimado:* $' + total.toLocaleString('es-CL');
+        text += '\n💳 *Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
         text += '\n_(Nota: El valor final podría variar según cantidades específicas)_';
       }
     } else {
-
       text = '¡Hola Inkly!';
     }
     return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
