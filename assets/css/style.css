@@ -1,5 +1,5 @@
 ﻿/* ---------------------------------------------------
-   Inkly â€“ Style Sheet  |  Fully Responsive
+   Inkly – Style Sheet  |  Fully Responsive
    --------------------------------------------------- */
 
 /* ---- Variables ---- */
@@ -74,7 +74,7 @@ h1, h2, h3 {
 .logo-text {
   font-family: 'Brush Script MT', 'Brush Script Std', cursive;
   font-size: 2.2rem;
-  color: var(--color-text); /* Se adapta automÃ¡ticamente a claro/oscuro */
+  color: var(--color-text); /* Se adapta automáticamente a claro/oscuro */
   font-weight: normal;
   letter-spacing: 1px;
 }
@@ -118,7 +118,7 @@ p  { margin-bottom: 1rem; }
 /* Logo */
 .logo img { height: 40px; width: auto; }
 
-/* Nav links â€“ desktop */
+/* Nav links – desktop */
 .nav-links {
   position: relative;
   display: flex;
@@ -230,7 +230,7 @@ p  { margin-bottom: 1rem; }
   background-position: center;
   background-repeat: no-repeat;
   
-  /* Usamos un SVG en lÃ­nea como mÃ¡scara inicial */
+  /* Usamos un SVG en línea como máscara inicial */
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="300" font-weight="900" font-family="system-ui, sans-serif">INKLY</text></svg>');
   mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-size="300" font-weight="900" font-family="system-ui, sans-serif">INKLY</text></svg>');
   -webkit-mask-size: 30vw;
@@ -789,7 +789,7 @@ p  { margin-bottom: 1rem; }
    FUNCIONALIDADES AVANZADAS
    ========================================= */
 
-/* --- Barra de BÃºsqueda --- */
+/* --- Barra de Búsqueda --- */
 .search-container {
   display: flex;
   align-items: center;
@@ -866,7 +866,7 @@ p  { margin-bottom: 1rem; }
   font-size: 0.9rem;
 }
 
-/* --- BotÃ³n Modo Oscuro --- */
+/* --- Botón Modo Oscuro --- */
 .theme-toggle {
   background: var(--color-border);
   border: 1px solid rgba(0,0,0,0.1);
@@ -1164,7 +1164,7 @@ p  { margin-bottom: 1rem; }
 .story-nav.left { left: 0; }
 .story-nav.right { right: 0; }
 
-/* ---- BÃºsqueda Inteligente (Autocomplete) ---- */
+/* ---- Búsqueda Inteligente (Autocomplete) ---- */
 .search-container { position: relative; }
 .search-dropdown { position: absolute; top: calc(100% + 6px); left: 0; width: 300px; max-height: 400px; overflow-y: auto; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(255,154,193,0.15); backdrop-filter: blur(16px); z-index: 1000; display: flex; flex-direction: column; padding: 0.5rem; visibility: hidden; opacity: 0; transform: translateY(-8px) scale(0.98); pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease; }
 .search-dropdown.active { visibility: visible; opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
@@ -1186,7 +1186,7 @@ p  { margin-bottom: 1rem; }
 .cat-card .btn { margin: 1rem auto 1.5rem; font-size: 0.88rem; padding: 0.5rem 1.4rem; }
 
 /* ================================================
-   RESPONSIVE â€“ TABLET  (max 900px)
+   RESPONSIVE – TABLET  (max 900px)
    ================================================ */
 @media (max-width: 900px) {
   /* Hide CTA button in navbar to save space */
@@ -1197,11 +1197,11 @@ p  { margin-bottom: 1rem; }
 .bottom-nav { display: none; }
 
 /* ================================================
-   RESPONSIVE â€“ MOBILE  (max 700px)
+   RESPONSIVE – MOBILE  (max 700px)
    ================================================ */
 @media (max-width: 700px) {
 
-  /* --- Navbar (RediseÃ±o App-like) --- */
+  /* --- Navbar (Rediseño App-like) --- */
   .nav-toggle { display: none !important; }
   .nav-links {
     display: block !important;
@@ -1321,7 +1321,7 @@ p  { margin-bottom: 1rem; }
 }
 
 /* ================================================
-   RESPONSIVE â€“ SMALL MOBILE  (max 420px)
+   RESPONSIVE – SMALL MOBILE  (max 420px)
    ================================================ */
 @media (max-width: 420px) {
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
@@ -1398,7 +1398,7 @@ p  { margin-bottom: 1rem; }
   opacity: 0.9;
 }
 
-/* ---- BotÃ³n MÃ¡gico Volver Arriba ---- */
+/* ---- Botón Mágico Volver Arriba ---- */
 .scroll-top-btn {
   position: fixed;
   bottom: 80px;
@@ -1514,7 +1514,7 @@ p  { margin-bottom: 1rem; }
 }
 
 /* ================================================
-   PREMIUM ENHANCEMENTS â€“ Glassmorphism & Micro-animations
+   PREMIUM ENHANCEMENTS – Glassmorphism & Micro-animations
    ================================================ */
 
 /* Variables adicionales premium */
@@ -1636,7 +1636,7 @@ p  { margin-bottom: 1rem; }
 
 
 
-/* --- Mejora de cards hover (mÃ¡s suave) --- */
+/* --- Mejora de cards hover (más suave) --- */
 .category-card:hover, .card:hover, .cat-card:hover {
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: 0 16px 40px rgba(255,154,193,0.22) !important;

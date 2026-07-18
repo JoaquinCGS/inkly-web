@@ -1,4 +1,4 @@
-﻿// Forzar al navegador a empezar desde arriba al recargar la pÃ¡gina (F5)
+// Forzar al navegador a empezar desde arriba al recargar la pÃ¡gina (F5)
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
@@ -145,10 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const hrefHash = hrefAttr.includes('#') ? '#' + hrefAttr.split('#')[1] : '';
 
     if (currentFile === 'index.html' || currentFile === '') {
-      if (currentHash) {
-        if (hrefBase === 'index.html' && hrefHash === currentHash) activeLink = a;
-      } else {
-        if (hrefBase === 'index.html' && !activeLink) activeLink = a; // Default to first match (Inicio)
+      if (hrefBase === 'index.html') {
+        if (currentHash === '' && hrefHash === '#inicio') {
+          activeLink = a;
+        } else if (currentHash === hrefHash) {
+          activeLink = a;
+        }
       }
     } else {
       if (hrefBase === currentFile) activeLink = a;
