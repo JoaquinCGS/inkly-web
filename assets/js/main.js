@@ -361,18 +361,24 @@ document.addEventListener('DOMContentLoaded', () => {
   function generateWhatsappLink() {
     const phone = '56966932414';
     
-    let text = '✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
+    let text = '*¡Hola Inkly!* \n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
     if (cart.length > 0) {
       let total = 0;
       cart.forEach(item => {
         const subtotal = item.price * item.quantity;
-        text += '🛍️ ' + item.quantity + 'x ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')} c/u)` : '') + '\n';
+        text += '- ' + item.quantity + 'x ' + item.name + (item.price > 0 ? ` ($${item.price.toLocaleString('es-CL')} c/u)` : '') + '\n';
         total += subtotal;
       });
       if (total > 0) {
         const abono = Math.round(total / 2);
-        text += '\n💰 *Total estimado:* $' + total.toLocaleString('es-CL');
-        text += '\n💳 *Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
+        
+        const dateInput = document.getElementById('deliveryDate');
+        if (dateInput && dateInput.value) {
+          text += '\n*Fecha de entrega/retiro:* ' + dateInput.value;
+        }
+
+        text += '\n\n*Total estimado:* $' + total.toLocaleString('es-CL');
+        text += '\n*Abono requerido (50%):* $' + abono.toLocaleString('es-CL') + '\n';
         text += '\n_(Nota: El valor final podría variar según cantidades específicas)_';
       }
     } else {
@@ -1248,11 +1254,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const waLink = generateWhatsappLink();
     html += `
-      <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
+      <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
+        
+        <div style="margin-bottom: 1.5rem; text-align: left; background: #fff; padding: 1rem; border-radius: 8px; border: 1px solid var(--color-border);">
+          <label for="deliveryDate" style="display:block; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text);">
+            Fecha de entrega o retiro:
+          </label>
+          <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 0; margin-bottom: 0.5rem; line-height: 1.3;">
+            <em>*Indica para cuándo necesitas tu pedido listo (NO el día de tu evento).</em>
+          </p>
+          <input type="date" id="deliveryDate" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: 4px; font-family: inherit;">
+        </div>
+
         <p style="margin-bottom: 0.5rem; font-weight: 600;">Total estimado: $${total.toLocaleString('es-CL')}</p>
         <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--color-muted);">Abono (50%): $${Math.round(total/2).toLocaleString('es-CL')}</p>
-        <a href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none;">
-          \uD83D\uDCAC Solicitar Cotización por WhatsApp
+        <a id="waBtn" href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none; font-weight: 600;">
+          Solicitar Cotización por WhatsApp
         </a>
       </div>
     `;
@@ -1305,6 +1322,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof renderProductButtons === 'function') renderProductButtons();
       });
     });
+
+    // Date picker listener
+    const dateInput = document.getElementById('deliveryDate');
+    const waBtn = document.getElementById('waBtn');
+    if (dateInput && waBtn) {
+      dateInput.addEventListener('change', () => {
+        waBtn.href = generateWhatsappLink();
+      });
+    }
   }
 
 
