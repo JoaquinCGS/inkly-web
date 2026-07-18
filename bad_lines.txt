@@ -1,0 +1,26 @@
+404.html:6: <title>Página no encontrada � Inkly</title>
+404.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+404.html:92: <h1 class="error-title">�Ups! Parece que nos perdimos de fiesta</h1>
+404.html:93: <p class="error-msg">La página que estás buscando no existe, fue movida o temporalmente no est� disponible.</p>
+babyshower.html:6: <title>Inkly � Baby Shower</title>
+babyshower.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+babyshower.html:143: <p>Sopa de letras, balbuceo y laberinto � Incluye lápiz</p>
+babyshower.html:162: <h3>Raspe "Encuentra a mam�/pap�"</h3>
+babyshower.html:164: <button class="btn btn-add-cart" data-name="Raspe encuentra a mam�/pap� (x24)">Agregar a Cotización</button>
+babyshower.html:177: <p>Personalizado con el nombre del beb�</p>
+bautizo.html:6: <title>Inkly � Bautizo</title>
+bautizo.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+corporativo.html:6: <title>Inkly � Corporativo</title>
+corporativo.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+cumpleanos.html:6: <title>Inkly � Cumpleaños</title>
+cumpleanos.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+invitaciones.html:6: <title>Inkly � Invitaciones</title>
+invitaciones.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+marcapaginas.html:6: <title>Inkly � Marcapáginas</title>
+marcapaginas.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+souvenirs.html:6: <title>Inkly � Recuerdos y Souvenirs</title>
+souvenirs.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />
+souvenirs.html:141: <p>Medidas 8x8 cm y/o 7x9 cm � Precio por 10 unidades</p>
+souvenirs.html:148: <p>3 fotos � 15x4 cm � Precio por 10 unidades</p>
+tarjetas.html:6: <title>Inkly � Tarjetas</title>
+tarjetas.html:8: <meta property="og:title" content="Inkly � Cotillón y Souvenirs personalizados" />

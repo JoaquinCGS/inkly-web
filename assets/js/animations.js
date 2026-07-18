@@ -1,5 +1,5 @@
-/**
- * Inkly – Animaciones con Motion One (motor de Framer Motion)
+﻿/**
+ * Inkly â€“ Animaciones con Motion One (motor de Framer Motion)
  * Compatible con HTML puro sin React
  */
 
@@ -16,7 +16,7 @@ if (prefersReduced) {
 }
 
 /* ================================================
-   NAVBAR – shrink on scroll
+   NAVBAR â€“ shrink on scroll
    ================================================ */
 const navbar = document.querySelector('.navbar');
 if (navbar) {
@@ -35,7 +35,7 @@ if (navbar) {
 }
 
 /* ================================================
-   HERO – entrada en secuencia
+   HERO â€“ entrada en secuencia
    ================================================ */
 if (!prefersReduced) {
   const heroH1 = document.querySelector('.hero h1');
@@ -62,10 +62,10 @@ if (!prefersReduced) {
 }
 
 /* ================================================
-   CARDS – fade + slide al entrar en viewport
+   CARDS â€“ fade + slide al entrar en viewport
    ================================================ */
 if (!prefersReduced) {
-  // Cards de categorías (index y catalog)
+  // Cards de categorÃ­as (index y catalog)
   const categoryCards = document.querySelectorAll('.category-card, .cat-card');
   if (categoryCards.length > 0) {
     categoryCards.forEach(card => {
@@ -105,7 +105,7 @@ if (!prefersReduced) {
 }
 
 /* ================================================
-   SECTION TITLES – fade + slide up
+   SECTION TITLES â€“ fade + slide up
    ================================================ */
 if (!prefersReduced) {
   const titles = document.querySelectorAll('.section-title, .catalog-section-title');
@@ -124,7 +124,7 @@ if (!prefersReduced) {
 }
 
 /* ================================================
-   STEPS – stagger desde abajo
+   STEPS â€“ stagger desde abajo
    ================================================ */
 if (!prefersReduced) {
   const steps = document.querySelectorAll('.step');
@@ -146,7 +146,7 @@ if (!prefersReduced) {
 }
 
 /* ================================================
-   FLOATING CART – spring bounce al aparecer
+   FLOATING CART â€“ spring bounce al aparecer
    ================================================ */
 const floatingCartEl = document.getElementById('floatingCart');
 if (floatingCartEl && !prefersReduced) {
@@ -163,7 +163,7 @@ if (floatingCartEl && !prefersReduced) {
 }
 
 /* ================================================
-   FOOTER – fade in
+   FOOTER â€“ fade in
    ================================================ */
 if (!prefersReduced) {
   const footer = document.querySelector('.footer');

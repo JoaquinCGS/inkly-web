@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inkly – Cotillón y Souvenirs personalizados</title>
+  <title>Inkly â€“ CotillÃ³n y Souvenirs personalizados</title>
   <!-- Meta SEO & Social Media -->
-  <meta property="og:title" content="Inkly – Cotillón y Souvenirs personalizados" />
-  <meta property="og:description" content="Hacemos que tus celebraciones sean inolvidables con cotillón, papelería y recuerdos personalizados." />
+  <meta property="og:title" content="Inkly â€“ CotillÃ³n y Souvenirs personalizados" />
+  <meta property="og:description" content="Hacemos que tus celebraciones sean inolvidables con cotillÃ³n, papelerÃ­a y recuerdos personalizados." />
   <meta property="og:image" content="assets/images/logo.webp" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="description" content="Creamos momentos mágicos con cotillón, papelería y recuerdos personalizados para cualquier celebración." />
+  <meta name="description" content="Creamos momentos mÃ¡gicos con cotillÃ³n, papelerÃ­a y recuerdos personalizados para cualquier celebraciÃ³n." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
@@ -31,86 +31,47 @@
         <a href="index.html" class="logo">
           <span class="logo-text">Inkly</span>
         </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-label="MenÃº"><span></span><span></span><span></span></button>
       <nav class="nav-links">
         <div class="nav-indicator"></div>
         <a href="index.html#inicio" class="nav-item">Inicio</a>
-        <a href="catalog.html" class="nav-item">Catálogo</a>
-        <a href="index.html#como-funciona" class="nav-item">Cómo Funciona</a>
-        <a href="index.html#contacto" class="nav-item">Contacto</a>
+        <a href="catalog.html" class="nav-item">CatÃ¡logo</a>
+        <a href="index.html#como-funciona" class="nav-item">CÃ³mo Funciona</a>
+        <a href="index.html#faq" class="nav-item">Preguntas Frecuentes</a>
               <div class="search-container">
         <input type="text" class="search-input" id="globalSearch" placeholder="Buscar..." autocomplete="off" />
         <div class="search-dropdown" id="searchDropdown"></div>
       </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">â˜€ï¸</span><span class="icon-moon">ðŸŒ™</span></button>
       </nav>
       <a href="index.html#cotizacion" class="btn btn-primary">Cotizar Proyecto</a>
     </div>
   </header>
 
-  <!-- Marquesina Infinita -->
-  <div class="ticker-wrap">
-    <div class="ticker">
-      <div class="ticker-item">✨ Diseños 100% Personalizados</div>
-      <div class="ticker-item">✨ Envíos a todo Chile</div>
-      <div class="ticker-item">✨ Hecho a mano con amor</div>
-      <div class="ticker-item">✨ Cotillón Exclusivo</div>
-      <div class="ticker-item">✨ Diseños 100% Personalizados</div>
-      <div class="ticker-item">✨ Envíos a todo Chile</div>
-      <div class="ticker-item">✨ Hecho a mano con amor</div>
-      <div class="ticker-item">✨ Cotillón Exclusivo</div>
-    </div>
-  </div>
-  <section id="inicio" class="hero">
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <h1>Hacemos que tus celebraciones sean inolvidables</h1>
-        <p class="subtitle">Personalizamos cotillón, papelería y recuerdos para que cada evento sea único.</p>
-        <a href="catalog.html" class="btn btn-cta">Ver Catálogo</a>
-      </div>
-      <div class="hero-image">
-        <img src="assets/images/banner.webp" alt="Celebración colorida" loading="lazy" />
-      </div>
+  <!-- (Marquesina removida y movida al catÃ¡logo/productos) -->
+  <section class="parallax-hero" id="inicio">
+    <!-- Capa de la mÃ¡scara (el texto INKLY que revela el fondo) -->
+    <div class="parallax-mask" id="parallaxMask"></div>
+    
+    <!-- Capa de la imagen completa para hacer la transiciÃ³n perfecta -->
+    <div class="parallax-full-image" id="parallaxFullImage"></div>
+    
+    <!-- Contenido que aparece al final de la animaciÃ³n -->
+    <div class="parallax-content" id="parallaxContent">
+      <h1 class="hero-title">Dale Vida a tu Fiesta con Inkly</h1>
+      <p class="hero-subtitle">PapelerÃ­a creativa y cotillÃ³n 100% personalizado para momentos inolvidables.</p>
+      <a href="catalog.html" class="btn btn-primary" style="margin-top:1rem;display:inline-flex;gap:0.5rem;align-items:center;">
+        <i data-feather="shopping-bag"></i> Ver CatÃ¡logo
+      </a>
     </div>
   </section>
 
   <!-- Historias Estilo Instagram (Marquesina) -->
   <section class="stories-section container">
-    <h2 class="section-title" style="margin-bottom: 1rem;">Ustedes</h2>
+    <h2 class="section-title" style="margin-bottom: 1rem;">Nuestros Clientes</h2>
     <div class="stories-wrap">
       <div class="stories-container" id="storiesContainer">
-        <!-- Grupo 1 -->
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit1.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/bolsapinata.webp" alt="Bolsas"></div></div>
-        <div class="story-circle" data-story="2"><div class="story-ring"><img src="assets/images/libros6imagens.webp" alt="Libritos"></div></div>
-        <div class="story-circle" data-story="3"><div class="story-ring"><img src="assets/images/centrodemesa.webp" alt="Centros"></div></div>
-        <div class="story-circle" data-story="4"><div class="story-ring"><img src="assets/images/toppertorta3d.webp" alt="Toppers"></div></div>
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit2.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/cajamilk.webp" alt="Bolsas"></div></div>
-        <!-- Grupo 2 -->
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit1.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/bolsapinata.webp" alt="Bolsas"></div></div>
-        <div class="story-circle" data-story="2"><div class="story-ring"><img src="assets/images/libros6imagens.webp" alt="Libritos"></div></div>
-        <div class="story-circle" data-story="3"><div class="story-ring"><img src="assets/images/centrodemesa.webp" alt="Centros"></div></div>
-        <div class="story-circle" data-story="4"><div class="story-ring"><img src="assets/images/toppertorta3d.webp" alt="Toppers"></div></div>
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit2.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/cajamilk.webp" alt="Bolsas"></div></div>
-        <!-- Grupo 3 -->
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit1.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/bolsapinata.webp" alt="Bolsas"></div></div>
-        <div class="story-circle" data-story="2"><div class="story-ring"><img src="assets/images/libros6imagens.webp" alt="Libritos"></div></div>
-        <div class="story-circle" data-story="3"><div class="story-ring"><img src="assets/images/centrodemesa.webp" alt="Centros"></div></div>
-        <div class="story-circle" data-story="4"><div class="story-ring"><img src="assets/images/toppertorta3d.webp" alt="Toppers"></div></div>
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit2.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/cajamilk.webp" alt="Bolsas"></div></div>
-        <!-- Grupo 4 -->
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit1.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/bolsapinata.webp" alt="Bolsas"></div></div>
-        <div class="story-circle" data-story="2"><div class="story-ring"><img src="assets/images/libros6imagens.webp" alt="Libritos"></div></div>
-        <div class="story-circle" data-story="3"><div class="story-ring"><img src="assets/images/centrodemesa.webp" alt="Centros"></div></div>
-        <div class="story-circle" data-story="4"><div class="story-ring"><img src="assets/images/toppertorta3d.webp" alt="Toppers"></div></div>
-        <div class="story-circle" data-story="0"><div class="story-ring"><img src="assets/images/kit2.webp" alt="Kits"></div></div>
-        <div class="story-circle" data-story="1"><div class="story-ring"><img src="assets/images/cajamilk.webp" alt="Bolsas"></div></div>
+        <!-- JS llenarÃ¡ esto dinÃ¡micamente -->
       </div>
     </div>
   </section>
@@ -123,10 +84,6 @@
     </div>
     <div class="story-content" id="storyContent">
       <img src="" alt="Story Image" id="storyImage">
-      <div class="story-caption">
-        <h3 id="storyTitle">Título</h3>
-        <a href="catalog.html" class="btn">Comprar</a>
-      </div>
     </div>
     <div class="story-nav left" id="storyPrev"></div>
     <div class="story-nav right" id="storyNext"></div>
@@ -137,19 +94,19 @@
       <h2 class="section-title">Nuestros Productos Estrella</h2>
       <div class="grid">
         <a href="catalog.html#cotillon" class="card category-card">
-          <img src="assets/images/cotillonT.webp" alt="Cotillón Temático" loading="lazy" />
-          <h3>Cotillón Temático</h3>
-          <p>Ideas creativas para cumpleaños, fiestas de temporada y más.</p>
+          <img src="assets/images/cotillonT.webp" alt="CotillÃ³n TemÃ¡tico" loading="lazy" />
+          <h3>CotillÃ³n TemÃ¡tico</h3>
+          <p>Ideas creativas para cumpleaÃ±os, fiestas de temporada y mÃ¡s.</p>
         </a>
         <a href="catalog.html#papeleria" class="card category-card">
-          <img src="assets/images/papeleria.webp" alt="Papelería Personalizada" loading="lazy" />
-          <h3>Papelería Personalizada</h3>
-          <p>Marcapáginas, notas de diseño y papelería fina a tu medida.</p>
+          <img src="assets/images/papeleria.webp" alt="PapelerÃ­a Personalizada" loading="lazy" />
+          <h3>PapelerÃ­a Personalizada</h3>
+          <p>MarcapÃ¡ginas, notas de diseÃ±o y papelerÃ­a fina a tu medida.</p>
         </a>
         <a href="catalog.html#souvenirs" class="card category-card">
           <img src="assets/images/souvenir.webp" alt="Recuerdos y Souvenirs" loading="lazy" />
           <h3>Recuerdos y Souvenirs</h3>
-          <p>Detalles únicos para que tus invitados recuerden tu evento.</p>
+          <p>Detalles Ãºnicos para que tus invitados recuerden tu evento.</p>
         </a>
       </div>
     </div>
@@ -157,11 +114,11 @@
 
   <section id="como-funciona" class="how-it-works">
     <div class="container">
-      <h2 class="section-title">Cómo Funciona</h2>
+      <h2 class="section-title">CÃ³mo Funciona</h2>
       <div class="steps">
-        <div class="step"><div class="step-number">1</div><h3>Elige tu temática o producto</h3><p>Explora nuestro catálogo y escoge lo que mejor se adapta a tu celebración.</p></div>
-        <div class="step"><div class="step-number">2</div><h3>Personalizamos el diseño a tu medida</h3><p>Trabajamos contigo para crear un diseño exclusivo y de alta calidad.</p></div>
-        <div class="step"><div class="step-number">3</div><h3>¡Recibe en la puerta de tu casa!</h3><p>Entregamos tus productos a tiempo, listos para sorprender.</p></div>
+        <div class="step"><div class="step-number">1</div><h3>Elige tu temÃ¡tica o producto</h3><p>Explora nuestro catÃ¡logo y escoge lo que mejor se adapta a tu celebraciÃ³n.</p></div>
+        <div class="step"><div class="step-number">2</div><h3>Personalizamos el diseÃ±o a tu medida</h3><p>Trabajamos contigo para crear un diseÃ±o exclusivo y de alta calidad.</p></div>
+        <div class="step"><div class="step-number">3</div><h3>Â¡Recibe en la puerta de tu casa!</h3><p>Entregamos tus productos a tiempo, listos para sorprender.</p></div>
       </div>
     </div>
   </section>
@@ -170,9 +127,9 @@
     <div class="container">
       <h2 class="section-title">Lo que dicen nuestros clientes</h2>
       <div class="testimonial-carousel">
-        <div class="testimonial"><p>"El cotillón superó todas nuestras expectativas."</p><span class="author">– Camila G.</span></div>
-        <div class="testimonial"><p>"Papelería personalizada que dejó a todos con una sonrisa."</p><span class="author">– Rodrigo M.</span></div>
-        <div class="testimonial"><p>"Los recuerdos fueron el toque final de nuestra boda."</p><span class="author">– Sofía y Andrés</span></div>
+        <div class="testimonial"><p>"El cotillÃ³n superÃ³ todas nuestras expectativas."</p><span class="author">â€“ Camila G.</span></div>
+        <div class="testimonial"><p>"PapelerÃ­a personalizada que dejÃ³ a todos con una sonrisa."</p><span class="author">â€“ Rodrigo M.</span></div>
+        <div class="testimonial"><p>"Los recuerdos fueron el toque final de nuestra boda."</p><span class="author">â€“ SofÃ­a y AndrÃ©s</span></div>
       </div>
     </div>
   </section>
@@ -184,12 +141,12 @@
         <input type="hidden" name="_subject" value="Nueva solicitud Inkly" />
         <input type="hidden" name="_replyto" value="servicioInkly@gmail.com" />
         <div class="form-group"><label for="nombre">Nombre</label><input type="text" id="nombre" name="nombre" required /></div>
-        <div class="form-group"><label for="email">Correo electrónico</label><input type="email" id="email" name="email" required /></div>
+        <div class="form-group"><label for="email">Correo electrÃ³nico</label><input type="email" id="email" name="email" required /></div>
         <div class="form-group">
           <label for="evento">Tipo de Evento</label>
           <select id="evento" name="evento" required>
             <option value="">Selecciona</option>
-            <option value="cumpleanos">Cumpleaños</option>
+            <option value="cumpleanos">CumpleaÃ±os</option>
             <option value="bautizo">Bautizo</option>
             <option value="boda">Boda</option>
             <option value="corporativo">Corporativo</option>
@@ -201,50 +158,104 @@
           <ul id="cartItemsList" class="cart-items-list"></ul>
           <input type="hidden" id="productosSeleccionados" name="productos_seleccionados" value="" />
         </div>
-        <div class="form-group"><label for="descripcion">Describe tu idea</label><textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej.: Tema de unicornios, colores pastel…" required></textarea></div>
+        <div class="form-group"><label for="descripcion">Describe tu idea</label><textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej.: Tema de unicornios, colores pastelâ€¦" required></textarea></div>
         <button type="submit" class="btn btn-primary submit-btn">Enviar Solicitud</button>
       </form>
     </div>
   </section>
 
-  <!-- Sección de Preguntas Frecuentes (FAQ) -->
+  <!-- SecciÃ³n de Preguntas Frecuentes (FAQ) -->
   <section id="faq" class="container" style="padding-top: 1rem; padding-bottom: 4rem;">
     <h2 class="section-title">Preguntas Frecuentes</h2>
     <div class="faq-container">
       <div class="faq-item">
         <button class="faq-question">
-          <span>¿Con cuánto tiempo de anticipación debo hacer mi pedido?</span>
+          <span>Â¿Con cuÃ¡nto tiempo de anticipaciÃ³n debo hacer mi pedido?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Como todos nuestros productos son 100% personalizados y hechos a mano, te recomendamos hacer tu pedido con al menos <strong>1 a 2 semanas de anticipación</strong>. Para fechas de alta demanda, ¡mientras antes, mejor!</p>
+          <p>Como todos nuestros productos son 100% personalizados y hechos a mano, te recomendamos hacer tu pedido con al menos <strong>1 a 2 semanas de anticipaciÃ³n</strong>. Para fechas de alta demanda, Â¡mientras antes, mejor!</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          <span>¿Realizan envíos a otras regiones?</span>
+          <span>Â¿Realizan envÃ­os a otras regiones?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>¡Sí! Somos de Temuco, pero realizamos envíos a <strong>todo Chile</strong> a través de Starken o Chilexpress (modalidad por pagar). Nos preocupamos de embalar todo súper bien para que llegue impecable a tus manos.</p>
+          <p>Â¡SÃ­! Somos de Temuco, pero realizamos envÃ­os a <strong>todo Chile</strong> a travÃ©s de Starken o Chilexpress (modalidad por pagar). Nos preocupamos de embalar todo sÃºper bien para que llegue impecable a tus manos.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          <span>¿Cómo elijo la temática de mi cotillón?</span>
+          <span>Â¿CÃ³mo elijo la temÃ¡tica de mi cotillÃ³n?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>¡Tú pones los límites! Puedes elegir cualquier temática, personaje, paleta de colores o concepto. Una vez nos contactas, armamos una propuesta de diseño exclusiva para tu celebración.</p>
+          <p>Â¡TÃº pones los lÃ­mites! Puedes elegir cualquier temÃ¡tica, personaje, paleta de colores o concepto. Una vez nos contactas, armamos una propuesta de diseÃ±o exclusiva para tu celebraciÃ³n.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question">
-          <span>¿Existe un mínimo de compra?</span>
+          <span>Â¿Existe un mÃ­nimo de compra?</span>
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Depende del producto. Algunos artículos tienen mínimos por docena o media docena para justificar el diseño personalizado. Escríbenos al WhatsApp con tu idea y te armamos una cotización a medida sin compromiso.</p>
+          <p>Depende del producto. Algunos artÃ­culos tienen mÃ­nimos por docena o media docena para justificar el diseÃ±o personalizado. EscrÃ­benos al WhatsApp con tu idea y te armamos una cotizaciÃ³n a medida sin compromiso.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Â¿Puedo ver un boceto antes de que impriman mi pedido?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>SÃ­, siempre enviamos un diseÃ±o digital para tu aprobaciÃ³n. Solo pasamos a producciÃ³n cuando estÃ©s 100% conforme con el resultado final.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Â¿QuÃ© mÃ©todos de pago aceptan?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Aceptamos transferencias bancarias. Para confirmar y agendar un pedido, solicitamos un abono del 50%, y el saldo restante se paga al momento de la entrega o antes del envÃ­o.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Â¿Hacen diseÃ±os corporativos o solo para fiestas?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Â¡Hacemos de todo! AdemÃ¡s de fiestas y eventos sociales, trabajamos papelerÃ­a para emprendimientos, regalos corporativos y material de marca. Si tienes una idea, nosotros la diseÃ±amos.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Â¿Puedo retirar mi pedido en persona si soy de Temuco?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Â¡Por supuesto! Una vez que tu pedido estÃ© listo, coordinaremos el dÃ­a y la hora para que puedas retirarlo directamente en nuestro taller en Temuco.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Â¿Tienen un catÃ¡logo de productos pre-diseÃ±ados?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>SÃ­, puedes revisar nuestra secciÃ³n de <strong>CatÃ¡logo</strong> para ver los productos mÃ¡s solicitados, pero recuerda que todos los detalles y temÃ¡ticas se pueden personalizar a tu gusto.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Â¿QuÃ© pasa si mi pedido sufre algÃºn daÃ±o en el envÃ­o?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Nos esmeramos en embalar cada pedido de manera sÃºper segura con protecciÃ³n extra. Si llegase a ocurrir algÃºn inconveniente, contÃ¡ctanos de inmediato para evaluar la situaciÃ³n y buscar una soluciÃ³n.</p>
         </div>
       </div>
     </div>
@@ -254,26 +265,26 @@
     <div class="container footer-inner">
       <div class="footer-links">
         <a href="#inicio">Inicio</a>
-        <a href="catalog.html">Catálogo</a>
-        <a href="#como-funciona">Cómo Funciona</a>
+        <a href="catalog.html">CatÃ¡logo</a>
+        <a href="#como-funciona">CÃ³mo Funciona</a>
         <a href="#cotizacion">Cotizar</a>
       </div>
       <div class="social">
         <a href="https://www.instagram.com/inkly_cotillon" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="social-icon" /></a>
         <a href="https://www.facebook.com/inkly.cotillon" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" class="social-icon" /></a>
       </div>
-      <p class="credit">© 2026 Inkly – Temuco, Chile. Envíos a todo Chile.</p>
+      <p class="credit">Â© 2026 Inkly â€“ Temuco, Chile. EnvÃ­os a todo Chile.</p>
     </div>
   </footer>
 
   <a href="#cotizacion" class="floating-cart" id="floatingCart" style="display: none;">
-    <span class="cart-icon">🛍️</span><span class="cart-count" id="cartCount">0</span><span class="cart-text">Ver Cotización</span>
+    <span class="cart-icon">ðŸ›ï¸</span><span class="cart-count" id="cartCount">0</span><span class="cart-text">Ver CotizaciÃ³n</span>
   </a>
     <!-- Cart Drawer -->
   <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
   <div class="cart-drawer" id="cartDrawer">
     <div class="cart-drawer-header">
-      <h3>Tu Cotización</h3>
+      <h3>Tu CotizaciÃ³n</h3>
       <button class="close-drawer" id="closeDrawer">&times;</button>
     </div>
     <div class="cart-drawer-body" id="cartDrawerBody">
@@ -284,7 +295,10 @@
     </div>
   </div>
   <script type="module" src="assets/js/animations.js"></script>
-    <a href="https://wa.me/56912345678?text=Hola%20Inkly!" class="floating-whatsapp" id="floatingWhatsapp" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+    <a href="https://wa.me/56966932414?text=Hola%20Inkly!" class="floating-whatsapp" id="floatingWhatsapp" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

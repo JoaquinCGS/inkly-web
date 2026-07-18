@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inkly – Catálogo de Productos</title>
+  <title>Inkly â€“ CatÃ¡logo de Productos</title>
   <!-- Meta SEO & Social Media -->
-  <meta property="og:title" content="Inkly – Cotillón y Souvenirs personalizados" />
-  <meta property="og:description" content="Hacemos que tus celebraciones sean inolvidables con cotillón, papelería y recuerdos personalizados." />
+  <meta property="og:title" content="Inkly â€“ CotillÃ³n y Souvenirs personalizados" />
+  <meta property="og:description" content="Hacemos que tus celebraciones sean inolvidables con cotillÃ³n, papelerÃ­a y recuerdos personalizados." />
   <meta property="og:image" content="assets/images/logo.webp" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="description" content="Catálogo de cotillón, papelería personalizada y souvenirs de Inkly." />
+  <meta name="description" content="CatÃ¡logo de cotillÃ³n, papelerÃ­a personalizada y souvenirs de Inkly." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
@@ -85,7 +85,8 @@
       gap: 1.75rem;
     }
   </style>
-  <link rel="icon" type="image/png" href="assets/images/logob.webp" /><!-- Google tag (gtag.js) -->
+  <link rel="icon" type="image/png" href="assets/images/logob.webp" />
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V15F1C2BH5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -103,57 +104,71 @@
       <a href="index.html" class="logo">
           <span class="logo-text">Inkly</span>
         </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" id="navToggle" aria-label="MenÃº"><span></span><span></span><span></span></button>
       <nav class="nav-links">
         <div class="nav-indicator"></div>
         <a href="index.html#inicio" class="nav-item">Inicio</a>
-        <a href="catalog.html" class="nav-item">Catálogo</a>
-        <a href="index.html#como-funciona" class="nav-item">Cómo Funciona</a>
-        <a href="index.html#contacto" class="nav-item">Contacto</a>
+        <a href="catalog.html" class="nav-item">CatÃ¡logo</a>
+        <a href="index.html#como-funciona" class="nav-item">CÃ³mo Funciona</a>
+        <a href="index.html#faq" class="nav-item">Preguntas Frecuentes</a>
               <div class="search-container">
           <input type="text" class="search-input" id="globalSearch" placeholder="Buscar..." autocomplete="off" />
           <div class="search-dropdown" id="searchDropdown"></div>
         </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">â˜€ï¸</span><span class="icon-moon">ðŸŒ™</span></button>
       </nav>
       <a href="index.html#cotizacion" class="btn btn-primary">Cotizar Proyecto</a>
     </div>
   </header>
 
-  <!-- Hero del Catálogo -->
+  <!-- Marquesina Infinita -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item">âœ¨ DiseÃ±os 100% Personalizados</div>
+      <div class="ticker-item">âœ¨ EnvÃ­os a todo Chile</div>
+      <div class="ticker-item">âœ¨ Hecho a mano con amor</div>
+      <div class="ticker-item">âœ¨ CotillÃ³n Exclusivo</div>
+      <div class="ticker-item">âœ¨ DiseÃ±os 100% Personalizados</div>
+      <div class="ticker-item">âœ¨ EnvÃ­os a todo Chile</div>
+      <div class="ticker-item">âœ¨ Hecho a mano con amor</div>
+      <div class="ticker-item">âœ¨ CotillÃ³n Exclusivo</div>
+    </div>
+  </div>
+
+  <!-- Hero del CatÃ¡logo -->
   <section class="hero" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%); color:#fff; padding: 3rem 0; text-align:center;">
     <div class="container">
-      <h1>Catálogo de Productos Inkly</h1>
-      <p class="subtitle" style="margin-top: 1rem;">Encuentra el detalle perfecto para cada tipo de celebración.</p>
+      <h1>CatÃ¡logo de Productos Inkly</h1>
+      <p class="subtitle" style="margin-top: 1rem;">Encuentra el detalle perfecto para cada tipo de celebraciÃ³n.</p>
       <a href="index.html" class="btn btn-primary" style="margin-top: 1.5rem;">Volver al Inicio</a>
     </div>
 
-    <!-- Filtros del Catálogo -->
+    <!-- Filtros del CatÃ¡logo -->
     <div class="container" style="text-align: center; padding-top: 3rem;">
       <div class="catalog-filters" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
         <button class="filter-btn active" data-filter="all" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid #fff; background: #fff; color: var(--color-primary); font-weight: 600; cursor: pointer; transition: 0.3s;">Todos</button>
-        <button class="filter-btn" data-filter="cotillon" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;">Cotillón Temático</button>
-        <button class="filter-btn" data-filter="papeleria" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;">Papelería</button>
+        <button class="filter-btn" data-filter="cotillon" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;">CotillÃ³n TemÃ¡tico</button>
+        <button class="filter-btn" data-filter="papeleria" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;">PapelerÃ­a</button>
         <button class="filter-btn" data-filter="souvenirs" style="padding: 0.6rem 1.2rem; border-radius: 30px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s;">Recuerdos y Souvenirs</button>
       </div>
     </div>
   </section>
 
-  <!-- ===================== COTILLÓN TEMÁTICO ===================== -->
+  <!-- ===================== COTILLÃ“N TEMÃTICO ===================== -->
   <section class="catalog-section" id="cotillon">
     <div class="container">
-      <h2 class="catalog-section-title">Cotillón Temático</h2>
+      <h2 class="catalog-section-title">CotillÃ³n TemÃ¡tico</h2>
       <div class="cat-grid">
         <div class="cat-card">
-          <img src="assets/images/cumpleaniosinf.webp" alt="Cumpleaños" />
-          <h3>Cumpleaños</h3>
-          <p>Decoración temática, kits completos y recuerdos para los más pequeños.</p>
+          <img src="assets/images/cumpleaniosinf.webp" alt="CumpleaÃ±os" />
+          <h3>CumpleaÃ±os</h3>
+          <p>DecoraciÃ³n temÃ¡tica, kits completos y recuerdos para los mÃ¡s pequeÃ±os.</p>
           <a href="cumpleanos.html" class="btn btn-primary">Ver Productos</a>
         </div>
         <div class="cat-card">
           <img src="assets/images/baby.webp" alt="Baby Shower" />
           <h3>Baby Shower</h3>
-          <p>Kits delicados con juegos, decoración y accesorios en tonos pastel.</p>
+          <p>Kits delicados con juegos, decoraciÃ³n y accesorios en tonos pastel.</p>
           <a href="babyshower.html" class="btn btn-primary">Ver Productos</a>
         </div>
 
@@ -161,15 +176,15 @@
     </div>
   </section>
 
-  <!-- ===================== PAPELERÍA ===================== -->
+  <!-- ===================== PAPELERÃA ===================== -->
   <section class="catalog-section" id="papeleria">
     <div class="container">
-      <h2 class="catalog-section-title">Papelería</h2>
+      <h2 class="catalog-section-title">PapelerÃ­a</h2>
       <div class="cat-grid">
         <div class="cat-card">
-          <img src="assets/images/papeleria.webp" alt="Papelería" />
-          <h3>Papelería</h3>
-          <p>Todo en papelería personalizada para tus eventos especiales.</p>
+          <img src="assets/images/papeleria.webp" alt="PapelerÃ­a" />
+          <h3>PapelerÃ­a</h3>
+          <p>Todo en papelerÃ­a personalizada para tus eventos especiales.</p>
           <a href="invitaciones.html" class="btn btn-primary">Ver Productos</a>
         </div>
       </div>
@@ -184,7 +199,7 @@
         <div class="cat-card">
           <img src="assets/images/recuerdos.webp" alt="Recuerdos &amp; Souvenirs" />
           <h3>Recuerdos &amp; Souvenirs</h3>
-          <p>Detalles únicos y personalizados para agradecer a tus invitados.</p>
+          <p>Detalles Ãºnicos y personalizados para agradecer a tus invitados.</p>
           <a href="souvenirs.html" class="btn btn-primary">Ver Productos</a>
         </div>
       </div>
@@ -195,8 +210,8 @@
     <div class="container footer-inner">
       <div class="footer-links">
         <a href="index.html#inicio">Inicio</a>
-        <a href="catalog.html">Catálogo</a>
-        <a href="index.html#como-funciona">Cómo Funciona</a>
+        <a href="catalog.html">CatÃ¡logo</a>
+        <a href="index.html#como-funciona">CÃ³mo Funciona</a>
         <a href="index.html#cotizacion">Cotizar</a>
       </div>
       <div class="social">
@@ -207,20 +222,20 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" class="social-icon" />
         </a>
       </div>
-      <p class="credit">© 2026 Inkly – Temuco, Chile. Envíos a todo Chile.</p>
+      <p class="credit">Â© 2026 Inkly â€“ Temuco, Chile. EnvÃ­os a todo Chile.</p>
     </div>
   </footer>
 
   <a href="index.html#cotizacion" class="floating-cart" id="floatingCart" style="display: none;">
-    <span class="cart-icon">🛍️</span>
+    <span class="cart-icon">ðŸ›ï¸</span>
     <span class="cart-count" id="cartCount">0</span>
-    <span class="cart-text">Ver Cotización</span>
+    <span class="cart-text">Ver CotizaciÃ³n</span>
   </a>
     <!-- Cart Drawer -->
   <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
   <div class="cart-drawer" id="cartDrawer">
     <div class="cart-drawer-header">
-      <h3>Tu Cotización</h3>
+      <h3>Tu CotizaciÃ³n</h3>
       <button class="close-drawer" id="closeDrawer">&times;</button>
     </div>
     <div class="cart-drawer-body" id="cartDrawerBody">
@@ -231,7 +246,7 @@
     </div>
   </div>
   <script type="module" src="assets/js/animations.js"></script>
-    <a href="https://wa.me/56912345678?text=Hola%20Inkly!" class="floating-whatsapp" id="floatingWhatsapp" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+    <a href="https://wa.me/56966932414?text=Hola%20Inkly!" class="floating-whatsapp" id="floatingWhatsapp" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
