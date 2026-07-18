@@ -1263,7 +1263,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 0; margin-bottom: 0.5rem; line-height: 1.3;">
             <em>*Indica para cuándo necesitas tu pedido listo (NO el día de tu evento).</em>
           </p>
-          <input type="date" id="deliveryDate" style="width: 100%; padding: 0.5rem; border: 1px solid var(--color-border); border-radius: 4px; font-family: inherit;">
+          <input type="text" id="deliveryDate" readonly placeholder="Seleccionar fecha..." style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--color-border); border-radius: 12px; font-family: inherit; background: var(--color-surface-alt); cursor: pointer; color: var(--color-text); font-weight: 600; font-size: 0.95rem; box-sizing: border-box; transition: transform 0.2s, box-shadow 0.2s;" onfocus="this.style.transform='scale(1.02)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)';" onblur="this.style.transform='scale(1)'; this.style.boxShadow='none';">
         </div>
 
         <p style="margin-bottom: 0.5rem; font-weight: 600;">Total estimado: $${total.toLocaleString('es-CL')}</p>
@@ -1522,3 +1522,157 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+
+/* ---- Premium Calendar Implementation ---- */
+class PremiumCalendar {
+  constructor() {
+    this.date = new Date();
+    this.selectedDate = null;
+    this.inputRef = null;
+    this.monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    this.createDOM();
+    this.bindEvents();
+    this.render();
+  }
+
+  createDOM() {
+    this.el = document.createElement('div');
+    this.el.className = 'premium-calendar';
+    this.el.innerHTML = `
+      <div class="pc-header">
+        <button class="pc-btn pc-prev">&lsaquo;</button>
+        <div class="pc-month-year"></div>
+        <button class="pc-btn pc-next">&rsaquo;</button>
+      </div>
+      <div class="pc-weekdays">
+        <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+      </div>
+      <div class="pc-days"></div>
+    `;
+    document.body.appendChild(this.el);
+    
+    this.daysGrid = this.el.querySelector('.pc-days');
+    this.monthYearTitle = this.el.querySelector('.pc-month-year');
+  }
+
+  bindEvents() {
+    this.el.querySelector('.pc-prev').addEventListener('click', (e) => {
+      e.preventDefault();
+      this.date.setMonth(this.date.getMonth() - 1);
+      this.render();
+    });
+    this.el.querySelector('.pc-next').addEventListener('click', (e) => {
+      e.preventDefault();
+      this.date.setMonth(this.date.getMonth() + 1);
+      this.render();
+    });
+
+    this.daysGrid.addEventListener('click', (e) => {
+      if (e.target.classList.contains('pc-day') && !e.target.classList.contains('empty')) {
+        const day = parseInt(e.target.textContent);
+        this.selectedDate = new Date(this.date.getFullYear(), this.date.getMonth(), day);
+        this.render();
+        
+        if (this.inputRef) {
+          // Format as YYYY-MM-DD so Whatsapp generator doesn't break if it expects ISO format
+          const d = String(this.selectedDate.getDate()).padStart(2, '0');
+          const m = String(this.selectedDate.getMonth() + 1).padStart(2, '0');
+          const y = this.selectedDate.getFullYear();
+          this.inputRef.value = `${y}-${m}-${d}`;
+          // Show readable date to user in Spanish:
+          this.inputRef.dataset.display = `${d} de ${this.monthNames[this.selectedDate.getMonth()]} ${y}`;
+          // For UI, we could swap it but value is used for waLink.
+          // Wait, the whatsapp generator uses input.value directly: `const date = document.getElementById('deliveryDate')?.value;`
+          // Let's just set the visible value to YYYY-MM-DD or DD-MM-YYYY depending on what looks better. 
+          // The old one was type="date" which returns YYYY-MM-DD. So we MUST return YYYY-MM-DD.
+          this.inputRef.value = `${y}-${m}-${d}`;
+          
+          this.inputRef.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        
+        setTimeout(() => this.close(), 300); // Smooth close
+      }
+    });
+  }
+
+  render() {
+    const year = this.date.getFullYear();
+    const month = this.date.getMonth();
+    
+    this.monthYearTitle.textContent = `${this.monthNames[month]} ${year}`;
+    this.daysGrid.innerHTML = '';
+    
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    let firstDay = new Date(year, month, 1).getDay();
+    firstDay = firstDay === 0 ? 6 : firstDay - 1; // Make Mon=0
+    
+    // Empty cells
+    for (let i = 0; i < firstDay; i++) {
+      const d = document.createElement('div');
+      d.className = 'pc-day empty';
+      this.daysGrid.appendChild(d);
+    }
+    
+    // Days
+    for (let i = 1; i <= daysInMonth; i++) {
+      const d = document.createElement('div');
+      d.className = 'pc-day';
+      d.textContent = i;
+      
+      if (this.selectedDate && 
+          this.selectedDate.getDate() === i && 
+          this.selectedDate.getMonth() === month && 
+          this.selectedDate.getFullYear() === year) {
+        d.classList.add('selected');
+      }
+      
+      this.daysGrid.appendChild(d);
+    }
+  }
+
+  open(inputEl) {
+    this.inputRef = inputEl;
+    const rect = inputEl.getBoundingClientRect();
+    
+    let top = rect.bottom + 10;
+    // Prevent clipping at bottom
+    if (top + 350 > window.innerHeight) {
+        top = rect.top - 350 - 10;
+    }
+    this.el.style.top = top + 'px';
+    
+    let left = rect.left;
+    if (left + 320 > window.innerWidth) {
+      left = window.innerWidth - 340;
+    }
+    this.el.style.left = Math.max(10, left) + 'px';
+    
+    this.el.classList.add('active');
+  }
+
+  close() {
+    this.el.classList.remove('active');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  window.calendarWidget = new PremiumCalendar();
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.matches('#deliveryDate')) {
+    if (window.calendarWidget) window.calendarWidget.open(e.target);
+  } else if (!e.target.closest('.premium-calendar') && !e.target.matches('.pc-prev') && !e.target.matches('.pc-next')) {
+    if (window.calendarWidget) window.calendarWidget.close();
+  }
+});
+
+const cartDrawerObj = document.getElementById('cartDrawerBody');
+if (cartDrawerObj) {
+    cartDrawerObj.addEventListener('scroll', () => {
+        if (window.calendarWidget && window.calendarWidget.el.classList.contains('active')) {
+            window.calendarWidget.close();
+        }
+    });
+}
