@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center; width:100%; height:100%;">
             <span class="inline-qty-minus" style="padding: 0 15px; font-weight:bold; font-size:1.6rem; cursor:pointer; user-select:none; line-height: 1; display:flex; align-items:center;">-</span>
-            <span style="font-weight: 500; font-size: 1rem; pointer-events:none;">Agregado \u2713 (${itemInCart.quantity})</span>
+            <span style="font-weight: 500; font-size: 1rem; pointer-events:none;">Agregado (${itemInCart.quantity})</span>
             <span class="inline-qty-plus" style="padding: 0 15px; font-weight:bold; font-size:1.4rem; cursor:pointer; user-select:none; line-height: 1; display:flex; align-items:center;">+</span>
           </div>
         `;
