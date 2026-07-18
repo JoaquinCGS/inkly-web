@@ -1223,13 +1223,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Abrir drawer al agregar al carrito
-  const addButtons = document.querySelectorAll('.btn-add-cart');
-  addButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setTimeout(openCartDrawer, 150);
-    });
-  });
+
 
   // ---- Bottom Nav (Mobile) ----
   function createBottomNav() {
