@@ -281,6 +281,15 @@ p  { margin-bottom: 1rem; text-wrap: pretty; }
   gap: 1.5rem;
   width: 90%;
   max-width: 800px;
+  
+  /* Glassmorphism oscuro para legibilidad perfecta de letra blanca */
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 3rem 2rem;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
 }
 
 .parallax-content .hero-title {
