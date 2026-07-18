@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -42,12 +42,16 @@
         <input type="text" class="search-input" id="globalSearch" placeholder="Buscar..." autocomplete="off" />
         <div class="search-dropdown" id="searchDropdown"></div>
       </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+          <span class="icon-sun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+          <span class="icon-moon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+        </button>
       </nav>
       <a href="index.html#cotizacion" class="btn btn-primary">Cotizar Proyecto</a>
     </div>
   </header>
 
+  <main>
   <!-- (Marquesina removida y movida al catálogo/productos) -->
   <section class="parallax-hero" id="inicio">
     <!-- Capa de la máscara (el texto INKLY que revela el fondo) -->
@@ -158,7 +162,7 @@
           <ul id="cartItemsList" class="cart-items-list"></ul>
           <input type="hidden" id="productosSeleccionados" name="productos_seleccionados" value="" />
         </div>
-        <div class="form-group"><label for="descripcion">Describe tu idea</label><textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej.: Tema de unicornios, colores pastel”¦" required></textarea></div>
+        <div class="form-group"><label for="descripcion">Describe tu idea</label><textarea id="descripcion" name="descripcion" rows="4" placeholder="Ej.: Tema de unicornios, colores pastel..." required></textarea></div>
         <button type="submit" class="btn btn-primary submit-btn">Enviar Solicitud</button>
       </form>
     </div>
@@ -260,6 +264,7 @@
       </div>
     </div>
   </section>
+  </main>
 
   <footer id="contacto" class="footer">
     <div class="container footer-inner">
@@ -273,12 +278,12 @@
         <a href="https://www.instagram.com/inkly_cotillon" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="social-icon" /></a>
         <a href="https://www.facebook.com/inkly.cotillon" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook" class="social-icon" /></a>
       </div>
-      <p class="credit">Â© 2026 Inkly – Temuco, Chile. Envíos a todo Chile.</p>
+      <p class="credit">© 2026 Inkly – Temuco, Chile. Envíos a todo Chile.</p>
     </div>
   </footer>
 
   <a href="#cotizacion" class="floating-cart" id="floatingCart" style="display: none;">
-    <span class="cart-icon">ðŸ›ï¸</span><span class="cart-count" id="cartCount">0</span><span class="cart-text">Ver Cotización</span>
+    <span class="cart-icon">🛍️</span><span class="cart-count" id="cartCount">0</span><span class="cart-text">Ver Cotización</span>
   </a>
     <!-- Cart Drawer -->
   <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>

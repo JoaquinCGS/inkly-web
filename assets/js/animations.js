@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Inkly – Animaciones con Motion One (motor de Framer Motion)
  * Compatible con HTML puro sin React
  */
@@ -48,14 +48,15 @@ if (!prefersReduced) {
     // Estado inicial
     heroElements.forEach(el => {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(28px)';
+      el.style.transform = 'translateY(16px)';
+      el.style.filter = 'blur(4px)';
     });
 
     heroElements.forEach((el, i) => {
       animate(
         el,
-        { opacity: [0, 1], transform: ['translateY(28px)', 'translateY(0px)'] },
-        { duration: 0.65, delay: i * 0.14, easing: [0.25, 1, 0.5, 1] }
+        { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0px)'], filter: ['blur(4px)', 'blur(0px)'] },
+        { duration: 0.8, delay: i * 0.12, easing: [0.22, 1, 0.36, 1] }
       );
     });
   }
@@ -70,7 +71,8 @@ if (!prefersReduced) {
   if (categoryCards.length > 0) {
     categoryCards.forEach(card => {
       card.style.opacity = '0';
-      card.style.transform = 'translateY(32px)';
+      card.style.transform = 'translateY(16px)';
+      card.style.filter = 'blur(4px)';
     });
 
     inView('.category-card, .cat-card', ({ target }) => {
@@ -78,8 +80,8 @@ if (!prefersReduced) {
       const idx = siblings ? Array.from(siblings).indexOf(target) : 0;
       animate(
         target,
-        { opacity: [0, 1], transform: ['translateY(32px)', 'translateY(0)'] },
-        { duration: 0.55, delay: idx * 0.1, easing: [0.25, 1, 0.5, 1] }
+        { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0)'], filter: ['blur(4px)', 'blur(0px)'] },
+        { duration: 0.8, delay: idx * 0.08, easing: [0.22, 1, 0.36, 1] }
       );
     }, { margin: '-60px' });
   }
@@ -89,7 +91,8 @@ if (!prefersReduced) {
   if (productCards.length > 0) {
     productCards.forEach(card => {
       card.style.opacity = '0';
-      card.style.transform = 'translateY(24px)';
+      card.style.transform = 'translateY(12px)';
+      card.style.filter = 'blur(4px)';
     });
 
     inView('.card', ({ target }) => {
@@ -97,8 +100,8 @@ if (!prefersReduced) {
       const idx = siblings ? Array.from(siblings).indexOf(target) : 0;
       animate(
         target,
-        { opacity: [0, 1], transform: ['translateY(24px)', 'translateY(0)'] },
-        { duration: 0.5, delay: (idx % 4) * 0.08, easing: [0.25, 1, 0.5, 1] }
+        { opacity: [0, 1], transform: ['translateY(12px)', 'translateY(0)'], filter: ['blur(4px)', 'blur(0px)'] },
+        { duration: 0.8, delay: (idx % 4) * 0.08, easing: [0.22, 1, 0.36, 1] }
       );
     }, { margin: '-40px' });
   }
@@ -111,14 +114,15 @@ if (!prefersReduced) {
   const titles = document.querySelectorAll('.section-title, .catalog-section-title');
   titles.forEach(t => {
     t.style.opacity = '0';
-    t.style.transform = 'translateY(20px)';
+    t.style.transform = 'translateY(12px)';
+    t.style.filter = 'blur(4px)';
   });
 
   inView('.section-title, .catalog-section-title', ({ target }) => {
     animate(
       target,
-      { opacity: [0, 1], transform: ['translateY(20px)', 'translateY(0)'] },
-      { duration: 0.5, easing: [0.25, 1, 0.5, 1] }
+      { opacity: [0, 1], transform: ['translateY(12px)', 'translateY(0)'], filter: ['blur(4px)', 'blur(0px)'] },
+      { duration: 0.8, easing: [0.22, 1, 0.36, 1] }
     );
   }, { margin: '-40px' });
 }
@@ -131,15 +135,16 @@ if (!prefersReduced) {
   if (steps.length > 0) {
     steps.forEach(s => {
       s.style.opacity = '0';
-      s.style.transform = 'translateY(30px)';
+      s.style.transform = 'translateY(16px)';
+      s.style.filter = 'blur(4px)';
     });
 
     inView('.steps', ({ target }) => {
       const items = target.querySelectorAll('.step');
       animate(
         items,
-        { opacity: [0, 1], transform: ['translateY(30px)', 'translateY(0)'] },
-        { duration: 0.55, delay: stagger(0.12), easing: [0.25, 1, 0.5, 1] }
+        { opacity: [0, 1], transform: ['translateY(16px)', 'translateY(0)'], filter: ['blur(4px)', 'blur(0px)'] },
+        { duration: 0.8, delay: stagger(0.12), easing: [0.22, 1, 0.36, 1] }
       );
     }, { margin: '-60px' });
   }
@@ -182,12 +187,12 @@ if (!prefersReduced) {
   const heroBanner = document.querySelector('.hero-image');
   if (heroBanner) {
     heroBanner.style.opacity = '0';
-    heroBanner.style.transform = 'scale(0.96) translateY(16px)';
+    heroBanner.style.transform = 'scale(0.98) translateY(12px)';
     setTimeout(() => {
       animate(
         heroBanner,
-        { opacity: [0, 1], transform: ['scale(0.96) translateY(16px)', 'scale(1) translateY(0)'] },
-        { duration: 0.7, delay: 0.3, easing: [0.25, 1, 0.5, 1] }
+        { opacity: [0, 1], transform: ['scale(0.98) translateY(12px)', 'scale(1) translateY(0)'] },
+        { duration: 1.2, delay: 0.1, easing: [0.22, 1, 0.36, 1] }
       );
     }, 50);
   }

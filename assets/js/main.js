@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btns.forEach(btn => {
       const productName = btn.getAttribute('data-name');
       if (cart.includes(productName)) {
-        btn.textContent = 'Agregado âœ“';
+        btn.textContent = 'Agregado ✓';
         btn.classList.add('added');
       } else {
         btn.textContent = 'Agregar a Cotización';
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let text = '✨ *¡Hola Inkly!* ✨\n\nMe encantaría solicitar una cotización para los siguientes ítems:\n\n';
     if (cart.length > 0) {
       cart.forEach(item => {
-        text += 'ðŸ›ï¸ ' + item + '\n';
+        text += '🛍️ ' + item + '\n';
       });
     } else {
       text = '¡Hola Inkly!';
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnAddCartList.forEach(btn => {
       const productName = btn.getAttribute('data-name');
       if (cart.includes(productName)) {
-        btn.textContent = 'Agregado âœ“';
+        btn.textContent = 'Agregado ✓';
         btn.classList.add('added');
       }
 
@@ -395,12 +395,12 @@ document.addEventListener('DOMContentLoaded', () => {
           cart = cart.filter(item => item !== pName);
           btn.textContent = 'Agregar a Cotización';
           btn.classList.remove('added');
-          showToast('âŒ ' + pName + ' quitado del carrito');
+          showToast('❌ ' + pName + ' quitado del carrito');
         } else {
           cart.push(pName);
-          btn.textContent = 'Agregado âœ“';
+          btn.textContent = 'Agregado ✓';
           btn.classList.add('added');
-          showToast('ðŸ›’ ' + pName + ' agregado al carrito');
+          showToast('🛒 ' + pName + ' agregado al carrito');
         }
         saveCart();
         updateFloatingCart();
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---- Lightbox (Ampliación de Imágenes) ----
-  const productImages = document.querySelectorAll('.card:not(.category-card) img, .cat-card img');
+  const productImages = document.querySelectorAll('.card:not(.category-card) img');
   productImages.forEach(img => {
     img.addEventListener('click', (e) => {
       e.preventDefault();
@@ -912,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
         <p style="margin-bottom: 1rem; font-weight: 600;">Total de productos: ${cart.length}</p>
         <a href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none;">
-          ðŸ’¬ Solicitar Cotización por WhatsApp
+          💬 Solicitar Cotización por WhatsApp
         </a>
       </div>
     `;
@@ -1043,7 +1043,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cookieBanner.className = 'cookie-banner';
     cookieBanner.innerHTML = `
       <div class="cookie-content">
-        <span class="cookie-icon">ðŸª</span>
+        <span class="cookie-icon">🍪</span>
         <div>
           <h4>Uso de Cookies</h4>
           <p>Utilizamos cookies para mejorar tu experiencia en nuestra web y ofrecerte productos personalizados. Al continuar, aceptas nuestra política.</p>
@@ -1080,15 +1080,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (parallaxMask) {
       // Timeline automático en lugar de ScrollTrigger
       let tl = gsap.timeline({
-        delay: 0.5 // Pequeña pausa antes de empezar
+        delay: 0.3 // Pequeña pausa antes de empezar
       });
 
       // Expande la máscara para revelar la imagen
       tl.to(parallaxMask, {
         maskSize: "2000vw", // Un tamaño más manejable para evitar límites del navegador
         WebkitMaskSize: "2000vw",
-        duration: 2.5,
-        ease: "power3.in",
+        duration: 2.2,
+        ease: "power4.inOut",
         onComplete: () => {
           // Ocultar por completo la capa de máscara
           parallaxMask.style.display = 'none';
@@ -1099,23 +1099,29 @@ document.addEventListener('DOMContentLoaded', () => {
       if (parallaxFullImage) {
         tl.to(parallaxFullImage, {
           opacity: 1,
-          duration: 0.8,
+          duration: 1.0,
           ease: "none"
         }, "-=1.2"); // Ocurre mucho antes de que la K se atasque
       }
 
       // Hace aparecer el texto sutilmente al final
       if (parallaxContent) {
+        // Estado inicial del texto
+        gsap.set(parallaxContent, { opacity: 0, y: 20, filter: 'blur(4px)' });
+        
         tl.to(parallaxContent, {
           opacity: 1,
-          duration: 1.2,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 1.0,
+          ease: "power3.out",
           onStart: () => {
             parallaxContent.style.pointerEvents = 'auto';
           },
           onReverseComplete: () => {
             parallaxContent.style.pointerEvents = 'none';
           }
-        }, "-=0.5");
+        }, "-=0.6");
       }
     }
   }
