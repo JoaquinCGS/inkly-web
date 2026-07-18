@@ -96,7 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Configuración y Estado del Carrito ----
   const CART_KEY = 'inkly_cart';
   let rawCart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-  let cart = rawCart.map(i => typeof i === "string" ? {name: i, price: 0, quantity: 1} : (i.quantity ? i : {...i, quantity: 1}));
+  let cart = rawCart.map(i => {
+    if (typeof i === "string") {
+      return {name: i.replace(/\s*\([xX]\d+\)/g, ''), price: 0, quantity: 1};
+    } else {
+      let cleanName = i.name.replace(/\s*\([xX]\d+\)/g, '');
+      return i.quantity ? {...i, name: cleanName} : {...i, name: cleanName, quantity: 1};
+    }
+  });
 
   const btnAddCartList = document.querySelectorAll('.btn-add-cart');
   const floatingCart = document.getElementById('floatingCart');
