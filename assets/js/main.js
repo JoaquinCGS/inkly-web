@@ -302,6 +302,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && storyViewer.classList.contains('active')) closeStory();
     });
+
+    // Pause on hold
+    storyImage.addEventListener('mousedown', pauseStoryProgress);
+    storyImage.addEventListener('touchstart', pauseStoryProgress, {passive: true});
+    
+    storyImage.addEventListener('mouseup', resumeStoryProgress);
+    storyImage.addEventListener('touchend', resumeStoryProgress, {passive: true});
+    storyImage.addEventListener('mouseleave', resumeStoryProgress);
   }
 
   function openStory() {
@@ -318,13 +326,22 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(progressInterval);
   }
 
+  let isStoryPaused = false;
+
   function resetStoryProgress() {
     clearInterval(progressInterval);
     storyProgress = 0;
+    isStoryPaused = false;
     if (progressBar) progressBar.style.width = '0%';
-    
+    startStoryProgress();
+  }
+
+  function startStoryProgress() {
+    clearInterval(progressInterval);
     progressInterval = setInterval(() => {
-      storyProgress += 2;
+      if (isStoryPaused) return; // do not advance if paused
+      
+      storyProgress += 1.5; // Slightly slower, more standard
       if (progressBar) progressBar.style.width = storyProgress + '%';
       if (storyProgress >= 100) {
         clearInterval(progressInterval);
@@ -336,6 +353,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }, 100);
+  }
+
+  function pauseStoryProgress() {
+    isStoryPaused = true;
+  }
+
+  function resumeStoryProgress() {
+    isStoryPaused = false;
   }
 
   function syncCartButtons() {
