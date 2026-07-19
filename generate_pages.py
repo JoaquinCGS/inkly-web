@@ -115,6 +115,12 @@ template = """<!DOCTYPE html>
     gtag('js', new Date());
     gtag('config', 'G-V15F1C2BH5');
   </script>
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <header class="navbar">
