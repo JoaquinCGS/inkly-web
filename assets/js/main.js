@@ -575,39 +575,48 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = quoteForm.querySelector('.submit-btn');
       const originalText = submitBtn.textContent;
       
-      submitBtn.textContent = 'Enviando...';
-      submitBtn.disabled = true;
-      
-      grecaptcha.ready(function() {
-        grecaptcha.execute('6Lfs6FstAAAAAGSMUF_-uhEhWoSPVteoRHjOmOFl', {action: 'submit'}).then(async function(token) {
-          const formData = new FormData(quoteForm);
-          formData.append('g-recaptcha-response', token);
-          
-          try {
-            const response = await fetch(quoteForm.action, {
-              method: 'POST',
-              body: formData,
-              headers: { 'Accept': 'application/json' }
-            });
+      try {
+        grecaptcha.ready(function() {
+          grecaptcha.execute('6Lfs6FstAAAAAGSMUF_-uhEhWoSPVteoRHjOmOFl', {action: 'submit'}).then(async function(token) {
+            const formData = new FormData(quoteForm);
+            formData.append('g-recaptcha-response', token);
             
-            if (response.ok) {
-              showCustomAlert('¡Gracias!', 'Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.', true);
-              quoteForm.reset();
-              cart = [];
-              saveCart();
-              renderCartInForm();
-              updateFloatingCart();
-            } else {
-              showCustomAlert('Ups...', 'Hubo un problema al enviar la solicitud. Por favor intenta de nuevo.', false);
+            try {
+              const response = await fetch(quoteForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+              });
+              
+              if (response.ok) {
+                showCustomAlert('¡Gracias!', 'Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.', true);
+                quoteForm.reset();
+                cart = [];
+                saveCart();
+                renderCartInForm();
+                updateFloatingCart();
+              } else {
+                showCustomAlert('Ups...', 'Hubo un problema al enviar la solicitud. Por favor intenta de nuevo.', false);
+              }
+            } catch (error) {
+              showCustomAlert('Error de conexión', 'Revisa tu internet e intenta nuevamente.', false);
             }
-          } catch (error) {
-            showCustomAlert('Error de conexión', 'Revisa tu internet e intenta nuevamente.', false);
-          }
-          
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }).catch(function(err) {
+            console.error("reCAPTCHA error:", err);
+            showCustomAlert('Error de Seguridad', 'Hubo un problema con la validación anti-spam. ¿Estás probando en un link no oficial?', false);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          });
         });
-      });
+      } catch (err) {
+        console.error("grecaptcha not found:", err);
+        showCustomAlert('Error', 'No se pudo cargar el sistema de seguridad. Intenta recargar la página.', false);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     });
   }
 
