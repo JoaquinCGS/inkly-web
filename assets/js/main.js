@@ -578,31 +578,36 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.textContent = 'Enviando...';
       submitBtn.disabled = true;
       
-      const formData = new FormData(quoteForm);
-      
-      try {
-        const response = await fetch(quoteForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
+      grecaptcha.ready(function() {
+        grecaptcha.execute('6Lfs6FstAAAAAGSMUF_-uhEhWoSPVteoRHjOmOFl', {action: 'submit'}).then(async function(token) {
+          const formData = new FormData(quoteForm);
+          formData.append('g-recaptcha-response', token);
+          
+          try {
+            const response = await fetch(quoteForm.action, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            });
+            
+            if (response.ok) {
+              showCustomAlert('¡Gracias!', 'Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.', true);
+              quoteForm.reset();
+              cart = [];
+              saveCart();
+              renderCartInForm();
+              updateFloatingCart();
+            } else {
+              showCustomAlert('Ups...', 'Hubo un problema al enviar la solicitud. Por favor intenta de nuevo.', false);
+            }
+          } catch (error) {
+            showCustomAlert('Error de conexión', 'Revisa tu internet e intenta nuevamente.', false);
+          }
+          
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
         });
-        
-        if (response.ok) {
-          showCustomAlert('¡Gracias!', 'Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.', true);
-          quoteForm.reset();
-          cart = [];
-          saveCart();
-          renderCartInForm();
-          updateFloatingCart();
-        } else {
-          showCustomAlert('Ups...', 'Hubo un problema al enviar la solicitud. Por favor intenta de nuevo.', false);
-        }
-      } catch (error) {
-        showCustomAlert('Error de conexión', 'Revisa tu internet e intenta nuevamente.', false);
-      }
-      
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+      });
     });
   }
 
