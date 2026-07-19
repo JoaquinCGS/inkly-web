@@ -598,13 +598,17 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = 'Enviando...';
             
             const formData = new FormData(quoteForm);
-            formData.append('g-recaptcha-response', token);
+            const payload = Object.fromEntries(formData.entries());
+            payload['g-recaptcha-response'] = token;
             
             try {
               const response = await fetch(quoteForm.action, {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+                headers: { 
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
               });
               
               if (response.ok) {
