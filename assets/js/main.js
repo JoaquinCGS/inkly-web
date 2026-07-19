@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         grecaptcha.ready(function() {
-          grecaptcha.execute('6Lfs6FstAAAAAGSMUF_-uhEhWoSPVteoRHjOmOFl', {action: 'submit'}).then(async function(token) {
+          grecaptcha.execute('6Lfs6FstAAAAAGSMUF_-uhEhWoSPVteoRHjOm0Fl', {action: 'submit'}).then(async function(token) {
             clearTimeout(recaptchaTimeout);
             submitBtn.textContent = 'Enviando...';
             
