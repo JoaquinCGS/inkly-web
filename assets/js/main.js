@@ -575,9 +575,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = quoteForm.querySelector('.submit-btn');
       const originalText = submitBtn.textContent;
       
+      submitBtn.textContent = 'Validando seguridad...';
+      submitBtn.disabled = true;
+
+      // Timeout for reCAPTCHA (in case it gets blocked by adblockers or network)
+      const recaptchaTimeout = setTimeout(() => {
+        showCustomAlert('Aviso de Seguridad', 'El sistema de seguridad (reCAPTCHA) está tardando demasiado o fue bloqueado por tu navegador. Intenta desactivar tu bloqueador de anuncios.', false);
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }, 5000);
+
       try {
+        if (typeof grecaptcha === 'undefined') {
+          throw new Error('grecaptcha no está definido');
+        }
+        
         grecaptcha.ready(function() {
           grecaptcha.execute('6Lfs6FstAAAAAGSMUF_-uhEhWoSPVteoRHjOmOFl', {action: 'submit'}).then(async function(token) {
+            clearTimeout(recaptchaTimeout);
+            submitBtn.textContent = 'Enviando...';
+            
             const formData = new FormData(quoteForm);
             formData.append('g-recaptcha-response', token);
             
@@ -605,6 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
           }).catch(function(err) {
+            clearTimeout(recaptchaTimeout);
             console.error("reCAPTCHA error:", err);
             showCustomAlert('Error de Seguridad', 'Hubo un problema con la validación anti-spam. ¿Estás probando en un link no oficial?', false);
             submitBtn.textContent = originalText;
@@ -612,8 +630,9 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         });
       } catch (err) {
+        clearTimeout(recaptchaTimeout);
         console.error("grecaptcha not found:", err);
-        showCustomAlert('Error', 'No se pudo cargar el sistema de seguridad. Intenta recargar la página.', false);
+        showCustomAlert('Error', 'No se pudo cargar el sistema de seguridad. Revisa tu conexión o desactiva tu bloqueador de anuncios.', false);
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
       }
