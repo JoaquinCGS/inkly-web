@@ -158,11 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   navAnchors.forEach(a => {
     const hrefAttr = a.getAttribute('href');
-    const hrefBase = hrefAttr.split('#')[0] || 'index.html';
+    const hrefBase = hrefAttr.split('#')[0];
     const hrefHash = hrefAttr.includes('#') ? '#' + hrefAttr.split('#')[1] : '';
 
     if (currentFile === 'index.html' || currentFile === '') {
-      if (hrefBase === 'index.html') {
+      if (hrefBase === 'index.html' || hrefBase === '/' || hrefBase === '') {
         if (currentHash === '' && hrefHash === '#inicio') {
           activeLink = a;
         } else if (currentHash === hrefHash) {
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } else {
-      if (hrefBase === currentFile) activeLink = a;
+      if (hrefBase === currentFile || (hrefBase === '/' && currentFile === 'index.html')) activeLink = a;
       if (currentFile !== 'catalog.html' && hrefBase === 'catalog.html' && !activeLink) activeLink = a;
     }
   });
@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       if (currentSection) {
         navAnchors.forEach(a => {
-          if (a.getAttribute('href') === 'index.html#' + currentSection || a.getAttribute('href') === '#' + currentSection) {
+          const href = a.getAttribute('href');
+          if (href === '/#' + currentSection || href === 'index.html#' + currentSection || href === '#' + currentSection) {
             navAnchors.forEach(x => x.classList.remove('active'));
             a.classList.add('active');
             activeLink = a;

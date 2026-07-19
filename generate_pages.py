@@ -126,23 +126,23 @@ template = """<!DOCTYPE html>
   <header class="navbar">
     <div class="container nav-inner">
       <a href="javascript:history.back()" class="back-btn" title="Volver">&#8592;</a>
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <span class="logo-text">Inkly</span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
       <nav class="nav-links">
         <div class="nav-indicator"></div>
-        <a href="index.html#inicio" class="nav-item">Inicio</a>
+        <a href="/#inicio" class="nav-item">Inicio</a>
         <a href="catalog.html" class="nav-item">Catálogo</a>
-        <a href="index.html#como-funciona" class="nav-item">Cómo Funciona</a>
-        <a href="index.html#contacto" class="nav-item">Contacto</a>
+        <a href="/#como-funciona" class="nav-item">Cómo Funciona</a>
+        <a href="/#contacto" class="nav-item">Contacto</a>
         <div class="search-container">
           <input type="text" class="search-input" id="globalSearch" placeholder="Buscar..." autocomplete="off" />
           <div class="search-dropdown" id="searchDropdown"></div>
         </div>
         <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><span class="icon-sun">☀️</span><span class="icon-moon">🌙</span></button>
       </nav>
-      <a href="index.html#cotizacion" class="btn btn-primary">Cotizar Proyecto</a>
+      <a href="/#cotizacion" class="btn btn-primary">Cotizar Proyecto</a>
     </div>
   </header>
 
@@ -169,10 +169,10 @@ template = """<!DOCTYPE html>
   <footer id="contacto" class="footer">
     <div class="container footer-inner">
       <div class="footer-links">
-        <a href="index.html#inicio">Inicio</a>
+        <a href="/#inicio">Inicio</a>
         <a href="catalog.html">Catálogo</a>
-        <a href="index.html#como-funciona">Cómo Funciona</a>
-        <a href="index.html#cotizacion">Cotizar</a>
+        <a href="/#como-funciona">Cómo Funciona</a>
+        <a href="/#cotizacion">Cotizar</a>
       </div>
       <div class="social">
         <a href="https://www.instagram.com/inkly_cotillon" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram" class="social-icon" /></a>
@@ -183,7 +183,7 @@ template = """<!DOCTYPE html>
   </footer>
 
   <!-- Floating Cart -->
-  <a href="index.html#cotizacion" class="floating-cart" id="floatingCart" style="display: none;">
+  <a href="/#cotizacion" class="floating-cart" id="floatingCart" style="display: none;">
     <span class="cart-icon">🛍️</span><span class="cart-count" id="cartCount">0</span><span class="cart-text">Ver Cotización</span>
   </a>
   <!-- Cart Drawer -->
@@ -197,7 +197,7 @@ template = """<!DOCTYPE html>
       <p style="text-align: center; color: var(--color-muted); margin-top:2rem;">No has agregado productos.</p>
     </div>
     <div class="cart-drawer-footer">
-      <a href="index.html#cotizacion" class="btn btn-primary" style="width:100%; text-align:center;">Ir al Formulario</a>
+      <a href="/#cotizacion" class="btn btn-primary" style="width:100%; text-align:center;">Ir al Formulario</a>
     </div>
   </div>
   <script type="module" src="assets/js/animations.js"></script>
