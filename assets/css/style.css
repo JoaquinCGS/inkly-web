@@ -1421,7 +1421,7 @@ p  { margin-bottom: 1rem; text-wrap: pretty; }
 /* ---- Botón Mágico Volver Arriba ---- */
 .scroll-top-btn {
   position: fixed;
-  bottom: 80px;
+  bottom: 95px;
   right: 20px;
   width: 50px;
   height: 50px;
@@ -1453,7 +1453,7 @@ p  { margin-bottom: 1rem; text-wrap: pretty; }
 }
 @media (min-width: 769px) {
   .scroll-top-btn {
-    bottom: 30px;
+    bottom: 95px;
     right: 30px;
   }
 }
