@@ -4,7 +4,7 @@ if ('scrollRestoration' in history) {
 }
 
 window.addEventListener('load', () => {
-  if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+  if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname.endsWith('/inicio')) {
     if (!window.location.hash || window.location.hash === '#inicio') {
       setTimeout(() => {
         window.scrollTo(0, 0);
@@ -152,7 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
     navIndicator.style.width = linkRect.width + 'px';
   }
 
-  const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+  let currentFile = window.location.pathname.split('/').pop() || 'index.html';
+  if (currentFile === 'inicio') currentFile = 'index.html';
   const currentHash = window.location.hash;
   let activeLink = null;
   
