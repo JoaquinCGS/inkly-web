@@ -627,8 +627,8 @@ document.addEventListener('DOMContentLoaded', () => {
                   var end = Date.now() + duration;
                   
                   (function frame() {
-                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, zIndex: 10000 });
-                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, zIndex: 10000 });
+                    confetti({ useWorker: false, particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, zIndex: 10000 });
+                    confetti({ useWorker: false, particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, zIndex: 10000 });
                     if (Date.now() < end) requestAnimationFrame(frame);
                   }());
                 }
