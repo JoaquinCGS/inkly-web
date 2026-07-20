@@ -152,12 +152,16 @@
   <section id="cotizacion" class="quote-form-section">
     <div class="container">
       <h2 class="section-title">Cotiza tu proyecto</h2>
-      <form id="quote-form" class="quote-form" action="https://formspree.io/f/mjgnvdqv" method="POST">
+      <form id="quote-form" class="quote-form" data-action="https://formspree.io/f/mjgnvdqv" method="POST">
         <input type="hidden" name="_subject" value="Nueva solicitud Inkly" />
         <input type="hidden" name="_replyto" value="servicioInkly@gmail.com" />
-        <input type="text" name="_gotcha" style="display:none" />
-        <div class="form-group"><label for="nombre">Nombre</label><input type="text" id="nombre" name="nombre" required /></div>
-        <div class="form-group"><label for="email">Correo electrónico</label><input type="email" id="email" name="email" required /></div>
+        <!-- Trampa Avanzada para Bots (Honeypot) -->
+        <div class="form-group" style="position: absolute; left: -5000vw; opacity: 0; pointer-events: none; z-index: -1;" aria-hidden="true">
+          <label for="_gotcha">Por favor, si eres humano, deja este campo completamente vacío:</label>
+          <input type="text" id="_gotcha" name="_gotcha" autocomplete="false" tabindex="-1" value="" />
+        </div>
+        <div class="form-group"><label for="nombre">Nombre</label><input type="text" id="nombre" name="nombre" required maxlength="100" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9.,_ @-]+$" title="Solo letras, números y signos de puntuación básicos permitidos" /></div>
+        <div class="form-group"><label for="email">Correo electrónico</label><input type="email" id="email" name="email" required maxlength="150" /></div>
         <div class="form-group">
           <label for="evento">Tipo de Evento</label>
           <select id="evento" name="evento" required>

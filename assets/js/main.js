@@ -14,6 +14,17 @@ window.addEventListener('load', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ---- Escudo OWASP A03: Sanitización de Inputs ----
+  function sanitizeInput(str) {
+    if (typeof str !== 'string') return str;
+    // Permite alfanuméricos, espacios y signos básicos: . , @ - _ + ( )
+    // Elimina: < > { } [ ] $ = ; ' " % & | ` \
+    return str.replace(/[<>={}\[\]$;'"%&|`\\]/g, '').trim();
+  }
+
+  // ---- Funcionalidad del Navbar (Glassmorphism & Scroll) ----
+  const navbar = document.querySelector('.navbar');
+
   // ---- Auto-Scroll y Highlight desde Búsqueda ----
   const urlParams = new URLSearchParams(window.location.search);
   const highlightTarget = urlParams.get('highlight');
@@ -401,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const dateInput = document.getElementById('deliveryDate');
         if (dateInput && dateInput.value) {
-          text += '\n*Fecha de entrega/retiro:* ' + dateInput.value;
+          text += '\n*Fecha de entrega/retiro:* ' + sanitizeInput(dateInput.value);
         }
 
         text += '\n\n*Total estimado:* $' + total.toLocaleString('es-CL');
@@ -597,11 +608,23 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(recaptchaTimeout);
             submitBtn.textContent = 'Enviando...';
             
-            const formData = new FormData(quoteForm);
+            const formDataRaw = new FormData(quoteForm);
+            const formData = new FormData();
+            
+            // Aplicar Escudo OWASP A03 (Sanitización)
+            for (let [key, value] of formDataRaw.entries()) {
+              if (typeof value === 'string') {
+                formData.append(key, sanitizeInput(value));
+              } else {
+                formData.append(key, value);
+              }
+            }
+
             formData.append('g-recaptcha-response', token);
             
             try {
-              const response = await fetch(quoteForm.action, {
+              const actionUrl = quoteForm.getAttribute('data-action') || quoteForm.action;
+              const response = await fetch(actionUrl, {
                 method: 'POST',
                 body: formData,
                 headers: { 'Accept': 'application/json' }
