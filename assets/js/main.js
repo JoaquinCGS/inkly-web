@@ -1334,7 +1334,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <p style="margin-bottom: 0.5rem; font-weight: 600;">Total estimado: $${total.toLocaleString('es-CL')}</p>
         <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--color-muted);">Abono (50%): $${Math.round(total/2).toLocaleString('es-CL')}</p>
-        <a id="waBtn" href="${waLink}" target="_blank" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none; font-weight: 600;">
+        <a id="waBtn" href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none; font-weight: 600;">
           Solicitar Cotización por WhatsApp
         </a>
       </div>
