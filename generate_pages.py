@@ -96,11 +96,11 @@ template = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inkly – {title}</title>
+  <title>Inkly – {title}</title>\n  <link rel="manifest" href="manifest.json" />
   <meta name="description" content="{subtitle}" />
   <meta property="og:title" content="Inkly – {title}" />
   <meta property="og:description" content="{subtitle}" />
-  <meta property="og:image" content="assets/images/logo.webp" />
+  <meta property="og:image" content="https://mundoinkly.cl/assets/images/logo.webp" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

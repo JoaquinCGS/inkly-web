@@ -1,0 +1,23 @@
+{
+  "name": "Inkly - Cotillón y Souvenirs",
+  "short_name": "Inkly",
+  "description": "Hacemos que tus celebraciones sean inolvidables con cotillón, papelería y recuerdos personalizados.",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#FF7A9A",
+  "icons": [
+    {
+      "src": "/assets/images/logob.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/logob.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
