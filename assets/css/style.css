@@ -11,7 +11,7 @@
   --color-bg: oklch(98.5% 0.005 350);
   --color-surface: oklch(100% 0 0);
   --color-surface-alt: oklch(97% 0.005 350);
-  --color-nav-bg: oklch(98.5% 0.005 350 / 0.95);
+  --color-nav-bg: oklch(98.5% 0.005 350 / 0.65);
   
   --color-primary: oklch(77% 0.12 350);
   --color-primary-rgb: 255, 154, 193; /* fallback for older scripts */
@@ -31,7 +31,7 @@
   --color-bg: oklch(20% 0.01 350);
   --color-surface: oklch(25% 0.01 350);
   --color-surface-alt: oklch(22% 0.01 350);
-  --color-nav-bg: oklch(20% 0.01 350 / 0.95);
+  --color-nav-bg: oklch(20% 0.01 350 / 0.65);
   
   --color-text: oklch(95% 0.01 350);
   --color-primary: oklch(75% 0.12 350);
@@ -99,7 +99,7 @@ p  { margin-bottom: 1rem; text-wrap: pretty; }
   position: sticky;
   top: 0;
   background: var(--color-nav-bg);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   z-index: 1000;
   padding: 0.5rem 0;
@@ -983,7 +983,9 @@ p  { margin-bottom: 1rem; text-wrap: pretty; }
   width: 100%;
   max-width: 400px;
   height: 100vh;
-  background: var(--color-bg);
+  background: var(--color-nav-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: -5px 0 15px rgba(0,0,0,0.1);
   z-index: 1001;
   transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);

@@ -608,12 +608,46 @@ document.addEventListener('DOMContentLoaded', () => {
               });
               
               if (response.ok) {
+                // Cambiar el botón a estado de éxito
+                submitBtn.textContent = '¡Enviado con Éxito!';
+                submitBtn.style.backgroundColor = 'var(--color-primary, #3b82f6)';
+                
+                // Lluvia de confeti
+                if (!window.confetti) {
+                  const script = document.createElement('script');
+                  script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js';
+                  script.onload = fireConfetti;
+                  document.head.appendChild(script);
+                } else {
+                  fireConfetti();
+                }
+
+                function fireConfetti() {
+                  var duration = 3000;
+                  var end = Date.now() + duration;
+                  
+                  (function frame() {
+                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, zIndex: 10000 });
+                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, zIndex: 10000 });
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                  }());
+                }
+
                 showCustomAlert('¡Gracias!', 'Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.', true);
                 quoteForm.reset();
                 cart = [];
                 saveCart();
                 renderCartInForm();
                 updateFloatingCart();
+                
+                // Restaurar botón después de 4 segundos
+                setTimeout(() => {
+                  submitBtn.textContent = originalText;
+                  submitBtn.disabled = false;
+                  submitBtn.style.backgroundColor = '';
+                }, 4000);
+                
+                return; // Evitar que se restaure inmediatamente el botón abajo
               } else {
                 showCustomAlert('Ups...', 'Hubo un problema al enviar la solicitud. Por favor intenta de nuevo.', false);
               }
