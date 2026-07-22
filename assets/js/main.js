@@ -1227,7 +1227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         "title": "Notas imantadas",
         "url": "souvenirs.html",
-        "image": "assets/images/Notasimantadas.webp"
+        "image": "assets/images/Notasimantadas_upright.webp"
     },
     {
         "title": "Barra de chocolate",

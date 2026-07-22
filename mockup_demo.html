@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inkly - Demo Mockup Dinámico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: oklch(77% 0.12 350); /* Pastel Pink */
+            --accent1: oklch(88% 0.06 240); /* Light Blue */
+            --accent2: oklch(92% 0.08 95);  /* Soft Yellow */
+            --bg: oklch(98.5% 0.005 350);
+            --text-dark: oklch(25% 0.02 350);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            perspective: 1200px; /* Necesario para el efecto 3D */
+        }
+
+        /* Animated Mesh Background (Fondo con manchas de color que se mueven) */
+        .bg-mesh {
+            position: absolute;
+            top: -20%; left: -20%; right: -20%; bottom: -20%;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--primary) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, var(--accent1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, var(--accent2) 0%, transparent 40%);
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: moveGradient 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveGradient {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5%) scale(1.05); }
+            100% { transform: translateY(5%) scale(0.95); }
+        }
+
+        .presentation-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8rem;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Texto con animación escalonada (palabra por palabra) */
+        .text-content {
+            max-width: 450px;
+            color: var(--text-dark);
+        }
+
+        .reveal-text {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: top;
+        }
+        
+        .reveal-text span {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            animation: slideUpFade 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .text-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            font-weight: 600;
+        }
+        
+        /* Retrasos para que el texto aparezca escalonado */
+        .text-content h1 .reveal-text:nth-child(1) span { animation-delay: 0.2s; }
+        .text-content h1 .reveal-text:nth-child(3) span { animation-delay: 0.4s; }
+        .text-content h1 i { font-style: italic; color: var(--primary); }
+
+        .text-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            color: oklch(50% 0.01 350);
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUpFade 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideUpFade {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Contenedor del teléfono y elementos flotantes */
+        .phone-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            animation: floatUpIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+            animation-delay: 0.4s;
+        }
+
+        @keyframes floatUpIn {
+            0% { opacity: 0; transform: translateY(100px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .phone-mockup {
+            width: 340px;
+            height: 680px;
+            background: #000;
+            border-radius: 45px;
+            border: 14px solid #fff;
+            box-shadow: 
+                -30px 40px 80px rgba(0,0,0,0.15),
+                inset 0 0 0 2px #e0e0e0;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            /* La transición hace que el movimiento del mouse sea suave */
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1); 
+        }
+
+        /* Dynamic Island del iPhone */
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 30px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .phone-mockup iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+            border-radius: 30px;
+            pointer-events: none;
+        }
+
+        /* Elementos Decorativos Flotantes (Parallax adicional) */
+        .decoration {
+            position: absolute;
+            z-index: 2;
+            animation: floatShape 4s ease-in-out infinite alternate;
+            transition: transform 0.2s ease-out;
+        }
+        
+        /* Círculo Rosa */
+        .dec-1 {
+            top: 10%; right: -25%;
+            width: 70px; height: 70px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation-delay: 0.5s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Cuadrado Celeste Rotado */
+        .dec-2 {
+            bottom: 15%; left: -30%;
+            width: 90px; height: 90px;
+            border: 4px solid var(--accent1);
+            border-radius: 25px;
+            transform: rotate(45deg);
+            animation-duration: 6s;
+        }
+
+        /* Círculo Amarillo pequeño */
+        .dec-3 {
+            top: 50%; left: -15%;
+            width: 35px; height: 35px;
+            background: var(--accent2);
+            border-radius: 50%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes floatShape {
+            0% { margin-top: 0px; }
+            100% { margin-top: -30px; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    
+    <div class="presentation-container">
+        <div class="text-content">
+            <h1>
+                <span class="reveal-text"><span>Magia en</span></span><br>
+                <span class="reveal-text"><span>cada <i>detalle</i></span></span>
+            </h1>
+            <p>Cotillón y papelería 100% personalizados para que tu celebración sea verdaderamente única e inolvidable.</p>
+        </div>
+        
+        <div class="phone-wrapper" id="phoneWrapper">
+            <!-- Formas decorativas que flotan alrededor del teléfono -->
+            <div class="decoration dec-1"></div>
+            <div class="decoration dec-2"></div>
+            <div class="decoration dec-3"></div>
+            
+            <div class="phone-mockup" id="phoneMockup">
+                <iframe src="index.html" title="Inkly Cotillón" id="site-frame"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // EFECTO PARALLAX INTERACTIVO AL MOVER EL MOUSE
+        document.addEventListener('mousemove', (e) => {
+            const wrapper = document.getElementById('phoneMockup');
+            const dec1 = document.querySelector('.dec-1');
+            const dec2 = document.querySelector('.dec-2');
+            const dec3 = document.querySelector('.dec-3');
+            
+            // Calculamos la posición del mouse relativa al centro de la pantalla
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 35;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 35;
+            
+            // Rotamos el teléfono en 3D
+            wrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            
+            // Movemos las decoraciones a diferentes velocidades para crear profundidad
+            dec1.style.transform = `translate(${xAxis * -2}px, ${yAxis * -2}px)`;
+            dec2.style.transform = `translate(${xAxis * 4}px, ${yAxis * 4}px) rotate(45deg)`;
+            dec3.style.transform = `translate(${xAxis * -1}px, ${yAxis * -1}px)`;
+        });
+
+        // Restablecer la posición cuando el mouse sale de la ventana
+        document.addEventListener('mouseleave', () => {
+            const wrapper = document.getElementById('phoneMockup');
+            wrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+
+        // FUNCIÓN DE CONFETI
+        function triggerConfetti() {
+            var duration = 4 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+              if (timeLeft <= 0) return clearInterval(interval);
+
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }}));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }}));
+            }, 250);
+        }
+
+        // SCROLL AUTOMÁTICO
+        window.addEventListener('load', () => {
+            const iframe = document.getElementById('site-frame');
+            
+            setTimeout(() => {
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    let scrollDuration = 8000; // 8 segundos
+                    let start = null;
+                    let endY = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight) - iframe.contentWindow.innerHeight;
+                    if(endY <= 0) endY = 3000;
+
+                    function step(timestamp) {
+                        if (!start) start = timestamp;
+                        let progress = timestamp - start;
+                        let percentage = Math.min(progress / scrollDuration, 1);
+                        
+                        let easeInOutQuad = percentage < 0.5 ? 2 * percentage * percentage : 1 - Math.pow(-2 * percentage + 2, 2) / 2;
+                        
+                        iframe.contentWindow.scrollTo(0, endY * easeInOutQuad);
+                        
+                        if (progress < scrollDuration) {
+                            window.requestAnimationFrame(step);
+                        } else {
+                            setTimeout(triggerConfetti, 300);
+                        }
+                    }
+                    window.requestAnimationFrame(step);
+                } catch (e) {
+                    let totalScrolled = 0;
+                    let interval = setInterval(() => {
+                        iframe.contentWindow.scrollBy(0, 15);
+                        totalScrolled += 15;
+                        if(totalScrolled > 3000) { 
+                            clearInterval(interval);
+                            triggerConfetti();
+                        }
+                    }, 30);
+                }
+            }, 2500); // Espera a que terminen las animaciones iniciales
+        });
+    </script>
+</body>
+</html>
