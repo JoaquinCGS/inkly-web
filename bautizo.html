@@ -26,7 +26,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<header class="navbar"><div class="container nav-inner"><a href="javascript:history.back()" class="back-btn" title="Volver">&#8592;</a><a href="/" class="logo">
+<header class="navbar"><div class="container nav-inner"><a href="catalog.html" onclick="if(document.referrer.includes(window.location.host)) { history.back(); return false; }" class="back-btn" title="Volver">&#8592;</a><a href="/" class="logo">
           <span class="logo-text">Inkly</span>
         </a><button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
       <nav class="nav-links"><div class="nav-indicator"></div><a href="/inicio" class="nav-item">Inicio</a><a href="catalog.html" class="nav-item">Catálogo</a><a href="/#como-funciona" class="nav-item">Cómo Funciona</a><a href="/#faq" class="nav-item">Preguntas Frecuentes</a>        <div class="search-container">

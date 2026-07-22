@@ -90,7 +90,7 @@
 <body>
 <header class="navbar">
 <div class="container nav-inner">
-<a class="back-btn" href="javascript:history.back()" title="Volver">←</a>
+<a class="back-btn" href="catalog.html" onclick="if(document.referrer.includes(window.location.host)) { history.back(); return false; }" title="Volver">←</a>
 <a class="logo" href="/">
 <span class="logo-text">Inkly</span>
 </a>
