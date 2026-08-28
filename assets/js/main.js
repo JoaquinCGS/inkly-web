@@ -1452,6 +1452,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dateInput && waBtn) {
       dateInput.addEventListener('change', () => {
         waBtn.href = generateWhatsappLink();
+        dateInput.style.border = '1px solid var(--color-border)';
+      });
+      waBtn.addEventListener('click', (e) => {
+        if (!dateInput.value.trim()) {
+          e.preventDefault();
+          dateInput.style.border = '2px solid #ff4d4f';
+          alert('Por favor, selecciona la fecha de entrega o retiro antes de solicitar la cotización.');
+        }
       });
     }
   }
