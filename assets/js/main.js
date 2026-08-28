@@ -1383,7 +1383,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <label for="deliveryDate" style="display:block; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text);">
             Fecha de entrega o retiro:
           </label>
-          <p style="font-size: 0.8rem; color: var(--color-muted); margin-top: 0; margin-bottom: 0.5rem; line-height: 1.3;">
+          <p id="dateWarningText" style="font-size: 0.8rem; color: var(--color-muted); margin-top: 0; margin-bottom: 0.5rem; line-height: 1.3; transition: color 0.3s;">
             <em>*Indica para cuándo necesitas tu pedido listo (NO el día de tu evento).</em>
           </p>
           <input type="text" id="deliveryDate" readonly placeholder="Seleccionar fecha..." style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--color-border); border-radius: 12px; font-family: inherit; background: var(--color-surface-alt); cursor: pointer; color: var(--color-text); font-weight: 600; font-size: 0.95rem; box-sizing: border-box; transition: transform 0.2s, box-shadow 0.2s;" onfocus="this.style.transform='scale(1.02)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)';" onblur="this.style.transform='scale(1)'; this.style.boxShadow='none';">
@@ -1453,12 +1453,21 @@ document.addEventListener('DOMContentLoaded', () => {
       dateInput.addEventListener('change', () => {
         waBtn.href = generateWhatsappLink();
         dateInput.style.border = '1px solid var(--color-border)';
+        const warningText = document.getElementById('dateWarningText');
+        if (warningText) {
+          warningText.style.color = 'var(--color-muted)';
+          warningText.style.fontWeight = 'normal';
+        }
       });
       waBtn.addEventListener('click', (e) => {
         if (!dateInput.value.trim()) {
           e.preventDefault();
           dateInput.style.border = '2px solid #ff4d4f';
-          alert('Por favor, selecciona la fecha de entrega o retiro antes de solicitar la cotización.');
+          const warningText = document.getElementById('dateWarningText');
+          if (warningText) {
+            warningText.style.color = '#ff4d4f';
+            warningText.style.fontWeight = 'bold';
+          }
         }
       });
     }
