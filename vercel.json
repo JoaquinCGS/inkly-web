@@ -32,7 +32,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://upload.wikimedia.org https://via.placeholder.com; frame-src https://www.google.com/recaptcha/; connect-src 'self' https://formspree.io https://www.google-analytics.com https://vitals.vercel-insights.com;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://upload.wikimedia.org https://via.placeholder.com https://www.transbank.cl https://webpay3g.transbank.cl; frame-src https://www.google.com/recaptcha/ https://webpay3g.transbank.cl https://webpay3gint.transbank.cl; connect-src 'self' https://formspree.io https://www.google-analytics.com https://vitals.vercel-insights.com https://webpay3g.transbank.cl https://webpay3gint.transbank.cl; form-action 'self' https://webpay3g.transbank.cl https://webpay3gint.transbank.cl;"
         }
       ]
     }

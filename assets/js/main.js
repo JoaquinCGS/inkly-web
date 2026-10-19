@@ -1375,11 +1375,12 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
     });
 
+    const abono = Math.round(total / 2);
     const waLink = generateWhatsappLink();
     html += `
       <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; text-align: center;">
         
-        <div style="margin-bottom: 1.5rem; text-align: left; background: var(--color-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--color-border);">
+        <div style="margin-bottom: 1.25rem; text-align: left; background: var(--color-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--color-border);">
           <label for="deliveryDate" style="display:block; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text);">
             Fecha de entrega o retiro:
           </label>
@@ -1389,9 +1390,42 @@ document.addEventListener('DOMContentLoaded', () => {
           <input type="text" id="deliveryDate" readonly placeholder="Seleccionar fecha..." style="width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--color-border); border-radius: 12px; font-family: inherit; background: var(--color-surface-alt); cursor: pointer; color: var(--color-text); font-weight: 600; font-size: 0.95rem; box-sizing: border-box; transition: transform 0.2s, box-shadow 0.2s;" onfocus="this.style.transform='scale(1.02)'; this.style.boxShadow='0 5px 15px rgba(0,0,0,0.05)';" onblur="this.style.transform='scale(1)'; this.style.boxShadow='none';">
         </div>
 
-        <p style="margin-bottom: 0.5rem; font-weight: 600;">Total estimado: $${total.toLocaleString('es-CL')}</p>
-        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--color-muted);">Abono (50%): $${Math.round(total/2).toLocaleString('es-CL')}</p>
-        <a id="waBtn" href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none; font-weight: 600;">
+        <!-- Selector de Modalidad de Pago: 50% Abono o 100% Total -->
+        <div style="margin-bottom: 1.25rem; text-align: left; background: var(--color-surface); padding: 1rem; border-radius: 8px; border: 1px solid var(--color-border);">
+          <label style="display:block; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-text); font-size: 0.95rem;">
+            Modalidad de pago:
+          </label>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0.85rem; border: 1.5px solid var(--color-primary); border-radius: 8px; cursor: pointer; background: var(--color-surface-alt); font-size: 0.9rem;" id="labelPayAbono">
+              <span style="display: flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+                <input type="radio" name="paymentOption" value="abono" checked style="accent-color: var(--color-primary);">
+                Abono para confección (50%)
+              </span>
+              <strong style="color: var(--color-primary); font-size: 0.95rem;">$${abono.toLocaleString('es-CL')}</strong>
+            </label>
+            <label style="display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0.85rem; border: 1px solid var(--color-border); border-radius: 8px; cursor: pointer; background: var(--color-surface-alt); font-size: 0.9rem;" id="labelPayTotal">
+              <span style="display: flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+                <input type="radio" name="paymentOption" value="total" style="accent-color: var(--color-primary);">
+                Pago Total (100%)
+              </span>
+              <strong style="color: var(--color-text); font-size: 0.95rem;">$${total.toLocaleString('es-CL')}</strong>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem; background: var(--color-surface-alt); padding: 0.75rem 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--color-border);">
+          <span style="font-weight: 600; font-size: 0.95rem;">Monto a pagar:</span>
+          <span id="displayAmountToPay" style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary);">$${abono.toLocaleString('es-CL')}</span>
+        </div>
+
+        <!-- Botón Pagar con Webpay Plus -->
+        <button id="btnWebpay" type="button" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.6rem; font-weight: 700; padding: 0.9rem 1rem; font-size: 1rem; border-radius: 12px; margin-bottom: 0.75rem; cursor: pointer; transition: all 0.2s;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          <span>Pagar con Webpay Plus</span>
+        </button>
+
+        <!-- Botón Cotizar por WhatsApp -->
+        <a id="waBtn" href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn" style="width: 100%; display: block; background: #25D366; color: white; text-decoration: none; font-weight: 600; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem;">
           Solicitar Cotización por WhatsApp
         </a>
       </div>
@@ -1446,6 +1480,31 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Toggle de modalidad de pago (50% o 100%)
+    const radioAbono = cartDrawerBody.querySelector('input[name="paymentOption"][value="abono"]');
+    const radioTotal = cartDrawerBody.querySelector('input[name="paymentOption"][value="total"]');
+    const displayAmount = cartDrawerBody.querySelector('#displayAmountToPay');
+    const labelAbono = cartDrawerBody.querySelector('#labelPayAbono');
+    const labelTotal = cartDrawerBody.querySelector('#labelPayTotal');
+
+    function updateSelectedPaymentUI() {
+      const isTotal = radioTotal && radioTotal.checked;
+      const currentPayAmount = isTotal ? total : abono;
+      if (displayAmount) displayAmount.textContent = '$' + currentPayAmount.toLocaleString('es-CL');
+      if (labelAbono && labelTotal) {
+        if (isTotal) {
+          labelTotal.style.borderColor = 'var(--color-primary)';
+          labelAbono.style.borderColor = 'var(--color-border)';
+        } else {
+          labelAbono.style.borderColor = 'var(--color-primary)';
+          labelTotal.style.borderColor = 'var(--color-border)';
+        }
+      }
+    }
+
+    if (radioAbono) radioAbono.addEventListener('change', updateSelectedPaymentUI);
+    if (radioTotal) radioTotal.addEventListener('change', updateSelectedPaymentUI);
+
     // Date picker listener
     const dateInput = document.getElementById('deliveryDate');
     const waBtn = document.getElementById('waBtn');
@@ -1467,6 +1526,85 @@ document.addEventListener('DOMContentLoaded', () => {
           if (warningText) {
             warningText.style.color = '#ff4d4f';
             warningText.style.fontWeight = 'bold';
+          }
+        }
+      });
+    }
+
+    // Botón Pagar con Webpay Plus
+    const btnWebpay = cartDrawerBody.querySelector('#btnWebpay');
+    if (btnWebpay) {
+      btnWebpay.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const dateInputEl = document.getElementById('deliveryDate');
+        if (dateInputEl && !dateInputEl.value.trim()) {
+          dateInputEl.style.border = '2px solid #ff4d4f';
+          const warningText = document.getElementById('dateWarningText');
+          if (warningText) {
+            warningText.style.color = '#ff4d4f';
+            warningText.style.fontWeight = 'bold';
+          }
+          if (typeof showCustomAlert === 'function') {
+            showCustomAlert('Fecha requerida', 'Por favor selecciona la fecha para cuándo necesitas tu pedido antes de proceder al pago.', false);
+          } else {
+            alert('Por favor selecciona la fecha de entrega o retiro.');
+          }
+          return;
+        }
+
+        const isAbono = radioAbono ? radioAbono.checked : true;
+        const paymentType = isAbono ? 'abono' : 'total';
+        const deliveryDate = dateInputEl ? dateInputEl.value : '';
+
+        // Feedback visual
+        const originalText = btnWebpay.innerHTML;
+        btnWebpay.disabled = true;
+        btnWebpay.style.opacity = '0.7';
+        btnWebpay.innerHTML = '<span>⏳ Conectando con Webpay...</span>';
+
+        try {
+          const res = await fetch('/api/webpay-crear', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              cart: cart,
+              paymentType: paymentType,
+              deliveryDate: deliveryDate
+            })
+          });
+
+          const data = await res.json();
+
+          if (!res.ok || !data.success || !data.url || !data.token) {
+            throw new Error(data.error || 'No se pudo iniciar la transacción con Webpay.');
+          }
+
+          // Crear formulario y enviarlo a Transbank Webpay
+          const form = document.createElement('form');
+          form.method = 'POST';
+          form.action = data.url;
+          form.style.display = 'none';
+
+          const tokenInput = document.createElement('input');
+          tokenInput.type = 'hidden';
+          tokenInput.name = 'token_ws';
+          tokenInput.value = data.token;
+
+          form.appendChild(tokenInput);
+          document.body.appendChild(form);
+          form.submit();
+
+        } catch (err) {
+          console.error('Error al iniciar Webpay:', err);
+          btnWebpay.disabled = false;
+          btnWebpay.style.opacity = '1';
+          btnWebpay.innerHTML = originalText;
+          if (typeof showCustomAlert === 'function') {
+            showCustomAlert('Error al conectar con Webpay', err.message || 'No se pudo conectar con Transbank. Por favor reintenta.', false);
+          } else {
+            alert('Error al conectar con Webpay: ' + err.message);
           }
         }
       });

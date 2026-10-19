@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comprobante de Pago – Inkly</title>
+  <link rel="icon" type="image/png" href="assets/images/logob.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/theme-init.js"></script>
+  <style>
+    .voucher-section {
+      min-height: 80vh;
+      padding: 6rem 1rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .voucher-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+      text-align: center;
+      position: relative;
+    }
+    .voucher-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f0fdf4;
+      color: #166534;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border: 1px solid #bbf7d0;
+    }
+    [data-theme="dark"] .voucher-badge {
+      background: rgba(22, 101, 52, 0.2);
+      color: #86efac;
+      border-color: rgba(134, 239, 172, 0.3);
+    }
+    .voucher-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 2.2rem;
+    }
+    .icon-success {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .icon-rejected {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .voucher-title {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+    .voucher-subtitle {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .receipt-box {
+      background: var(--color-surface-alt);
+      border: 1px dashed var(--color-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    [data-theme="dark"] .receipt-row {
+      border-bottom-color: rgba(255,255,255,0.05);
+    }
+    .receipt-row:last-child {
+      border-bottom: none;
+    }
+    .receipt-label {
+      color: var(--color-muted);
+    }
+    .receipt-val {
+      font-weight: 600;
+      color: var(--color-text);
+      text-align: right;
+    }
+    .receipt-total {
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .receipt-total .receipt-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    .receipt-total .receipt-val {
+      font-size: 1.35rem;
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+    .voucher-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .btn-wa-voucher {
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-wa-voucher:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      color: white;
+    }
+    .btn-secondary-voucher {
+      background: var(--color-surface-alt);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-block;
+    }
+    @media print {
+      body { background: white; color: black; }
+      .navbar, .footer, .voucher-actions, .floating-whatsapp, .theme-toggle { display: none !important; }
+      .voucher-section { padding: 0; }
+      .voucher-card { box-shadow: none; border: 1px solid #ccc; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="logo">
+        <span class="logo-text">Inkly</span>
+      </a>
+      <a href="catalog.html" class="nav-item">Volver al Catálogo</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="voucher-section">
+      <div class="voucher-card" id="voucherCard">
+        <div id="voucherContent">
+          <!-- Renderizado dinámico vía JavaScript -->
+          <div class="voucher-icon icon-success">⏳</div>
+          <h1 class="voucher-title">Cargando comprobante...</h1>
+          <p class="voucher-subtitle">Estamos verificando la información de tu transacción.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="credit">© 2026 Inkly – Temuco, Chile. Envíos a todo Chile.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status') || 'invalid';
+      const buyOrder = params.get('buy_order') || 'N/A';
+      const authCode = params.get('authorization_code') || 'N/A';
+      const rawAmount = parseInt(params.get('amount') || '0', 10);
+      const formattedAmount = '$' + rawAmount.toLocaleString('es-CL');
+      const card = params.get('card') ? `•••• •••• •••• ${params.get('card')}` : 'N/A';
+      const paymentTypeCode = params.get('payment_type') || '';
+      const rawDate = params.get('date');
+
+      // Tipos de pago según Transbank Webpay Plus
+      const paymentTypes = {
+        'VD': 'Débito (Redcompra)',
+        'VN': 'Crédito (1 Cuota)',
+        'VC': 'Crédito en Cuotas',
+        'SI': '3 Cuotas Sin Interés',
+        'S2': '2 Cuotas Sin Interés',
+        'NC': 'Cuotas Sin Interés',
+        'VP': 'Prepago'
+      };
+      const paymentTypeName = paymentTypes[paymentTypeCode] || 'Tarjeta Bancaria';
+
+      let fechaFormateada = new Date().toLocaleString('es-CL');
+      if (rawDate) {
+        try {
+          fechaFormateada = new Date(rawDate).toLocaleString('es-CL');
+        } catch (e) {}
+      }
+
+      const container = document.getElementById('voucherContent');
+
+      if (status === 'success') {
+        // Recuperar carrito guardado antes de limpiar para incluirlo en WhatsApp
+        const savedCart = JSON.parse(localStorage.getItem('inkly_cart')) || [];
+        let itemsSummary = '';
+        if (savedCart.length > 0) {
+          itemsSummary = savedCart.map(i => `${i.quantity}x ${i.name}`).join(', ');
+        }
+
+        // Vaciar el carrito ya que la compra fue pagada exitosamente
+        localStorage.removeItem('inkly_cart');
+
+        const waText = `*¡Hola Inkly!* Acabo de pagar en su web con *Webpay Plus*:\n\n` +
+          `📦 *Orden de Compra:* ${buyOrder}\n` +
+          `💳 *Autorización:* ${authCode}\n` +
+          `💰 *Monto Pagado:* ${formattedAmount}\n` +
+          `📅 *Fecha:* ${fechaFormateada}\n` +
+          (itemsSummary ? `🛍️ *Productos:* ${itemsSummary}\n\n` : '\n') +
+          `Adjunto este mensaje para coordinar la confección y fecha de entrega. ¡Muchas gracias!`;
+
+        const waUrl = `https://wa.me/56966932414?text=${encodeURIComponent(waText)}`;
+
+        container.innerHTML = `
+          <div class="voucher-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Transacción Aprobada por Webpay Plus
+          </div>
+          <div class="voucher-icon icon-success">✓</div>
+          <h1 class="voucher-title">¡Pago Confirmado!</h1>
+          <p class="voucher-subtitle">Tu transacción ha sido procesada de manera segura por Transbank.</p>
+
+          <div class="receipt-box">
+            <div class="receipt-row">
+              <span class="receipt-label">Comercio</span>
+              <span class="receipt-val">Inkly Papelería</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-label">Orden de Compra</span>
+              <span class="receipt-val">${buyOrder}</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-label">Código de Autorización</span>
+              <span class="receipt-val">${authCode}</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-label">Tipo de Pago</span>
+              <span class="receipt-val">${paymentTypeName}</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-label">Tarjeta</span>
+              <span class="receipt-val">${card}</span>
+            </div>
+            <div class="receipt-row">
+              <span class="receipt-label">Fecha y Hora</span>
+              <span class="receipt-val">${fechaFormateada}</span>
+            </div>
+            <div class="receipt-total">
+              <span class="receipt-label">Monto Pagado</span>
+              <span class="receipt-val">${formattedAmount} CLP</span>
+            </div>
+          </div>
+
+          <div class="voucher-actions">
+            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-wa-voucher">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+              Enviar Comprobante por WhatsApp
+            </a>
+            <button onclick="window.print()" class="btn-secondary-voucher">
+              🖨️ Guardar o Imprimir Comprobante
+            </button>
+            <a href="catalog.html" class="btn-secondary-voucher" style="text-align: center;">
+              Volver al Catálogo
+            </a>
+          </div>
+        `;
+      } else if (status === 'rejected') {
+        container.innerHTML = `
+          <div class="voucher-icon icon-rejected">✕</div>
+          <h1 class="voucher-title">Pago No Aprobado</h1>
+          <p class="voucher-subtitle">Tu banco rechazó la transacción. No se ha realizado ningún cobro a tu tarjeta.</p>
+          <div class="receipt-box" style="text-align:center;">
+            <p style="margin:0; font-size:0.9rem; color:var(--color-muted);">Posibles causas: saldo insuficiente, tarjeta no habilitada para compras por internet o datos incorrectos.</p>
+          </div>
+          <div class="voucher-actions">
+            <a href="catalog.html" class="btn btn-primary" style="text-align:center;">Volver e Intentar Nuevamente</a>
+          </div>
+        `;
+      } else if (status === 'aborted') {
+        container.innerHTML = `
+          <div class="voucher-icon icon-rejected">!</div>
+          <h1 class="voucher-title">Compra Cancelada</h1>
+          <p class="voucher-subtitle">Has cancelado la operación en Webpay. No se realizó ningún cargo en tu cuenta.</p>
+          <div class="voucher-actions">
+            <a href="catalog.html" class="btn btn-primary" style="text-align:center;">Volver al Catálogo</a>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="voucher-icon icon-rejected">?</div>
+          <h1 class="voucher-title">Operación Inválida</h1>
+          <p class="voucher-subtitle">No se encontró una sesión de pago activa o los datos han expirado.</p>
+          <div class="voucher-actions">
+            <a href="catalog.html" class="btn btn-primary" style="text-align:center;">Ir al Catálogo</a>
+          </div>
+        `;
+      }
+    })();
+  </script>
+</body>
+</html>

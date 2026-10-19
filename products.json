@@ -145,6 +145,11 @@
         "image": "assets/images/cajavalija3d.webp"
     },
     {
+        "title": "Caja Pirámide 3D",
+        "url": "cumpleanos.html",
+        "image": "assets/images/CajitaPiramide3D.jpg"
+    },
+    {
         "title": "Maletín coloreable",
         "url": "cumpleanos.html",
         "image": "assets/images/maletin6lapices8imagenesfuera.webp"
@@ -185,9 +190,9 @@
         "image": "assets/images/bolsa3.webp"
     },
     {
-        "title": "Bolsa PVC",
+        "title": "Bolsa 4",
         "url": "cumpleanos.html",
-        "image": "assets/images/BolsaPVC.webp"
+        "image": "assets/images/bolsa4.webp"
     },
     {
         "title": "Bolsa solapa",
