@@ -1,3 +1,5 @@
+import { supabase } from './lib/supabase.js';
+
 // Endpoint para confirmar (commit) la transacción con Transbank y redirigir al voucher
 export default async function handler(req, res) {
   try {
@@ -18,6 +20,15 @@ export default async function handler(req, res) {
     // Caso 1: El usuario canceló la compra en la pantalla de Webpay
     if (tbkToken && !tokenWs) {
       console.warn('Transacción anulada por el usuario en Webpay');
+      if (supabase) {
+        try {
+          await supabase.from('pedidos')
+            .update({ estado: 'ANULADO', updated_at: new Date().toISOString() })
+            .eq('tbk_token', tbkToken);
+        } catch (e) {
+          console.error('Error actualizando pedido anulado en Supabase:', e);
+        }
+      }
       res.writeHead(302, { Location: '/voucher.html?status=aborted' });
       return res.end();
     }
@@ -58,6 +69,25 @@ export default async function handler(req, res) {
 
     // Caso 3: Transacción aprobada con éxito
     if (commitResponse.ok && commitData.response_code === 0 && commitData.status === 'AUTHORIZED') {
+      if (supabase) {
+        try {
+          await supabase.from('pedidos')
+            .update({
+              estado: 'PAGADO',
+              codigo_autorizacion: commitData.authorization_code || '',
+              tipo_tarjeta: commitData.payment_type_code || '',
+              numero_tarjeta: commitData.card_detail?.card_number || '',
+              cuotas: Number(commitData.installments_number) || 0,
+              fecha_pago: commitData.transaction_date || new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+            .eq('buy_order', commitData.buy_order);
+          console.log(`Pedido ${commitData.buy_order} actualizado a PAGADO en Supabase.`);
+        } catch (dbErr) {
+          console.error('Error actualizando pedido pagado en Supabase:', dbErr);
+        }
+      }
+
       const params = new URLSearchParams({
         status: 'success',
         buy_order: commitData.buy_order || '',
@@ -74,6 +104,16 @@ export default async function handler(req, res) {
     }
 
     // Caso 4: Transacción rechazada por el banco (fondos insuficientes, clave errónea, etc.)
+    if (supabase && commitData.buy_order) {
+      try {
+        await supabase.from('pedidos')
+          .update({ estado: 'RECHAZADO', updated_at: new Date().toISOString() })
+          .eq('buy_order', commitData.buy_order);
+      } catch (e) {
+        console.error('Error actualizando pedido rechazado en Supabase:', e);
+      }
+    }
+
     const rejectParams = new URLSearchParams({
       status: 'rejected',
       buy_order: commitData.buy_order || '',

@@ -1,3 +1,5 @@
+import { supabase } from './lib/supabase.js';
+
 // Endpoint para crear la transacción en Transbank Webpay Plus
 export default async function handler(req, res) {
   // Configuración CORS
@@ -94,6 +96,36 @@ export default async function handler(req, res) {
         error: 'No se pudo iniciar la transacción con Webpay.', 
         details: tbkData 
       });
+    }
+
+    // Registrar pedido pendiente en la base de datos Supabase
+    if (supabase) {
+      try {
+        const { error: dbError } = await supabase.from('pedidos').insert({
+          buy_order: buyOrder,
+          session_id: sessionId,
+          cliente_nombre: payload.nombre || payload.customer?.name || 'Cliente Web',
+          cliente_email: payload.email || payload.customer?.email || '',
+          cliente_telefono: payload.telefono || payload.customer?.phone || '',
+          cliente_direccion: payload.direccion || payload.customer?.address || '',
+          fecha_entrega: deliveryDate || '',
+          items: cart,
+          monto_total: totalCalculado,
+          tipo_pago: isAbono ? 'abono' : 'total',
+          monto_pagado: amount,
+          saldo_pendiente: isAbono ? (totalCalculado - amount) : 0,
+          estado: 'PENDIENTE',
+          tbk_token: tbkData.token
+        });
+
+        if (dbError) {
+          console.error('Error registrando pedido en Supabase:', dbError);
+        } else {
+          console.log(`Pedido ${buyOrder} guardado en Supabase como PENDIENTE.`);
+        }
+      } catch (dbErr) {
+        console.error('Excepción al conectar con Supabase en webpay-crear:', dbErr);
+      }
     }
 
     // Responder con los datos necesarios para redirigir al cliente
